@@ -39,7 +39,7 @@ export default async function HeadmasterLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-cream-2">
+    <div className="flex min-h-screen bg-[#F4F7FB]">
       {/* Mobile nav bar - visible only on small screens */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-navy border-b border-white/10 px-4 py-3 flex items-center justify-between">
         <Link href="/dashboard/headmaster" className="font-bold text-white text-base font-[family-name:var(--font-noto-devanagari)]">
@@ -56,31 +56,56 @@ export default async function HeadmasterLayout({
       </div>
 
       {/* Sidebar - hidden on mobile */}
-      <aside className="hidden lg:flex w-[220px] bg-navy flex-shrink-0 flex-col pt-0">
-        <div className="p-4 border-b border-white/10">
-          <div className="font-extrabold text-white text-[15px] font-[family-name:var(--font-noto-devanagari)]">
-            शाळा<span className="text-saffron-bright">Connect</span>
-          </div>
-          <div className="text-[10px] text-white/35 mt-0.5 font-[family-name:var(--font-noto-devanagari)]">
-            {schoolName}
+      <aside className="hidden lg:flex w-[240px] bg-navy-2 flex-shrink-0 flex-col relative overflow-hidden">
+        {/* Subtle glow */}
+        <div
+          className="absolute top-[-50%] right-[-30%] w-[280px] h-[280px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(244,106,10,0.07), transparent 70%)" }}
+        />
+        {/* Brand */}
+        <div className="p-5 border-b border-white/10 relative z-10">
+          <Link href="/dashboard/headmaster" className="block">
+            <div className="font-extrabold text-white text-base font-[family-name:var(--font-noto-devanagari)]">
+              शाळा<span className="text-saffron-bright">Connect</span>
+            </div>
+            <div className="text-[9px] text-white/30 tracking-[2px] uppercase font-semibold mt-0.5">
+              {schoolName}
+            </div>
+          </Link>
+        </div>
+        {/* User info */}
+        <div className="py-4 px-4 border-b border-white/10 relative z-10">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-saffron to-gold flex items-center justify-center text-sm flex-shrink-0">
+              👨‍💼
+            </div>
+            <div className="min-w-0">
+              <div className="font-bold text-white text-xs font-[family-name:var(--font-noto-devanagari)] truncate">
+                मुख्याध्यापक
+              </div>
+              <div className="text-[9px] text-white/38 font-[family-name:var(--font-noto-devanagari)]">
+                Headmaster
+              </div>
+            </div>
           </div>
         </div>
         <HmSidebarNav />
-        <div className="p-4 border-t border-white/10">
+        <div className="p-3 border-t border-white/10 relative z-10 space-y-1.5">
           <Link
             href="/dashboard/headmaster/classes/add"
-            className="block w-full py-2 text-center rounded-lg border border-white/20 text-white/70 text-xs font-semibold hover:bg-white/10 mb-2 font-[family-name:var(--font-noto-devanagari)]"
+            className="flex items-center gap-2 w-full py-2.5 px-3 rounded-xl border border-white/15 text-white/65 text-[13px] font-semibold hover:bg-white/8 hover:text-white transition-all font-[family-name:var(--font-noto-devanagari)]"
           >
-            + वर्ग जोडा
+            <span>+</span> वर्ग जोडा
           </Link>
           <Link
             href="/dashboard/headmaster/users/add"
-            className="block w-full py-2 text-center rounded-lg bg-saffron text-white text-xs font-semibold hover:bg-saffron-bright font-[family-name:var(--font-noto-devanagari)]"
+            className="flex items-center gap-2 w-full py-2.5 px-3 rounded-xl bg-saffron/20 border border-saffron/30 text-saffron-bright text-[13px] font-semibold hover:bg-saffron/30 transition-all font-[family-name:var(--font-noto-devanagari)]"
           >
-            + वापरकर्ता जोडा
+            <span>+</span> वापरकर्ता जोडा
           </Link>
-          <LogoutButton className="block w-full py-2 mt-2 text-center text-white/50 text-xs hover:text-white font-[family-name:var(--font-noto-devanagari)]">
-            बाहेर पडा
+          <LogoutButton className="flex items-center gap-2.5 py-2 px-3 rounded-xl hover:bg-white/6 text-white/50 w-full text-left transition-all text-[13px] font-[family-name:var(--font-noto-devanagari)]">
+            <span className="text-base">🚪</span>
+            <span>लॉगआउट</span>
           </LogoutButton>
         </div>
       </aside>

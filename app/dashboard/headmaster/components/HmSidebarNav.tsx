@@ -15,30 +15,42 @@ const SIDEBAR_NAV = [
   { href: "/dashboard/headmaster/settings", icon: "⚙️", label: "सेटिंग्ज", exact: false },
 ] as const
 
+const SECTIONS = [
+  { label: "डॅशबोर्ड", items: [0] },
+  { label: "व्यवस्थापन", items: [1, 2, 3, 4, 5] },
+  { label: "प्रशासन", items: [6, 7, 8] },
+]
+
 export function HmSidebarNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="flex-1 p-2">
-      {SIDEBAR_NAV.map((item) => {
-        const isActive = item.exact
-          ? pathname === item.href
-          : pathname.startsWith(item.href)
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`flex items-center gap-2.5 py-2.5 px-3 rounded-lg mb-0.5 transition-all font-[family-name:var(--font-noto-devanagari)] text-[12px] ${
-              isActive
-                ? "bg-saffron/20 border-l-2 border-saffron text-saffron-bright font-semibold"
-                : "text-white/55 font-medium hover:bg-white/5"
-            }`}
-          >
-            <span className="text-base w-5 text-center shrink-0">{item.icon}</span>
-            <span>{item.label}</span>
-          </Link>
-        )
-      })}
+    <nav className="flex-1 py-3 px-3 overflow-y-auto sidebar-scroll">
+      {SECTIONS.map((section) => (
+        <div key={section.label}>
+          <p className="sc-section-label">{section.label}</p>
+          {section.items.map((idx) => {
+            const item = SIDEBAR_NAV[idx]
+            const isActive = item.exact
+              ? pathname === item.href
+              : pathname.startsWith(item.href)
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-2.5 py-2.5 px-3 rounded-xl mb-0.5 transition-all text-[13px] font-medium font-[family-name:var(--font-noto-devanagari)] ${
+                  isActive
+                    ? "bg-saffron/15 border-l-[3px] border-saffron text-saffron-bright font-semibold pl-[10px]"
+                    : "text-white/55 hover:bg-white/6 hover:text-white/80"
+                }`}
+              >
+                <span className="text-base w-5 text-center flex-shrink-0">{item.icon}</span>
+                <span className="flex-1">{item.label}</span>
+              </Link>
+            )
+          })}
+        </div>
+      ))}
     </nav>
   )
 }

@@ -38,7 +38,7 @@ export default async function TeacherLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-cream">
+    <div className="flex min-h-screen bg-[#F4F7FB]">
       {/* Mobile nav */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-navy border-b border-white/10 px-4 py-3 flex items-center justify-between">
         <Link href="/dashboard/teacher" className="font-bold text-white text-base font-[family-name:var(--font-noto-devanagari)]">
