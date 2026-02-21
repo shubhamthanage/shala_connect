@@ -1,4 +1,5 @@
 import Link from "next/link"
+import FaqSection from "./components/FaqSection"
 
 export default function Home() {
   return (
@@ -571,6 +572,8 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      <FaqSection />
 
       {/* Final CTA */}
       <section className="bg-gradient-to-r from-saffron via-gold to-amber-500 py-20 px-6 md:px-16 text-center">
