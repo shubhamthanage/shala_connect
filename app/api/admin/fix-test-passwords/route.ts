@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 import { Client } from "pg"
 
+export const dynamic = "force-dynamic"
+
 /**
  * One-time fix for test user passwords (SQL seed used wrong bcrypt format).
  * Call: GET /api/admin/fix-test-passwords

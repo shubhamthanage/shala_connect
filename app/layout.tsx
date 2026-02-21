@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import "./globals.css"
 import { Toaster } from "react-hot-toast"
 import { LoginSuccessToast } from "@/components/auth/LoginSuccessToast"
@@ -23,7 +24,9 @@ export default function RootLayout({
           मुख्य सामग्रीवर जा
         </a>
         <div id="main-content">{children}</div>
-        <LoginSuccessToast />
+        <Suspense fallback={null}>
+          <LoginSuccessToast />
+        </Suspense>
         <Toaster
           position="top-right"
           toastOptions={{
