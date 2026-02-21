@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation"
+import Link from "next/link"
 import { getHeadmasterSchoolId, getSchoolTeachers } from "@/app/actions/users"
 import { EmptyState } from "@/components/ui/EmptyState"
 

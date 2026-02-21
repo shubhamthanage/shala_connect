@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation"
+import Link from "next/link"
 import { getHeadmasterSchoolId, getSchoolStudentsWithClass } from "@/app/actions/users"
 
 export default async function StudentsPage() {

@@ -323,7 +323,8 @@ export default function Home() {
       </div>
 
       {/* Roles Section */}
-      <section id="features" className="bg-white py-20 md:py-24 px-6 md:px-16">
+      <ScrollReveal>
+      <section id="roles" className="bg-white py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-5 h-0.5 bg-saffron rounded" />
@@ -361,6 +362,7 @@ export default function Home() {
       </ScrollReveal>
 
       {/* How it works */}
+      <ScrollReveal>
       <section id="how-it-works" className="bg-cream py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">
@@ -697,30 +699,113 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-navy py-10 sm:py-12 px-4 sm:px-6 md:px-16 safe-area-padding">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-saffron to-gold flex items-center justify-center text-lg">
-              🏫
-            </div>
+      {/* Footer — 4-column matching design.html */}
+      <footer className="bg-navy safe-area-padding">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-16 pt-16 pb-7">
+          <div className="grid grid-cols-1 md:grid-cols-[2.2fr_1fr_1fr_1fr] gap-10 md:gap-12 mb-12">
+            {/* Brand column */}
             <div>
-              <div className="font-extrabold text-white text-lg font-heading">
-                शाळा<span className="text-saffron-bright">Connect</span>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-saffron to-gold flex items-center justify-center text-lg shrink-0">
+                  🏫
+                </div>
+                <div>
+                  <div className="font-extrabold text-white text-lg font-heading">
+                    शाळा<span className="text-saffron-bright">Connect</span>
+                  </div>
+                  <div className="text-[9px] text-white/35 tracking-[2px] uppercase font-semibold">Maharashtra Edu Platform</div>
+                </div>
               </div>
-              <div className="text-[10px] text-white/35">Maharashtra Edu Platform</div>
+              <p className="text-[13px] text-white/35 leading-relaxed max-w-[260px] font-body mb-5">
+                महाराष्ट्रातील शाळांसाठी संपूर्ण डिजिटल व्यवस्थापन. मराठीत सोपे, जलद आणि सुरक्षित.
+              </p>
+              <div className="flex gap-2">
+                {["𝕏", "📘", "▶", "📸"].map((icon, i) => (
+                  <button key={i} className="w-[34px] h-[34px] rounded-full bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-sm hover:bg-saffron hover:border-saffron hover:-translate-y-0.5 transition-all cursor-pointer">
+                    {icon}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {/* Product links */}
+            <div>
+              <div className="text-[12px] font-bold text-white mb-4 tracking-[0.5px]">उत्पादन</div>
+              <ul className="flex flex-col gap-2.5">
+                {[
+                  { label: "भूमिका", href: "#roles" },
+                  { label: "वैशिष्ट्ये", href: "#features" },
+                  { label: "किंमत", href: "#pricing" },
+                  { label: "मदत केंद्र", href: "#faq" },
+                  { label: "ताजे अपडेट्स", href: "#" },
+                ].map((l) => (
+                  <li key={l.label}>
+                    <Link href={l.href} className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Support links */}
+            <div>
+              <div className="text-[12px] font-bold text-white mb-4 tracking-[0.5px]">सपोर्ट</div>
+              <ul className="flex flex-col gap-2.5">
+                {[
+                  { label: "दस्तऐवज", href: "#" },
+                  { label: "WhatsApp सपोर्ट", href: "#" },
+                  { label: "Privacy Policy", href: "#" },
+                  { label: "नियम व अटी", href: "#" },
+                  { label: "सुरक्षा", href: "#" },
+                ].map((l) => (
+                  <li key={l.label}>
+                    <Link href={l.href} className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Company links */}
+            <div>
+              <div className="text-[12px] font-bold text-white mb-4 tracking-[0.5px]">कंपनी</div>
+              <ul className="flex flex-col gap-2.5">
+                {[
+                  { label: "आमच्याबद्दल", href: "#" },
+                  { label: "ब्लॉग", href: "#" },
+                  { label: "करिअर", href: "#" },
+                  { label: "संपर्क", href: "#" },
+                ].map((l) => (
+                  <li key={l.label}>
+                    <Link href={l.href} className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link href="/login" className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">लॉगिन</Link>
+                </li>
+                <li>
+                  <Link href="/register" className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">नोंदणी</Link>
+                </li>
+              </ul>
             </div>
           </div>
-          <div className="flex gap-6">
-            <Link href="/login" className="text-sm text-white/60 hover:text-white font-body">लॉगिन</Link>
-            <Link href="/register" className="text-sm text-white/60 hover:text-white font-body">नोंदणी</Link>
-            <Link href="#" className="text-sm text-white/60 hover:text-white font-body">मदत</Link>
+          {/* Bottom bar */}
+          <div className="border-t border-white/[0.07] pt-5 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p className="text-[11px] text-white/22 font-body">
+              © 2026 शाळाConnect · सर्व हक्क राखीव
+            </p>
+            <div className="flex items-center gap-2">
+              <div className="flex flex-col w-5 h-3.5 rounded overflow-hidden border border-white/12">
+                <div className="flex-1 bg-saffron" />
+                <div className="flex-1 bg-white" />
+                <div className="flex-1 bg-green-mid" />
+              </div>
+              <p className="text-[11px] text-white/25 font-body">
+                Proudly Made in India 🇮🇳 · 🔒 SSL · DPDP Compliant
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="max-w-[1400px] mx-auto mt-8 pt-6 border-t border-white/10 text-center">
-          <p className="text-[11px] text-white/30 font-body">
-            🔒 SSL Encrypted · DPDP Compliant · Made in India 🇮🇳
-          </p>
         </div>
       </footer>
     </div>

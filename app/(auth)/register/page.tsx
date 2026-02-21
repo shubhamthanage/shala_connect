@@ -166,29 +166,29 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        {/* Right panel — Form */}
-        <div className="bg-navy flex items-center justify-center p-6 lg:p-12 overflow-y-auto">
+        {/* Right panel — Form (light cream theme) */}
+        <div className="bg-cream flex items-center justify-center p-6 lg:p-12 overflow-y-auto">
           <div className="w-full max-w-lg">
             {/* Step indicator */}
             <div className="flex items-center gap-3 mb-8">
               {[1, 2].map((s) => (
                 <div key={s} className="flex items-center gap-2">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-extrabold transition-all ${step >= s ? "bg-gradient-to-br from-saffron to-saffron-bright text-white shadow-lg shadow-saffron/30" : "bg-white/[0.08] border border-white/15 text-white/40"}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-extrabold transition-all ${step >= s ? "bg-gradient-to-br from-saffron to-saffron-bright text-white shadow-lg shadow-saffron/30" : "bg-white border-[1.5px] border-[#E5EEF6] text-text-300"}`}>
                     {s}
                   </div>
-                  <span className={`text-xs font-semibold hidden sm:block font-body ${step >= s ? "text-white/80" : "text-white/30"}`}>
+                  <span className={`text-xs font-semibold hidden sm:block font-body ${step >= s ? "text-text-700" : "text-text-300"}`}>
                     {s === 1 ? "शाळेची माहिती" : "मुख्याध्यापक"}
                   </span>
-                  {s < 2 && <div className={`w-8 h-px mx-1 ${step > s ? "bg-saffron" : "bg-white/15"}`} />}
+                  {s < 2 && <div className={`w-8 h-px mx-1 ${step > s ? "bg-saffron" : "bg-[#E5EEF6]"}`} />}
                 </div>
               ))}
             </div>
 
             <div className="mb-6">
-              <h1 className="text-2xl font-extrabold text-white font-heading">
-                {step === 1 ? "शाळा नोंदणी" : "मुख्याध्यापक खाते"}
+              <h1 className="text-2xl font-extrabold text-text-900 font-heading">
+                {step === 1 ? "🏫 शाळा नोंदणी" : "👨‍💼 मुख्याध्यापक खाते"}
               </h1>
-              <p className="text-sm text-white/45 mt-1 font-body">
+              <p className="text-sm text-text-500 mt-1 font-body">
                 {step === 1 ? "शाळेची मूलभूत माहिती भरा" : "हे खाते शाळेचे व्यवस्थापन करेल"}
               </p>
             </div>
@@ -196,61 +196,61 @@ export default function RegisterPage() {
         {step === 1 ? (
           <form onSubmit={handleSchoolSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">
+              <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">
                 शाळेचे नाव *
               </label>
               <div className="relative">
-                <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
+                <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-300" />
                 <input
                   type="text"
                   value={school.schoolName}
                   onChange={(e) => setSchool({ ...school, schoolName: e.target.value })}
                   placeholder="उदा. पुणे विद्यामंदिर"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">जिल्हा *</label>
+                <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">जिल्हा *</label>
                 <input
                   type="text"
                   value={school.district}
                   onChange={(e) => setSchool({ ...school, district: e.target.value })}
                   placeholder="उदा. पुणे"
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                   required
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">तालुका *</label>
+                <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">तालुका *</label>
                 <input
                   type="text"
                   value={school.taluka}
                   onChange={(e) => setSchool({ ...school, taluka: e.target.value })}
                   placeholder="उदा. पुणे शहर"
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">UDISE कोड</label>
+              <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">UDISE कोड</label>
               <input
                 type="text"
                 value={school.udiseCode}
                 onChange={(e) => setSchool({ ...school, udiseCode: e.target.value })}
                 placeholder="उदा. 27123456789"
-                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">शाळेचा प्रकार</label>
+              <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">शाळेचा प्रकार</label>
               <select
                 value={school.schoolType}
                 onChange={(e) => setSchool({ ...school, schoolType: e.target.value as typeof school.schoolType })}
-                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-navy-2 text-white outline-none focus:border-saffron transition-all font-body text-sm appearance-none cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm appearance-none cursor-pointer"
               >
                 {SCHOOL_TYPES.map((t) => (
                   <option key={t.value} value={t.value}>{t.label}</option>
@@ -258,40 +258,40 @@ export default function RegisterPage() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">पत्ता</label>
+              <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">पत्ता</label>
               <div className="relative">
-                <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
+                <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-300" />
                 <input
                   type="text"
                   value={school.address}
                   onChange={(e) => setSchool({ ...school, address: e.target.value })}
                   placeholder="शाळेचा पूर्ण पत्ता"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                 />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">फोन</label>
+                <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">फोन</label>
                 <div className="relative">
-                  <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
+                  <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-300" />
                   <input
                     type="tel"
                     value={school.phone}
                     onChange={(e) => setSchool({ ...school, phone: e.target.value })}
                     placeholder="९XXXXXXXXX"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">ईमेल</label>
+                <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">ईमेल</label>
                 <input
                   type="email"
                   value={school.email}
                   onChange={(e) => setSchool({ ...school, email: e.target.value })}
                   placeholder="school@example.com"
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                 />
               </div>
             </div>
@@ -305,64 +305,64 @@ export default function RegisterPage() {
         ) : (
           <form onSubmit={handleRegister} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">नाव *</label>
+              <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">नाव *</label>
               <div className="relative">
-                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
+                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-300" />
                 <input
                   type="text"
                   value={headmaster.name}
                   onChange={(e) => setHeadmaster({ ...headmaster, name: e.target.value })}
                   placeholder="मुख्याध्यापकाचे नाव"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">ईमेल *</label>
+              <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">ईमेल *</label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-300" />
                 <input
                   type="email"
                   value={headmaster.email}
                   onChange={(e) => setHeadmaster({ ...headmaster, email: e.target.value })}
                   placeholder="headmaster@school.edu.in"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">पासवर्ड *</label>
+              <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">पासवर्ड *</label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-300" />
                 <input
                   type="password"
                   value={headmaster.password}
                   onChange={(e) => setHeadmaster({ ...headmaster, password: e.target.value })}
                   placeholder="किमान ६ अक्षरे"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                   required
                   minLength={6}
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">पासवर्ड पुन्हा *</label>
+              <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">पासवर्ड पुन्हा *</label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-300" />
                 <input
                   type="password"
                   value={headmaster.confirmPassword}
                   onChange={(e) => setHeadmaster({ ...headmaster, confirmPassword: e.target.value })}
                   placeholder="पासवर्ड पुन्हा टाइप करा"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">मोबाईल</label>
+              <label className="block text-[13px] font-semibold text-text-700 mb-1.5 font-body">मोबाईल</label>
               <div className="relative">
                 <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
                 <input
@@ -370,7 +370,7 @@ export default function RegisterPage() {
                   value={headmaster.phone}
                   onChange={(e) => setHeadmaster({ ...headmaster, phone: e.target.value })}
                   placeholder="९XXXXXXXXX"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border-[1.5px] border-[#E5EEF6] bg-white text-text-900 placeholder:text-text-300 outline-none focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.08)] transition-all font-body text-sm"
                 />
               </div>
             </div>
@@ -378,7 +378,7 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="flex-1 py-3.5 rounded-full border border-white/20 text-white/70 font-semibold hover:bg-white/[0.07] transition-all font-body"
+                className="flex-1 py-3.5 rounded-full border-[1.5px] border-[#E5EEF6] text-text-500 font-semibold hover:border-saffron hover:text-saffron transition-all font-body"
               >
                 ← मागे
               </button>
@@ -393,7 +393,7 @@ export default function RegisterPage() {
           </form>
         )}
 
-        <p className="text-center text-sm text-white/45 mt-6 font-body">
+        <p className="text-center text-sm text-text-500 mt-6 font-body">
           आधीच खाते आहे?{" "}
           <Link href="/login" className="text-saffron font-semibold hover:underline">
             लॉगिन करा
