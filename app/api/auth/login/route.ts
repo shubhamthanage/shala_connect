@@ -55,9 +55,12 @@ export async function POST(request: NextRequest) {
 
   const actualRole = (data.user?.user_metadata?.role as string) ?? "headmaster"
   const path = DASHBOARD_PATHS[actualRole] ?? "/dashboard/headmaster"
-  const res = NextResponse.redirect(new URL(path, request.url))
-  authCookies.forEach(({ name, value, options }) =>
-    res.cookies.set(name, value, { ...options, path: "/" } as Record<string, unknown>)
-  )
+  const url = new URL(path, request.url)
+  url.searchParams.set("login", "success")
+  const res = NextResponse.redirect(url)
+  authCookies.forEach(({ name, value, options }) => {
+    const opts = { ...(options || {}), path: "/" } as Record<string, unknown>
+    res.cookies.set(name, value, opts)
+  })
   return res
 }

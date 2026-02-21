@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { createAdminClient } from "@/lib/supabase/admin"
-import Link from "next/link"
 import { TeacherSidebar } from "./components/TeacherSidebar"
 
 export const dynamic = "force-dynamic"
@@ -12,7 +11,11 @@ export default async function TeacherLayout({
   children: React.ReactNode
 }) {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
+  // #region agent log
+  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-2',hypothesisId:'H8',location:'app/dashboard/teacher/layout.tsx:17',message:'teacher layout auth check',data:{hasSession:!!session,hasUser:!!user,role:(user?.user_metadata?.role as string|undefined)??null},timestamp:Date.now()})}).catch(()=>{})
+  // #endregion
 
   if (!user) redirect("/login?error=no_session")
 
@@ -41,12 +44,12 @@ export default async function TeacherLayout({
     <div className="flex min-h-screen bg-cream">
       {/* Mobile nav */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-navy border-b border-white/10 px-4 py-3 flex items-center justify-between">
-        <Link href="/dashboard/teacher" className="font-bold text-white text-base font-[family-name:var(--font-noto-devanagari)]">
+        <a href="/dashboard/teacher" className="font-bold text-white text-base font-heading">
           शाळा<span className="text-saffron-bright">Connect</span>
-        </Link>
-        <Link href="/dashboard/teacher/attendance" className="px-3 py-1.5 rounded-lg bg-saffron text-white text-xs font-semibold font-[family-name:var(--font-noto-devanagari)]">
+        </a>
+        <a href="/dashboard/teacher/attendance" className="px-3 py-1.5 rounded-lg bg-saffron text-white text-xs font-semibold font-body">
           हजेरी
-        </Link>
+        </a>
       </div>
 
       {/* Sidebar - desktop */}

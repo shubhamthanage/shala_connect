@@ -10,7 +10,7 @@
 - **Shadcn/ui** components
 - **Supabase** client (auth + database)
 - **Razorpay** payment integration
-- **Google Fonts**: Noto Sans Devanagari + Plus Jakarta Sans
+- **Google Fonts**: Baloo 2 (headings/hero/titles) + Noto Sans Devanagari (body/labels/forms/tables)
 
 ## Setup
 

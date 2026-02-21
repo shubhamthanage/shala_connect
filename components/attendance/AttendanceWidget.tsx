@@ -1,4 +1,3 @@
-import Link from "next/link"
 
 export interface AttendanceStudent {
   id: string
@@ -32,22 +31,22 @@ export function AttendanceWidget({
   return (
     <div className="bg-white rounded-2xl border border-border-school overflow-hidden">
       <div className="px-4 py-4 border-b border-border-school flex items-center justify-between">
-        <span className="font-bold text-text-900 text-sm font-[family-name:var(--font-noto-devanagari)]">
+        <span className="font-bold text-text-900 text-sm font-heading">
           📋 आजची हजेरी — {classLabel}
         </span>
         {viewAllHref && (
-          <Link
+          <a
             href={viewAllHref}
-            className="text-saffron text-xs font-semibold hover:underline font-[family-name:var(--font-noto-devanagari)]"
+            className="text-saffron text-xs font-semibold hover:underline font-body"
           >
             संपूर्ण पहा →
-          </Link>
+          </a>
         )}
       </div>
       <div className="p-4">
         <div className="flex flex-col gap-2.5">
           {students.length === 0 ? (
-            <p className="text-text-500 text-sm py-4 text-center font-[family-name:var(--font-noto-devanagari)]">
+            <p className="text-text-500 text-sm py-4 text-center font-body">
               अजून विद्यार्थी नाहीत
             </p>
           ) : (
@@ -62,10 +61,10 @@ export function AttendanceWidget({
                     {s.name.includes("ा") || s.name.includes("ी") ? "👧" : "👦"}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-text-900 text-[13px] truncate font-[family-name:var(--font-noto-devanagari)]">
+                    <div className="font-semibold text-text-900 text-[13px] truncate font-body">
                       {s.name}
                     </div>
-                    <div className="text-[10px] text-text-300 font-[family-name:var(--font-noto-devanagari)]">
+                    <div className="text-[10px] text-text-300 font-body">
                       रोल नं. {s.rollNumber ?? "—"}
                     </div>
                   </div>
@@ -75,11 +74,11 @@ export function AttendanceWidget({
                       style={{ width: `${Math.min(s.attendancePct, 100)}%` }}
                     />
                   </div>
-                  <span className="font-bold text-text-700 text-xs min-w-9 text-right font-[family-name:var(--font-plus-jakarta)]">
+                  <span className="font-bold text-text-700 text-xs min-w-9 text-right font-body">
                     {s.attendancePct}%
                   </span>
                   <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold font-[family-name:var(--font-plus-jakarta)] ${style.bg} ${style.text}`}
+                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold font-body ${style.bg} ${style.text}`}
                   >
                     {style.label}
                   </span>

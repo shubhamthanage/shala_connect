@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import { addUser } from "@/app/actions/register"
 import { getClerkSchoolId, getSchoolClasses, getSchoolStudents } from "@/app/actions/users"
 import toast from "react-hot-toast"
@@ -56,11 +55,17 @@ export default function ClerkAddStudentPage() {
           getSchoolStudents(id).then(setStudents)
         } else {
           toast.error("शाळा आढळली नाही")
+          // #region agent log
+          fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-7',hypothesisId:'H18',location:'app/dashboard/clerk/students/add/page.tsx:useEffect',message:'clerk add page redirecting to login due to missing school id',data:{hasSchoolId:false},timestamp:Date.now()})}).catch(()=>{})
+          // #endregion
           router.push("/login")
         }
       })
       .catch((err) => {
         toast.error(err instanceof Error ? err.message : "शाळा आढळली नाही")
+        // #region agent log
+        fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-7',hypothesisId:'H18',location:'app/dashboard/clerk/students/add/page.tsx:useEffect',message:'clerk add page redirecting to login from school lookup error',data:{error:err instanceof Error?err.message:'unknown'},timestamp:Date.now()})}).catch(()=>{})
+        // #endregion
         router.push("/login")
       })
   }, [router])
@@ -123,7 +128,7 @@ export default function ClerkAddStudentPage() {
   if (!schoolId) {
     return (
       <div className="p-8 flex justify-center">
-        <div className="animate-pulse text-text-500 font-[family-name:var(--font-noto-devanagari)]">
+        <div className="animate-pulse text-text-500 font-body">
           लोड होत आहे...
         </div>
       </div>
@@ -132,26 +137,26 @@ export default function ClerkAddStudentPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <Link
+      <a
         href="/dashboard/clerk"
-        className="inline-flex items-center gap-2 text-text-500 hover:text-saffron mb-6 font-[family-name:var(--font-noto-devanagari)]"
+        className="inline-flex items-center gap-2 text-text-500 hover:text-saffron mb-6 font-body"
       >
         <ArrowLeft className="w-4 h-4" />
         मागे
-      </Link>
+      </a>
 
       <div className="bg-white rounded-2xl shadow-lg border border-border-school p-8">
-        <h1 className="text-2xl font-extrabold text-text-900 mb-2 font-[family-name:var(--font-noto-devanagari)] flex items-center gap-2">
+        <h1 className="text-2xl font-extrabold text-text-900 mb-2 font-body flex items-center gap-2">
           <UserPlus className="w-6 h-6 text-saffron" />
           नवीन प्रवेश
         </h1>
-        <p className="text-text-500 mb-6 font-[family-name:var(--font-noto-devanagari)]">
+        <p className="text-text-500 mb-6 font-body">
           विद्यार्थी किंवा पालक नोंदणी करा
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-2 font-[family-name:var(--font-noto-devanagari)]">
+            <label className="block text-sm font-semibold text-text-700 mb-2 font-body">
               प्रकार
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -160,7 +165,7 @@ export default function ClerkAddStudentPage() {
                   key={r.value}
                   type="button"
                   onClick={() => setForm({ ...form, role: r.value, classId: "", studentId: "" })}
-                  className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all font-[family-name:var(--font-noto-devanagari)] ${
+                  className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all font-body ${
                     form.role === r.value
                       ? "border-saffron bg-saffron-pale"
                       : "border-border-school hover:border-saffron"
@@ -174,7 +179,7 @@ export default function ClerkAddStudentPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">
+            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">
               नाव *
             </label>
             <input
@@ -182,13 +187,13 @@ export default function ClerkAddStudentPage() {
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               placeholder="पूर्ण नाव"
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">
+            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">
               ईमेल *
             </label>
             <input
@@ -196,13 +201,13 @@ export default function ClerkAddStudentPage() {
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               placeholder="email@example.com"
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">
+            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">
               पासवर्ड *
             </label>
             <input
@@ -210,17 +215,17 @@ export default function ClerkAddStudentPage() {
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               placeholder="किमान ६ अक्षरे"
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
               required
               minLength={6}
             />
-            <p className="text-xs text-text-300 mt-1 font-[family-name:var(--font-noto-devanagari)]">
+            <p className="text-xs text-text-300 mt-1 font-body">
               डीफॉल्ट: Test@1234
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">
+            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">
               मोबाईल
             </label>
             <input
@@ -228,20 +233,20 @@ export default function ClerkAddStudentPage() {
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
               placeholder="९XXXXXXXXX"
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
             />
           </div>
 
           {form.role === "student" && (
             <>
               <div>
-                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">
+                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">
                   वर्ग *
                 </label>
                 <select
                   value={form.classId}
                   onChange={(e) => setForm({ ...form, classId: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
                   required
                 >
                   <option value="">वर्ग निवडा</option>
@@ -253,7 +258,7 @@ export default function ClerkAddStudentPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">
+                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">
                   रोल नंबर
                 </label>
                 <input
@@ -261,7 +266,7 @@ export default function ClerkAddStudentPage() {
                   value={form.rollNumber}
                   onChange={(e) => setForm({ ...form, rollNumber: e.target.value })}
                   placeholder="उदा. २१"
-                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
                 />
               </div>
             </>
@@ -270,13 +275,13 @@ export default function ClerkAddStudentPage() {
           {form.role === "parent" && (
             <>
               <div>
-                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">
+                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">
                   विद्यार्थी *
                 </label>
                 <select
                   value={form.studentId}
                   onChange={(e) => setForm({ ...form, studentId: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
                   required
                 >
                   <option value="">विद्यार्थी निवडा</option>
@@ -288,13 +293,13 @@ export default function ClerkAddStudentPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">
+                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">
                   नाते
                 </label>
                 <select
                   value={form.relation}
                   onChange={(e) => setForm({ ...form, relation: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
                 >
                   <option value="mother">आई</option>
                   <option value="father">वडील</option>
@@ -308,7 +313,7 @@ export default function ClerkAddStudentPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl transition-all disabled:opacity-70 font-[family-name:var(--font-noto-devanagari)]"
+            className="w-full py-4 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl transition-all disabled:opacity-70 font-body"
           >
             {loading ? "जोडत आहे..." : "नोंदणी करा"}
           </button>

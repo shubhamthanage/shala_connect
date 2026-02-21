@@ -29,40 +29,35 @@ export default function FaqSection() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <section className="bg-navy-2 py-20 md:py-24 px-6 md:px-16">
-      <div className="max-w-[860px] mx-auto">
+    <section id="faq" className="bg-white py-14 sm:py-20 md:py-[88px] px-4 sm:px-6 md:px-[60px] scroll-mt-20">
+      <div className="max-w-[760px] mx-auto">
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="w-5 h-0.5 bg-saffron rounded" />
-            <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">FAQ</span>
-            <div className="w-5 h-0.5 bg-saffron rounded" />
-          </div>
-          <h2 className="text-3xl md:text-[40px] font-extrabold text-white font-[family-name:var(--font-noto-devanagari)]">
+          <span className="section-label mb-3 inline-block">FAQ</span>
+          <h2 className="text-3xl md:text-[40px] font-extrabold text-text-900 font-heading">
             वारंवार <span className="text-saffron">विचारले जाणारे प्रश्न</span>
           </h2>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2.5 mt-12">
           {FAQS.map((faq, i) => (
             <div
               key={i}
-              className={`rounded-2xl border transition-all duration-200 overflow-hidden ${open === i ? "border-saffron/40 bg-white/[0.09]" : "border-white/10 bg-white/[0.05] hover:bg-white/[0.07]"}`}
+              className={`rounded-2xl border-[1.5px] transition-all duration-200 overflow-hidden ${open === i ? "border-saffron bg-cream" : "border-border-school bg-cream hover:border-border-2"}`}
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between gap-4 p-5 text-left"
+                className="w-full flex items-center justify-between gap-4 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-inset rounded-2xl"
               >
-                <span className={`font-semibold text-sm md:text-base leading-snug font-[family-name:var(--font-noto-devanagari)] transition-colors ${open === i ? "text-white" : "text-white/75"}`}>
+                <span className={`font-semibold text-sm md:text-base leading-snug font-body transition-colors ${open === i ? "text-text-900" : "text-text-900"}`}>
                   {faq.q}
                 </span>
-                <span className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold transition-all ${open === i ? "bg-saffron text-white rotate-45" : "bg-white/10 text-white/50"}`}>
-                  +
+                <span className={`w-[26px] h-[26px] rounded-full flex items-center justify-center flex-shrink-0 text-[13px] font-bold transition-all border ${open === i ? "bg-saffron text-white border-saffron rotate-180" : "bg-white text-saffron border-border-school"}`}>
+                  ▼
                 </span>
               </button>
               {open === i && (
                 <div className="px-5 pb-5">
-                  <div className="h-px bg-white/10 mb-4" />
-                  <p className="text-sm text-white/60 leading-relaxed font-[family-name:var(--font-noto-devanagari)]">{faq.a}</p>
+                  <p className="text-[13px] text-text-500 leading-relaxed font-body">{faq.a}</p>
                 </div>
               )}
             </div>

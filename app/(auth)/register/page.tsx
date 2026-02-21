@@ -90,7 +90,7 @@ export default function RegisterPage() {
           })
           if (!signInError) {
             await supabase.auth.updateUser({ data: { role: "headmaster" } }).catch(() => {})
-            window.location.href = "/dashboard/headmaster"
+            window.location.href = "/dashboard/headmaster?login=success"
             return
           }
         } catch {
@@ -126,7 +126,7 @@ export default function RegisterPage() {
                 🏫
               </div>
               <div>
-                <div className="font-extrabold text-white text-xl font-[family-name:var(--font-noto-devanagari)]">
+                <div className="font-extrabold text-white text-xl font-heading">
                   शाळा<span className="text-saffron-bright">Connect</span>
                 </div>
                 <div className="text-[9px] text-white/35 tracking-[2.5px] uppercase font-semibold">
@@ -138,20 +138,20 @@ export default function RegisterPage() {
           <div className="relative z-10 flex-1 flex items-center justify-center py-10">
             <div className="w-full max-w-[340px]">
               <div className="bg-white/[0.07] border border-white/10 rounded-[20px] p-6 shadow-2xl shadow-black/35">
-                <div className="font-bold text-white text-sm mb-3 font-[family-name:var(--font-noto-devanagari)]">
+                <div className="font-bold text-white text-sm mb-3 font-heading">
                   🚀 ३० दिवस मोफत
                 </div>
-                <p className="text-[13px] text-white/60 leading-relaxed font-[family-name:var(--font-noto-devanagari)]">
+                <p className="text-[13px] text-white/60 leading-relaxed font-body">
                   नोंदणी केल्यानंतर तुम्हाला मोफत ३० दिवसांचा पूर्ण अॅक्सेस मिळेल. क्रेडिट कार्ड नको.
                 </p>
                 <div className="mt-4 flex flex-col gap-2">
-                  <div className="flex items-center gap-2 text-white/70 text-xs font-[family-name:var(--font-noto-devanagari)]">
+                  <div className="flex items-center gap-2 text-white/70 text-xs font-body">
                     <span>✓</span> हजेरी, फी, अहवाल — सर्व मॉड्यूल्स
                   </div>
-                  <div className="flex items-center gap-2 text-white/70 text-xs font-[family-name:var(--font-noto-devanagari)]">
+                  <div className="flex items-center gap-2 text-white/70 text-xs font-body">
                     <span>✓</span> WhatsApp अलर्ट्स
                   </div>
-                  <div className="flex items-center gap-2 text-white/70 text-xs font-[family-name:var(--font-noto-devanagari)]">
+                  <div className="flex items-center gap-2 text-white/70 text-xs font-body">
                     <span>✓</span> U-DISE / RTE अहवाल
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export default function RegisterPage() {
             </div>
           </div>
           <div className="relative z-10">
-            <p className="text-sm text-white/45 leading-relaxed italic font-[family-name:var(--font-noto-devanagari)]">
+            <p className="text-sm text-white/45 leading-relaxed italic font-body">
               &quot;शिक्षण म्हणजे सर्वात शक्तिशाली शस्त्र आहे जे तुम्ही जगाला बदलण्यासाठी वापरू शकता.&quot;
               <br />— नेल्सन मंडेला
             </p>
@@ -176,7 +176,7 @@ export default function RegisterPage() {
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-extrabold transition-all ${step >= s ? "bg-gradient-to-br from-saffron to-saffron-bright text-white shadow-lg shadow-saffron/30" : "bg-white/[0.08] border border-white/15 text-white/40"}`}>
                     {s}
                   </div>
-                  <span className={`text-xs font-semibold hidden sm:block font-[family-name:var(--font-noto-devanagari)] ${step >= s ? "text-white/80" : "text-white/30"}`}>
+                  <span className={`text-xs font-semibold hidden sm:block font-body ${step >= s ? "text-white/80" : "text-white/30"}`}>
                     {s === 1 ? "शाळेची माहिती" : "मुख्याध्यापक"}
                   </span>
                   {s < 2 && <div className={`w-8 h-px mx-1 ${step > s ? "bg-saffron" : "bg-white/15"}`} />}
@@ -185,10 +185,10 @@ export default function RegisterPage() {
             </div>
 
             <div className="mb-6">
-              <h1 className="text-2xl font-extrabold text-white font-[family-name:var(--font-noto-devanagari)]">
+              <h1 className="text-2xl font-extrabold text-white font-heading">
                 {step === 1 ? "शाळा नोंदणी" : "मुख्याध्यापक खाते"}
               </h1>
-              <p className="text-sm text-white/45 mt-1 font-[family-name:var(--font-noto-devanagari)]">
+              <p className="text-sm text-white/45 mt-1 font-body">
                 {step === 1 ? "शाळेची मूलभूत माहिती भरा" : "हे खाते शाळेचे व्यवस्थापन करेल"}
               </p>
             </div>
@@ -196,7 +196,7 @@ export default function RegisterPage() {
         {step === 1 ? (
           <form onSubmit={handleSchoolSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">
+              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">
                 शाळेचे नाव *
               </label>
               <div className="relative">
@@ -206,51 +206,51 @@ export default function RegisterPage() {
                   value={school.schoolName}
                   onChange={(e) => setSchool({ ...school, schoolName: e.target.value })}
                   placeholder="उदा. पुणे विद्यामंदिर"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">जिल्हा *</label>
+                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">जिल्हा *</label>
                 <input
                   type="text"
                   value={school.district}
                   onChange={(e) => setSchool({ ...school, district: e.target.value })}
                   placeholder="उदा. पुणे"
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                   required
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">तालुका *</label>
+                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">तालुका *</label>
                 <input
                   type="text"
                   value={school.taluka}
                   onChange={(e) => setSchool({ ...school, taluka: e.target.value })}
                   placeholder="उदा. पुणे शहर"
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">UDISE कोड</label>
+              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">UDISE कोड</label>
               <input
                 type="text"
                 value={school.udiseCode}
                 onChange={(e) => setSchool({ ...school, udiseCode: e.target.value })}
                 placeholder="उदा. 27123456789"
-                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">शाळेचा प्रकार</label>
+              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">शाळेचा प्रकार</label>
               <select
                 value={school.schoolType}
                 onChange={(e) => setSchool({ ...school, schoolType: e.target.value as typeof school.schoolType })}
-                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-navy-2 text-white outline-none focus:border-saffron transition-all font-[family-name:var(--font-noto-devanagari)] text-sm appearance-none cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-navy-2 text-white outline-none focus:border-saffron transition-all font-body text-sm appearance-none cursor-pointer"
               >
                 {SCHOOL_TYPES.map((t) => (
                   <option key={t.value} value={t.value}>{t.label}</option>
@@ -258,7 +258,7 @@ export default function RegisterPage() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">पत्ता</label>
+              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">पत्ता</label>
               <div className="relative">
                 <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
                 <input
@@ -266,13 +266,13 @@ export default function RegisterPage() {
                   value={school.address}
                   onChange={(e) => setSchool({ ...school, address: e.target.value })}
                   placeholder="शाळेचा पूर्ण पत्ता"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                 />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">फोन</label>
+                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">फोन</label>
                 <div className="relative">
                   <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
                   <input
@@ -280,24 +280,24 @@ export default function RegisterPage() {
                     value={school.phone}
                     onChange={(e) => setSchool({ ...school, phone: e.target.value })}
                     placeholder="९XXXXXXXXX"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">ईमेल</label>
+                <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">ईमेल</label>
                 <input
                   type="email"
                   value={school.email}
                   onChange={(e) => setSchool({ ...school, email: e.target.value })}
                   placeholder="school@example.com"
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                 />
               </div>
             </div>
             <button
               type="submit"
-              className="w-full py-3.5 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl hover:-translate-y-0.5 transition-all font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full py-3.5 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl hover:-translate-y-0.5 transition-all font-body"
             >
               पुढे →
             </button>
@@ -305,7 +305,7 @@ export default function RegisterPage() {
         ) : (
           <form onSubmit={handleRegister} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">नाव *</label>
+              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">नाव *</label>
               <div className="relative">
                 <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
                 <input
@@ -313,13 +313,13 @@ export default function RegisterPage() {
                   value={headmaster.name}
                   onChange={(e) => setHeadmaster({ ...headmaster, name: e.target.value })}
                   placeholder="मुख्याध्यापकाचे नाव"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">ईमेल *</label>
+              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">ईमेल *</label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
                 <input
@@ -327,13 +327,13 @@ export default function RegisterPage() {
                   value={headmaster.email}
                   onChange={(e) => setHeadmaster({ ...headmaster, email: e.target.value })}
                   placeholder="headmaster@school.edu.in"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">पासवर्ड *</label>
+              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">पासवर्ड *</label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
                 <input
@@ -341,14 +341,14 @@ export default function RegisterPage() {
                   value={headmaster.password}
                   onChange={(e) => setHeadmaster({ ...headmaster, password: e.target.value })}
                   placeholder="किमान ६ अक्षरे"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                   required
                   minLength={6}
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">पासवर्ड पुन्हा *</label>
+              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">पासवर्ड पुन्हा *</label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
                 <input
@@ -356,13 +356,13 @@ export default function RegisterPage() {
                   value={headmaster.confirmPassword}
                   onChange={(e) => setHeadmaster({ ...headmaster, confirmPassword: e.target.value })}
                   placeholder="पासवर्ड पुन्हा टाइप करा"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-[family-name:var(--font-noto-devanagari)]">मोबाईल</label>
+              <label className="block text-xs font-semibold text-white/60 mb-1.5 uppercase tracking-wide font-body">मोबाईल</label>
               <div className="relative">
                 <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
                 <input
@@ -370,7 +370,7 @@ export default function RegisterPage() {
                   value={headmaster.phone}
                   onChange={(e) => setHeadmaster({ ...headmaster, phone: e.target.value })}
                   placeholder="९XXXXXXXXX"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-[family-name:var(--font-noto-devanagari)] text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/[0.07] text-white placeholder:text-white/25 outline-none focus:border-saffron focus:bg-white/[0.10] transition-all font-body text-sm"
                 />
               </div>
             </div>
@@ -378,14 +378,14 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="flex-1 py-3.5 rounded-full border border-white/20 text-white/70 font-semibold hover:bg-white/[0.07] transition-all font-[family-name:var(--font-noto-devanagari)]"
+                className="flex-1 py-3.5 rounded-full border border-white/20 text-white/70 font-semibold hover:bg-white/[0.07] transition-all font-body"
               >
                 ← मागे
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-2 px-8 py-3.5 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-70 font-[family-name:var(--font-noto-devanagari)]"
+                className="flex-2 px-8 py-3.5 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-70 font-body"
               >
                 {loading ? "नोंदणी करत आहे..." : "नोंदणी पूर्ण करा →"}
               </button>
@@ -393,7 +393,7 @@ export default function RegisterPage() {
           </form>
         )}
 
-        <p className="text-center text-sm text-white/45 mt-6 font-[family-name:var(--font-noto-devanagari)]">
+        <p className="text-center text-sm text-white/45 mt-6 font-body">
           आधीच खाते आहे?{" "}
           <Link href="/login" className="text-saffron font-semibold hover:underline">
             लॉगिन करा

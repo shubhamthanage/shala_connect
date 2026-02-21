@@ -54,12 +54,12 @@ export function BarChart({ data, currentMonthIndex }: BarChartProps) {
   const maxAmount = Math.max(...chartData.map((d) => d.amount), 10000)
 
   return (
-    <div className="bg-white rounded-2xl border border-border-school p-5">
+    <div className="card-elevated p-5">
       <div className="flex justify-between items-center mb-4">
-        <span className="font-bold text-text-900 text-sm font-[family-name:var(--font-noto-devanagari)]">
+        <span className="font-bold text-text-900 text-sm font-heading">
           📈 मासिक शुल्क संकलन (₹ लाखात)
         </span>
-        <span className="text-[11px] font-semibold text-text-300 font-[family-name:var(--font-plus-jakarta)]">
+        <span className="text-[11px] font-semibold text-text-300 font-body">
           २०२४–२५
         </span>
       </div>
@@ -80,7 +80,7 @@ export function BarChart({ data, currentMonthIndex }: BarChartProps) {
             <YAxis
               tickFormatter={(v) => `₹${formatLakhs(v)}`}
               tick={{ fontSize: 10, fill: "#4A6380" }}
-              fontFamily="var(--font-plus-jakarta)"
+              fontFamily="var(--font-body)"
               axisLine={false}
               tickLine={false}
               width={50}

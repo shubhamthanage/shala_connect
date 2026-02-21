@@ -141,27 +141,27 @@ export function PaymentModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-white rounded-2xl border border-border-school shadow-xl p-6 max-w-sm w-full mx-4">
         <div className="text-center">
-          <div className="font-bold text-text-900 text-base mb-2 font-[family-name:var(--font-noto-devanagari)]">
+          <div className="font-bold text-text-900 text-base mb-2 font-body">
             शुल्क भरणा
           </div>
-          <p className="text-sm text-text-600 mb-4 font-[family-name:var(--font-noto-devanagari)]">
+          <p className="text-sm text-text-600 mb-4 font-body">
             {student.name} — ₹{student.pendingAmount.toLocaleString("en-IN")}
           </p>
           {loading ? (
             <div className="flex items-center justify-center gap-2 text-saffron py-4">
               <div className="w-5 h-5 border-2 border-saffron border-t-transparent rounded-full animate-spin" />
-              <span className="text-sm font-[family-name:var(--font-noto-devanagari)]">
+              <span className="text-sm font-body">
                 Razorpay उघडत आहे...
               </span>
             </div>
           ) : (
             <div className="space-y-2">
-              <p className="text-xs text-text-500 font-[family-name:var(--font-noto-devanagari)]">
+              <p className="text-xs text-text-500 font-body">
                 Razorpay विंडो बंद झाल असल्यास
               </p>
               <button
                 onClick={initiatePayment}
-                className="px-4 py-2 rounded-lg bg-saffron text-white text-sm font-semibold hover:bg-saffron-bright font-[family-name:var(--font-noto-devanagari)]"
+                className="px-4 py-2 rounded-lg bg-saffron text-white text-sm font-semibold hover:bg-saffron-bright font-body"
               >
                 पुन्हा प्रयत्न करा
               </button>
@@ -169,7 +169,7 @@ export function PaymentModal({
           )}
           <button
             onClick={onClose}
-            className="mt-4 w-full py-2 rounded-lg border border-border-school text-text-700 text-sm font-semibold hover:bg-saffron-pale font-[family-name:var(--font-noto-devanagari)]"
+            className="mt-4 w-full py-2 rounded-lg border border-border-school text-text-700 text-sm font-semibold hover:bg-saffron-pale font-body"
           >
             रद्द करा
           </button>
