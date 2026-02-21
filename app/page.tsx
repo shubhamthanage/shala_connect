@@ -218,13 +218,13 @@ export default function Home() {
               <br />
               सोपे, जलद, स्मार्ट
             </h1>
-            <p className="text-[15px] sm:text-[17px] text-white/58 leading-relaxed mb-6 sm:mb-8 max-w-[510px] font-body animate-hero-fade-up-3">
+            <p className="text-[15px] sm:text-[17px] text-white leading-relaxed mb-6 sm:mb-8 max-w-[510px] font-body animate-hero-fade-up-3">
               मुख्याध्यापक, शिक्षक, कारकून, विद्यार्थी आणि पालक — पाचही जणांसाठी एकच अॅप. हजेरीपासून दाखल्यापर्यंत, फीपासून निकालापर्यंत सर्व डिजिटल.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 mb-8 sm:mb-10 animate-hero-fade-up-4">
               <Link
                 href="/register"
-                className="btn-primary px-6 sm:px-8 py-3.5 sm:py-4 text-[14px] sm:text-[15px] min-h-[48px] justify-center touch-manipulation"
+                className="btn-primary px-6 sm:px-8 py-3.5 sm:py-4 text-[14px] sm:text-[15px] min-h-[48px] justify-center touch-manipulation text-white"
               >
                 🚀 ३० दिवस मोफत वापरा
               </Link>
