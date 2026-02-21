@@ -353,7 +353,7 @@
     @apply text-[10px] font-bold px-1.5 py-0.5 rounded-full font-[family-name:var(--font-plus-jakarta)];
   }
   .sc-section-label {
-    @apply text-[9px] font-extrabold tracking-[2.5px] uppercase text-white/22 px-3 pt-4 pb-1 font-[family-name:var(--font-plus-jakarta)];
+    @apply text-[9px] font-extrabold tracking-[2.5px] uppercase text-white/20 px-3 pt-4 pb-1 font-[family-name:var(--font-plus-jakarta)];
   }
   .sc-kpi-gradient-saffron {
     background: linear-gradient(135deg, rgba(244,106,10,0.08) 0%, rgba(245,158,11,0.04) 100%);

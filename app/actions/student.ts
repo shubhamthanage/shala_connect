@@ -17,9 +17,6 @@ export async function getStudentDashboard(): Promise<StudentDashboardData | null
   const supabase = await createClient()
   const { data: { session } } = await supabase.auth.getSession()
   const user = session?.user
-  // #region agent log
-  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-1',hypothesisId:'H4',location:'app/actions/student.ts:20',message:'getStudentDashboard session resolved',data:{hasSession:!!session,hasUser:!!user,role:(user?.user_metadata?.role as string|undefined)??null},timestamp:Date.now()})}).catch(()=>{})
-  // #endregion
   if (!user) return null
 
   let { data: userData } = await supabase
@@ -53,9 +50,6 @@ export async function getStudentDashboard(): Promise<StudentDashboardData | null
       .single()
     userData = adminUserData ?? null
   }
-  // #region agent log
-  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-1',hypothesisId:'H4',location:'app/actions/student.ts:47',message:'getStudentDashboard user row status',data:{hasUserRow:!!userData},timestamp:Date.now()})}).catch(()=>{})
-  // #endregion
 
   if (!userData) return null
 
@@ -66,9 +60,6 @@ export async function getStudentDashboard(): Promise<StudentDashboardData | null
     .select("id, name, class_id, classes(grade, division)")
     .eq("user_id", userData.id)
     .single()
-  // #region agent log
-  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-1',hypothesisId:'H4',location:'app/actions/student.ts:58',message:'getStudentDashboard student row status',data:{hasStudent:!!student,hasClassId:!!student?.class_id},timestamp:Date.now()})}).catch(()=>{})
-  // #endregion
 
   if (!student?.class_id) return null
 

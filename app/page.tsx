@@ -323,7 +323,8 @@ export default function Home() {
       </div>
 
       {/* Roles Section */}
-      <section id="features" className="bg-white py-20 md:py-24 px-6 md:px-16">
+      <ScrollReveal>
+      <section id="roles" className="bg-white py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-5 h-0.5 bg-saffron rounded" />
@@ -361,6 +362,7 @@ export default function Home() {
       </ScrollReveal>
 
       {/* How it works */}
+      <ScrollReveal>
       <section id="how-it-works" className="bg-cream py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">

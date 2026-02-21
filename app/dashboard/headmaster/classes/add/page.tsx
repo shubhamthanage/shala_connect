@@ -28,9 +28,6 @@ export default function AddClassPage() {
         )
       } else {
         toast.error("शाळा आढळली नाही")
-        // #region agent log
-        fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-7',hypothesisId:'H19',location:'app/dashboard/headmaster/classes/add/page.tsx:useEffect',message:'headmaster class add redirecting to login due to missing school id',data:{hasSchoolId:false},timestamp:Date.now()})}).catch(()=>{})
-        // #endregion
         router.push("/login")
       }
     })
