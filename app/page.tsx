@@ -300,6 +300,133 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Features Grid */}
+      <section className="bg-navy py-20 md:py-24 px-6 md:px-16">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-5 h-0.5 bg-saffron rounded" />
+            <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">मुख्य वैशिष्ट्ये</span>
+          </div>
+          <h2 className="text-3xl md:text-[40px] font-extrabold text-white mb-4 font-[family-name:var(--font-noto-devanagari)]">
+            शाळेचे <span className="text-saffron">संपूर्ण डिजिटलायझेशन</span>
+          </h2>
+          <p className="text-base text-white/55 leading-relaxed max-w-[560px] mb-12 font-[family-name:var(--font-noto-devanagari)]">
+            एकाच प्लॅटफॉर्मवर सर्व — कागद नाही, वेळ वाचतो, अचूकता वाढते
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* AI Card - dark featured card */}
+            <div className="rounded-3xl p-7 bg-gradient-to-br from-[#1a1a2e] to-[#16213e] border border-white/10 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-saffron/10 blur-3xl -translate-y-10 translate-x-10 pointer-events-none" />
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "rgba(244,106,10,0.2)" }}>🤖</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-saffron/20 text-saffron-bright border border-saffron/30 mb-3">AI-POWERED</span>
+              <h3 className="font-bold text-white text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">मराठी AI सहाय्यक</h3>
+              <p className="text-sm text-white/55 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+                मराठीत बोला — AI तुमचे काम करेल. रिपोर्ट तयार करा, प्रश्न विचारा.
+              </p>
+              <ul className="flex flex-col gap-2">
+                {["मराठी व्हॉईस कमांड", "Auto रिपोर्ट जनरेशन", "विद्यार्थी प्रगती अंदाज", "ChatBot पालकांसाठी"].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs text-white/65 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-saffron flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Attendance Card */}
+            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#FFF3E8" }}>📋</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-orange-50 text-saffron border border-orange-100 mb-3">हजेरी</span>
+              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">स्मार्ट हजेरी प्रणाली</h3>
+              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+                QR कोड, बायोमेट्रिक किंवा मॅन्युअल — गैरहजर तर तात्काळ WhatsApp.
+              </p>
+              <ul className="flex flex-col gap-2">
+                {["QR स्कॅन हजेरी", "गैरहजर → WhatsApp तात्काळ", "मासिक PDF अहवाल", "RTE ८०% नियम चेक"].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-saffron flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Fee Card */}
+            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#F0FDF4" }}>💰</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-green-50 text-green-700 border border-green-100 mb-3">शुल्क</span>
+              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">ऑनलाईन फी व्यवस्थापन</h3>
+              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+                UPI, नेटबँकिंग, कार्ड. थकित फी auto-reminder. Razorpay सुरक्षित.
+              </p>
+              <ul className="flex flex-col gap-2">
+                {["Razorpay / UPI / QR", "Auto reminder SMS", "RTE मोफत प्रवेश track", "शुल्क माफी व्यवस्थापन"].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Exam Card */}
+            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#F0F8FF" }}>📊</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-sky-50 text-sky-700 border border-sky-100 mb-3">परीक्षा</span>
+              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">परीक्षा व निकाल</h3>
+              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+                गुण प्रविष्टी ते मराठी रिपोर्ट कार्ड — एका क्लिकमध्ये. e-signature सहित.
+              </p>
+              <ul className="flex flex-col gap-2">
+                {["ऑनलाईन गुण प्रविष्टी", "मराठी रिपोर्ट कार्ड PDF", "SSC / CBSE पॅटर्न", "प्रगतिपुस्तक e-sign"].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-500 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Admin Docs Card */}
+            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#F5F0FF" }}>📁</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-purple-50 text-purple-700 border border-purple-100 mb-3">प्रशासन</span>
+              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">सरकारी दस्तऐवज केंद्र</h3>
+              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+                TC, बोनाफाईड, जन्म दाखला — डिजिटल सहीसकट तत्काळ. U-DISE auto.
+              </p>
+              <ul className="flex flex-col gap-2">
+                {["TC / बोनाफाईड auto", "DigiLocker इंटीग्रेशन", "U-DISE एक्सपोर्ट", "शिष्यवृत्ती ट्रॅकिंग"].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* eLearning Card */}
+            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#FFF0F0" }}>📚</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-red-50 text-red-700 border border-red-100 mb-3">शिक्षण</span>
+              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">ई-लर्निंग & गृहपाठ</h3>
+              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+                व्हिडिओ धडे, गृहपाठ, ऑनलाईन क्विझ — बालभारती पुस्तकांसह.
+              </p>
+              <ul className="flex flex-col gap-2">
+                {["PDF / Video धडे", "ऑनलाईन गृहपाठ submit", "मराठी विषय साहित्य", "बालभारती लिंक"].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA / Pricing */}
       <section id="pricing" className="bg-gradient-to-r from-saffron via-gold to-amber-500 py-20 px-6 md:px-16 text-center">
         <h2 className="text-3xl md:text-[42px] font-extrabold text-white mb-4 font-[family-name:var(--font-noto-devanagari)]">
