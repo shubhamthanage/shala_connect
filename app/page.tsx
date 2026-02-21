@@ -226,34 +226,34 @@ export default function Home() {
       </div>
 
       {/* Roles Section */}
-      <section id="features" className="bg-navy-2 py-20 md:py-24 px-6 md:px-16">
+      <section id="features" className="bg-white py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-5 h-0.5 bg-saffron rounded" />
             <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">वापरकर्ते</span>
           </div>
-          <h2 className="text-3xl md:text-[40px] font-extrabold text-white mb-4 font-[family-name:var(--font-noto-devanagari)]">
+          <h2 className="text-3xl md:text-[40px] font-extrabold text-text-900 mb-4 font-[family-name:var(--font-noto-devanagari)]">
             प्रत्येकासाठी <span className="text-saffron">वेगळा अनुभव</span>
           </h2>
-          <p className="text-base text-white/55 leading-relaxed max-w-[560px] mb-12 font-[family-name:var(--font-noto-devanagari)]">
+          <p className="text-base text-text-500 leading-relaxed max-w-[560px] mb-12 font-[family-name:var(--font-noto-devanagari)]">
             पाच भूमिका, पाच वेगळे डॅशबोर्ड — योग्य माहिती, योग्य व्यक्तीला, योग्य वेळी
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
             {[
-              { emoji: "👨‍💼", name: "मुख्याध्यापक", desc: "संपूर्ण शाळेचे नियंत्रण, अहवाल, परवानग्या", tag: "१५+ मॉड्यूल्स" },
-              { emoji: "👩‍🏫", name: "शिक्षक", desc: "हजेरी, गुण, गृहपाठ, विद्यार्थी प्रगती", tag: "२०+ मॉड्यूल्स" },
-              { emoji: "🧑‍💻", name: "कारकून", desc: "दाखले, शुल्क, दस्तऐवज, सरकारी अहवाल", tag: "१८+ मॉड्यूल्स" },
-              { emoji: "👦", name: "विद्यार्थी", desc: "वेळापत्रक, गृहपाठ, निकाल, ई-लायब्ररी", tag: "१२+ मॉड्यूल्स" },
-              { emoji: "👨‍👩‍👦", name: "पालक", desc: "हजेरी, गुण, शुल्क, शिक्षक भेट बुकिंग", tag: "१०+ मॉड्यूल्स" },
+              { emoji: "👨‍💼", name: "मुख्याध्यापक", desc: "संपूर्ण शाळेचे नियंत्रण, अहवाल, परवानग्या", tag: "१५+ मॉड्यूल्स", hoverBorder: "hover:border-saffron", hoverShadow: "hover:shadow-[0_20px_50px_rgba(244,106,10,0.16)]" },
+              { emoji: "👩‍🏫", name: "शिक्षक", desc: "हजेरी, गुण, गृहपाठ, विद्यार्थी प्रगती", tag: "२०+ मॉड्यूल्स", hoverBorder: "hover:border-green-mid", hoverShadow: "hover:shadow-[0_20px_50px_rgba(21,128,61,0.14)]" },
+              { emoji: "🧑‍💻", name: "कारकून", desc: "दाखले, शुल्क, दस्तऐवज, सरकारी अहवाल", tag: "१८+ मॉड्यूल्स", hoverBorder: "hover:border-sky", hoverShadow: "hover:shadow-[0_20px_50px_rgba(14,165,233,0.14)]" },
+              { emoji: "👦", name: "विद्यार्थी", desc: "वेळापत्रक, गृहपाठ, निकाल, ई-लायब्ररी", tag: "१२+ मॉड्यूल्स", hoverBorder: "hover:border-violet-400", hoverShadow: "hover:shadow-[0_20px_50px_rgba(139,92,246,0.14)]" },
+              { emoji: "👨‍👩‍👦", name: "पालक", desc: "हजेरी, गुण, शुल्क, शिक्षक भेट बुकिंग", tag: "१०+ मॉड्यूल्स", hoverBorder: "hover:border-pink-400", hoverShadow: "hover:shadow-[0_20px_50px_rgba(236,72,153,0.14)]" },
             ].map((role, i) => (
               <div
                 key={i}
-                className="rounded-[20px] p-6 md:p-7 text-center border border-white/10 bg-white/[0.07] hover:-translate-y-2 hover:scale-[1.02] hover:bg-white/[0.11] transition-all cursor-pointer"
+                className={`rounded-[20px] p-6 md:p-7 text-center border-[1.5px] border-border-school bg-white hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer ${role.hoverBorder} ${role.hoverShadow}`}
               >
-                <span className="text-4xl md:text-5xl block mb-3">{role.emoji}</span>
-                <div className="font-bold text-white text-base mb-2 font-[family-name:var(--font-noto-devanagari)]">{role.name}</div>
-                <div className="text-xs text-white/55 leading-relaxed mb-4 font-[family-name:var(--font-noto-devanagari)]">{role.desc}</div>
-                <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold bg-white/10 text-white/60 border border-white/15 font-[family-name:var(--font-noto-devanagari)]">
+                <span className="text-4xl md:text-5xl block mb-3 drop-shadow-sm">{role.emoji}</span>
+                <div className="font-bold text-text-900 text-base mb-2 font-[family-name:var(--font-noto-devanagari)]">{role.name}</div>
+                <div className="text-xs text-text-500 leading-relaxed mb-4 font-[family-name:var(--font-noto-devanagari)]">{role.desc}</div>
+                <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold bg-cream text-text-500 border border-border-school font-[family-name:var(--font-noto-devanagari)]">
                   {role.tag}
                 </span>
               </div>
@@ -263,38 +263,35 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="bg-navy py-20 md:py-24 px-6 md:px-16">
+      <section id="how-it-works" className="bg-cream py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-5 h-0.5 bg-saffron rounded" />
             <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">कसे वापरावे</span>
           </div>
-          <h2 className="text-3xl md:text-[40px] font-extrabold text-white mb-4 font-[family-name:var(--font-noto-devanagari)]">
+          <h2 className="text-3xl md:text-[40px] font-extrabold text-text-900 mb-4 font-[family-name:var(--font-noto-devanagari)]">
             ४ सोप्या पायऱ्या, <span className="text-saffron">शाळा डिजिटल</span>
           </h2>
-          <p className="text-base text-white/55 leading-relaxed max-w-[560px] mb-12 font-[family-name:var(--font-noto-devanagari)]">
+          <p className="text-base text-text-500 leading-relaxed max-w-[560px] mb-12 font-[family-name:var(--font-noto-devanagari)]">
             तांत्रिक ज्ञान नको. मराठीत सर्व. पहिल्याच दिवशी वापर सुरू.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-            <div className="absolute top-8 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-saffron via-gold to-green-mid hidden md:block -z-0 opacity-40" />
+            <div className="absolute top-8 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-saffron via-gold to-green-mid hidden md:block -z-0" />
             {[
-              { num: "१", title: "नोंदणी करा", desc: "शाळेचे नाव, जिल्हा, वर्ग संख्या — ५ मिनिटांत खाते. मोफत ३० दिवस.", color: "saffron" },
-              { num: "२", title: "माहिती भरा", desc: "Excel मधून विद्यार्थी import करा. शिक्षकांना invite करा.", color: "gold" },
-              { num: "३", title: "वापर सुरू करा", desc: "हजेरी घ्या, फी घ्या, सूचना पाठवा. सर्व automatic.", color: "sky" },
-              { num: "४", title: "रिपोर्ट पहा", desc: "U-DISE, RTE, मासिक अहवाल — एका क्लिकमध्ये.", color: "green-mid" },
+              { num: "१", title: "नोंदणी करा", desc: "शाळेचे नाव, जिल्हा, वर्ग संख्या — ५ मिनिटांत खाते. मोफत ३० दिवस.", shadow: "shadow-[0_6px_20px_rgba(244,106,10,0.38)]", style: "linear-gradient(135deg,#F46A0A,#F59E0B)" },
+              { num: "२", title: "माहिती भरा", desc: "Excel मधून विद्यार्थी import करा. शिक्षकांना invite करा.", shadow: "shadow-[0_6px_20px_rgba(245,158,11,0.38)]", style: "linear-gradient(135deg,#F59E0B,#FCD34D)" },
+              { num: "३", title: "वापर सुरू करा", desc: "हजेरी घ्या, फी घ्या, सूचना पाठवा. सर्व automatic.", shadow: "shadow-[0_6px_20px_rgba(14,165,233,0.38)]", style: "#0EA5E9" },
+              { num: "४", title: "रिपोर्ट पहा", desc: "U-DISE, RTE, मासिक अहवाल — एका क्लिकमध्ये.", shadow: "shadow-[0_6px_20px_rgba(22,163,74,0.38)]", style: "linear-gradient(135deg,#16A34A,#22C55E)" },
             ].map((step, i) => (
-              <div key={i} className="text-center relative z-10 bg-white/[0.05] border border-white/10 rounded-2xl p-6">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-lg mx-auto mb-4 border-2 border-white/20 text-white shadow-lg`}
-                  style={{
-                    background: step.color === "saffron" ? "linear-gradient(135deg, #F46A0A, #F59E0B)" :
-                      step.color === "gold" ? "linear-gradient(135deg, #F59E0B, #FCD34D)" :
-                        step.color === "sky" ? "#0EA5E9" : "linear-gradient(135deg, #16A34A, #22C55E)",
-                  }}
+              <div key={i} className="text-center relative z-10">
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-lg mx-auto mb-5 border-[3px] border-white text-white ${step.shadow}`}
+                  style={{ background: step.style }}
                 >
                   {step.num}
                 </div>
-                <div className="font-bold text-white text-[15px] mb-2 font-[family-name:var(--font-noto-devanagari)]">{step.title}</div>
-                <div className="text-xs text-white/55 leading-relaxed font-[family-name:var(--font-noto-devanagari)]">{step.desc}</div>
+                <div className="font-bold text-text-900 text-[15px] mb-2 font-[family-name:var(--font-noto-devanagari)]">{step.title}</div>
+                <div className="text-xs text-text-500 leading-relaxed font-[family-name:var(--font-noto-devanagari)]">{step.desc}</div>
               </div>
             ))}
           </div>
