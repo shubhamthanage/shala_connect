@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>शाळाConnect — Final Design Reference v3.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --saffron:        #F46A0A;
+  --saffron-bright: #FF7B1C;
+  --saffron-glow:   rgba(244,106,10,0.20);
+  --saffron-pale:   #FFF3E8;
+  --gold:           #F59E0B;
+  --gold-light:     #FCD34D;
+  --green:          #15803D;
+  --green-mid:      #16A34A;
+  --green-bright:   #22C55E;
+  --green-pale:     #F0FDF4;
+  --navy:           #050F1E;
+  --navy-2:         #091627;
+  --navy-3:         #0D1F38;
+  --slate:          #132A47;
+  --slate-2:        #1A3A5C;
+  --sky:            #0EA5E9;
+  --white:          #FFFFFF;
+  --cream:          #FDFAF5;
+  --cream-2:        #F8F4EE;
+  --text-900:       #060E1C;
+  --text-700:       #243347;
+  --text-500:       #4A6380;
+  --text-300:       #8AAABF;
+  --border:         #E5EEF6;
+  --border-2:       #D0E2F0;
+  --sh-xs:  0 1px 3px rgba(5,15,30,.06);
+  --sh-sm:  0 2px 10px rgba(5,15,30,.09);
+  --sh-md:  0 6px 28px rgba(5,15,30,.12);
+  --sh-lg:  0 16px 56px rgba(5,15,30,.18);
+  --sh-xl:  0 32px 96px rgba(5,15,30,.26);
+  --r4: 4px; --r8: 8px; --r12: 12px; --r16: 16px;
+  --r20: 20px; --r24: 24px; --r32: 32px; --rpill: 999px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Plus Jakarta Sans','Noto Sans Devanagari',sans-serif;background:var(--cream);color:var(--text-900);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--navy-2)}
+::-webkit-scrollbar-thumb{background:var(--saffron);border-radius:3px}
+
+/* ═══════════════════════════════════════════
+   PAGE NAVIGATION (Design Reference Tabs)
+═══════════════════════════════════════════ */
+.page-nav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  background:var(--navy);
+  border-bottom:2px solid rgba(244,106,10,0.4);
+  padding:0 40px;
+  display:flex;align-items:center;gap:0;height:52px;
+}
+.page-nav-brand{
+  font-family:'Noto Sans Devanagari',sans-serif;
+  font-size:15px;font-weight:800;color:white;
+  margin-right:32px;padding-right:32px;
+  border-right:1px solid rgba(255,255,255,0.12);
+  white-space:nowrap;flex-shrink:0;
+}
+.page-nav-brand span{color:var(--saffron-bright)}
+.page-nav-label{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  color:rgba(255,255,255,0.35);text-transform:uppercase;
+  margin-right:16px;flex-shrink:0;
+}
+.pn-tabs{display:flex;gap:2px;overflow-x:auto;flex:1}
+.pn-tab{
+  padding:0 18px;height:52px;display:flex;align-items:center;gap:7px;
+  font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:600;
+  color:rgba(255,255,255,0.5);cursor:pointer;border-bottom:2px solid transparent;
+  white-space:nowrap;transition:all 0.2s;flex-shrink:0;
+}
+.pn-tab:hover{color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.04)}
+.pn-tab.active{color:var(--saffron-bright);border-bottom-color:var(--saffron-bright);background:rgba(244,106,10,0.06)}
+.pn-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0.6}
+
+/* ═══════════════════════════════════════════
+   SCREENS WRAPPER
+═══════════════════════════════════════════ */
+.screen{display:none;padding-top:52px}
+.screen.active{display:block}
+
+/* ═══════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════ */
+.mar{font-family:'Noto Sans Devanagari',sans-serif}
+.sora{font-family:'Plus Jakarta Sans',sans-serif}
+.flex{display:flex}.aic{align-items:center}.jcsb{justify-content:space-between}
+.gap4{gap:4px}.gap8{gap:8px}.gap12{gap:12px}.gap16{gap:16px}.gap20{gap:20px}.gap24{gap:24px}
+.w100{width:100%}.tac{text-align:center}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:var(--rpill);font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all 0.22s;white-space:nowrap}
+.btn-sm{padding:8px 16px;font-size:13px}
+.btn-lg{padding:15px 34px;font-size:15px}
+.btn-xlg{padding:18px 40px;font-size:16px}
+.btn-primary{background:linear-gradient(135deg,var(--saffron),var(--saffron-bright));color:white;box-shadow:0 4px 16px var(--saffron-glow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(244,106,10,0.45)}
+.btn-secondary{background:var(--white);color:var(--text-900);border:1.5px solid var(--border-2);box-shadow:var(--sh-sm)}
+.btn-secondary:hover{border-color:var(--saffron);color:var(--saffron)}
+.btn-ghost-dark{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white}
+.btn-ghost-dark:hover{background:rgba(255,255,255,0.15)}
+.btn-outline-white{background:transparent;border:1.5px solid rgba(255,255,255,0.4);color:white}
+.btn-outline-white:hover{background:rgba(255,255,255,0.1)}
+.btn-green{background:linear-gradient(135deg,var(--green),var(--green-mid));color:white;box-shadow:0 4px 16px rgba(21,128,61,0.3)}
+.btn-danger{background:#EF4444;color:white}
+
+/* ═══════════════════════════════════════════
+   ████  SCREEN 1: LANDING PAGE  ████
+═══════════════════════════════════════════ */
+
+/* --- NAV --- */
+.lp-nav{
+  position:fixed;top:52px;left:0;right:0;z-index:998;
+  padding:0 60px;height:70px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all 0.3s;
+}
+.lp-nav.solid{
+  background:rgba(5,15,30,0.94);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  box-shadow:0 4px 24px rgba(0,0,0,0.35);
+}
+.lp-logo{display:flex;align-items:center;gap:12px}
+.lp-logo-mark{width:44px;height:44px;background:linear-gradient(135deg,var(--saffron),var(--gold));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 14px rgba(244,106,10,0.4);flex-shrink:0}
+.lp-logo-text{font-family:'Noto Sans Devanagari',sans-serif;font-size:21px;font-weight:800;color:white;line-height:1}
+.lp-logo-text em{color:var(--saffron-bright);font-style:normal}
+.lp-logo-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:2.5px;text-transform:uppercase;margin-top:2px}
+.lp-links{display:flex;gap:28px}
+.lp-links a{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:500;color:rgba(255,255,255,0.65);transition:color 0.2s}
+.lp-links a:hover{color:white}
+.lp-actions{display:flex;gap:10px;align-items:center}
+
+/* --- HERO --- */
+.lp-hero{
+  min-height:100vh;
+  background:var(--navy);
+  position:relative;overflow:hidden;
+  padding-top:122px;
+  display:flex;flex-direction:column;
+}
+.hero-canvas{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hc-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 900px 700px at 70% 50%,rgba(244,106,10,0.10) 0%,transparent 70%),radial-gradient(ellipse 600px 500px at 10% 80%,rgba(21,128,61,0.08) 0%,transparent 70%),radial-gradient(ellipse 400px 400px at 50% 20%,rgba(14,165,233,0.05) 0%,transparent 70%)}
+.hc-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:72px 72px}
+.hc-noise{position:absolute;inset:0;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hc-chakra{position:absolute;right:-120px;top:50%;transform:translateY(-55%);width:700px;height:700px;opacity:0.028;font-size:700px;line-height:1;color:white;animation:spin60 60s linear infinite;display:flex;align-items:center;justify-content:center}
+@keyframes spin60{from{transform:translateY(-55%) rotate(0)}to{transform:translateY(-55%) rotate(360deg)}}
+.hc-lines{position:absolute;inset:0;overflow:hidden}
+.hc-line{position:absolute;height:1px;background:linear-gradient(90deg,transparent,rgba(244,106,10,0.2),transparent);animation:lineSweep 8s ease-in-out infinite}
+.hc-line:nth-child(1){top:28%;width:40%;left:-10%;animation-delay:0s}
+.hc-line:nth-child(2){top:55%;width:30%;right:-5%;animation-delay:3s}
+.hc-line:nth-child(3){top:72%;width:25%;left:20%;animation-delay:5s}
+@keyframes lineSweep{0%,100%{opacity:0;transform:scaleX(0)}40%,60%{opacity:1;transform:scaleX(1)}}
+
+.lp-hero-inner{flex:1;display:flex;align-items:center;padding:0 60px 60px;position:relative;z-index:5;gap:64px;max-width:1400px;margin:0 auto;width:100%}
+
+/* Hero Left */
+.hero-l{flex:1;max-width:590px}
+.hero-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(244,106,10,0.12);border:1px solid rgba(244,106,10,0.28);padding:7px 16px;border-radius:var(--rpill);margin-bottom:26px;animation:fadeUp 0.7s ease 0.2s both}
+.hp-live{width:8px;height:8px;background:var(--green-bright);border-radius:50%;box-shadow:0 0 0 3px rgba(34,197,94,0.25);animation:livePulse 2s infinite}
+@keyframes livePulse{0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,0.25)}50%{box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+.hp-text{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:600;color:var(--saffron-bright)}
+.hero-h1{font-family:'Noto Sans Devanagari',sans-serif;font-size:58px;font-weight:900;color:white;line-height:1.13;margin-bottom:22px;animation:fadeUp 0.7s ease 0.35s both}
+.hero-h1 .g1{background:linear-gradient(135deg,var(--saffron-bright),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-h1 .g2{position:relative;color:white}
+.hero-h1 .g2::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green-mid),var(--green-bright));border-radius:2px}
+.hero-sub{font-family:'Noto Sans Devanagari',sans-serif;font-size:17px;color:rgba(255,255,255,0.58);line-height:1.78;margin-bottom:34px;max-width:510px;animation:fadeUp 0.7s ease 0.5s both}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:42px;animation:fadeUp 0.7s ease 0.65s both}
+.hero-trust-row{display:flex;gap:22px;animation:fadeUp 0.7s ease 0.8s both}
+.htr-item{display:flex;align-items:center;gap:8px}
+.htr-ico{font-size:17px}
+.htr-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:rgba(255,255,255,0.4);line-height:1.3}
+.htr-t strong{display:block;color:rgba(255,255,255,0.72);font-size:13px}
+
+/* Hero Right — Dashboard */
+.hero-r{flex:1;display:flex;justify-content:flex-end;align-items:center;animation:fadeLeft 0.9s ease 0.4s both}
+@keyframes fadeLeft{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+.dash-card{
+  width:470px;
+  background:rgba(255,255,255,0.048);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:var(--r24);padding:24px;
+  box-shadow:0 28px 72px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.09);
+  animation:dashBob 6s ease-in-out infinite;
+}
+@keyframes dashBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(0.2deg)}}
+.dc-topbar{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:18px}
+.dc-user{display:flex;align-items:center;gap:10px}
+.dc-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--saffron),var(--gold));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.dc-name{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:700;color:white}
+.dc-role{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:rgba(255,255,255,0.38)}
+.dc-badge{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);padding:4px 10px;border-radius:var(--rpill);font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;color:var(--green-bright)}
+.dc-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.dc-stat{background:rgba(255,255,255,0.055);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r16);padding:13px;position:relative;overflow:hidden}
+.dc-stat-accent{position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r16) var(--r16) 0 0}
+.dc-stat-ico{font-size:16px;margin-bottom:5px;display:block}
+.dc-stat-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:20px;font-weight:900;color:white}
+.dc-stat-l{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:rgba(255,255,255,0.4);margin-top:1px}
+.dc-att{background:rgba(255,255,255,0.055);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r12);padding:13px;margin-bottom:12px}
+.dc-att-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.dc-att-l{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:rgba(255,255,255,0.65);font-weight:600}
+.dc-att-v{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--green-bright);font-weight:700}
+.dc-bar{height:6px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+.dc-bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-bright));border-radius:3px;animation:barAnim 2s ease}
+@keyframes barAnim{from{width:0}}
+.dc-feeds{display:flex;flex-direction:column;gap:7px}
+.dc-feed{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,0.035);border-radius:var(--r8);padding:8px 11px}
+.dc-feed-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dc-feed-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:rgba(255,255,255,0.58);line-height:1.4}
+
+/* Floating badges */
+.hero-float{position:absolute;z-index:6;background:white;border-radius:var(--r16);padding:11px 15px;display:flex;align-items:center;gap:10px;box-shadow:var(--sh-lg);animation:floatB 5s ease-in-out infinite}
+.hero-float-2{animation-delay:2.5s;border-left:3px solid var(--green)}
+.hero-float-1{border-left:3px solid var(--saffron)}
+.hf-ico{font-size:18px;flex-shrink:0}
+.hf-main{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:700;color:var(--text-900)}
+.hf-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--text-300);margin-top:1px}
+.hf-pos-1{top:18%;right:470px}
+.hf-pos-2{bottom:25%;right:470px}
+@keyframes floatB{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-8px) translateX(-4px)}}
+
+/* --- STATS BAND --- */
+.lp-stats{background:linear-gradient(135deg,var(--saffron) 0%,var(--gold) 100%);padding:26px 60px;display:flex;justify-content:center}
+.lp-stats-inner{max-width:1400px;width:100%;display:flex}
+.lps-item{flex:1;text-align:center;position:relative}
+.lps-item:not(:last-child)::after{content:'';position:absolute;right:0;top:15%;bottom:15%;width:1px;background:rgba(255,255,255,0.28)}
+.lps-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:32px;font-weight:900;color:white;line-height:1}
+.lps-l{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:rgba(255,255,255,0.78);margin-top:4px}
+
+/* --- SECTION BASE --- */
+.lp-sec{padding:88px 60px;max-width:1400px;margin:0 auto}
+.lp-sec-full{padding:88px 0}
+.lp-sec-full .lp-sec-inner{max-width:1400px;margin:0 auto;padding:0 60px}
+.sec-eye{display:inline-flex;align-items:center;gap:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--saffron);margin-bottom:11px}
+.sec-eye::before{content:'';width:20px;height:2px;background:var(--saffron);border-radius:1px;display:block}
+.sec-h{font-family:'Noto Sans Devanagari',sans-serif;font-size:40px;font-weight:800;color:var(--text-900);line-height:1.22;margin-bottom:14px}
+.sec-h .ac{color:var(--saffron)}
+.sec-p{font-family:'Noto Sans Devanagari',sans-serif;font-size:16px;color:var(--text-500);line-height:1.78;max-width:560px}
+
+/* --- ROLES --- */
+.roles-bg{background:white}
+.roles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:50px}
+.role-c{border-radius:var(--r20);padding:28px 18px 22px;text-align:center;border:1.5px solid var(--border);transition:all 0.3s cubic-bezier(.34,1.56,.64,1);cursor:pointer;background:white;position:relative;overflow:hidden}
+.role-c::after{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.3s}
+.role-c:hover{transform:translateY(-8px) scale(1.02);box-shadow:var(--sh-lg)}
+.role-c:hover::after{opacity:1}
+.rc-1:hover{border-color:var(--saffron);box-shadow:0 20px 50px rgba(244,106,10,0.16)}.rc-1::after{background:linear-gradient(160deg,rgba(244,106,10,0.05),transparent)}
+.rc-2:hover{border-color:var(--green-mid);box-shadow:0 20px 50px rgba(21,128,61,0.14)}.rc-2::after{background:linear-gradient(160deg,rgba(21,128,61,0.05),transparent)}
+.rc-3:hover{border-color:var(--sky);box-shadow:0 20px 50px rgba(14,165,233,0.14)}.rc-3::after{background:linear-gradient(160deg,rgba(14,165,233,0.05),transparent)}
+.rc-4:hover{border-color:#8B5CF6;box-shadow:0 20px 50px rgba(139,92,246,0.14)}.rc-4::after{background:linear-gradient(160deg,rgba(139,92,246,0.05),transparent)}
+.rc-5:hover{border-color:#EC4899;box-shadow:0 20px 50px rgba(236,72,153,0.14)}.rc-5::after{background:linear-gradient(160deg,rgba(236,72,153,0.05),transparent)}
+.role-c-ico{font-size:46px;display:block;margin-bottom:13px;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.10));position:relative;z-index:1}
+.role-c-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:16px;font-weight:700;color:var(--text-900);margin-bottom:7px;position:relative;z-index:1}
+.role-c-d{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-500);line-height:1.58;margin-bottom:14px;position:relative;z-index:1}
+.role-c-ct{display:inline-block;padding:5px 14px;border-radius:var(--rpill);font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;font-weight:700;background:var(--cream);color:var(--text-500);border:1px solid var(--border);position:relative;z-index:1}
+
+/* --- HOW IT WORKS --- */
+.hiw-bg{background:var(--cream)}
+.hiw-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:52px;position:relative}
+.hiw-steps::before{content:'';position:absolute;top:34px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green-mid));z-index:0;border-radius:1px}
+.hiw-step{text-align:center;position:relative;z-index:1}
+.hiw-num{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;margin:0 auto 18px;border:3px solid white}
+.hn-s{background:var(--saffron);color:white;box-shadow:0 6px 20px rgba(244,106,10,0.38)}
+.hn-g{background:var(--gold);color:white;box-shadow:0 6px 20px rgba(245,158,11,0.38)}
+.hn-b{background:var(--sky);color:white;box-shadow:0 6px 20px rgba(14,165,233,0.38)}
+.hn-gr{background:var(--green-mid);color:white;box-shadow:0 6px 20px rgba(22,163,74,0.38)}
+.hiw-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:15px;font-weight:700;color:var(--text-900);margin-bottom:7px}
+.hiw-d{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-500);line-height:1.62}
+
+/* --- FEATURES --- */
+.feats-bg{background:white}
+.feats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+.feat-c{background:var(--cream);border-radius:var(--r20);padding:30px;border:1.5px solid var(--border);transition:all 0.3s;position:relative;overflow:hidden}
+.feat-c:hover{box-shadow:var(--sh-md);border-color:var(--border-2);transform:translateY(-4px)}
+.feat-c.feat-dark{background:linear-gradient(145deg,var(--navy-2),var(--slate-2));border-color:rgba(255,255,255,0.08)}
+.feat-c.feat-dark .feat-tt{color:white}.feat-c.feat-dark .feat-dd{color:rgba(255,255,255,0.55)}.feat-c.feat-dark .feat-li{color:rgba(255,255,255,0.62)}.feat-c.feat-dark .feat-li::before{color:var(--saffron-bright)}.feat-c.feat-dark .feat-tag{background:rgba(244,106,10,0.18);color:var(--saffron-bright)}
+.feat-ico{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
+.feat-tag{display:inline-block;padding:3px 11px;border-radius:var(--rpill);font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;background:var(--saffron-pale);color:var(--saffron);margin-bottom:10px}
+.feat-tt{font-family:'Noto Sans Devanagari',sans-serif;font-size:19px;font-weight:700;color:var(--text-900);margin-bottom:9px;line-height:1.3}
+.feat-dd{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:var(--text-500);line-height:1.7;margin-bottom:16px}
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.feat-li{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-500);display:flex;align-items:flex-start;gap:7px;line-height:1.45}
+.feat-li::before{content:'✓';color:var(--green-mid);font-weight:800;font-size:11px;flex-shrink:0;margin-top:1px}
+
+/* --- UNIQUE FEATURES --- */
+.uniq-bg{background:var(--cream-2)}
+.uniq-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:52px}
+.uniq-c{background:white;border-radius:var(--r20);padding:26px;border:1.5px solid var(--border);display:flex;gap:16px;transition:all 0.3s;position:relative;overflow:hidden}
+.uniq-c::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--saffron),var(--gold));border-radius:var(--r20) var(--r20) 0 0;opacity:0;transition:opacity 0.3s}
+.uniq-c:hover{box-shadow:var(--sh-md);transform:translateY(-3px);border-color:var(--border-2)}.uniq-c:hover::before{opacity:1}
+.uniq-ico{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.uniq-body h4{font-family:'Noto Sans Devanagari',sans-serif;font-size:15px;font-weight:700;color:var(--text-900);margin-bottom:5px}
+.uniq-body p{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-500);line-height:1.65;margin-bottom:9px}
+.uniq-bdg{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;border-radius:var(--rpill);background:linear-gradient(135deg,var(--saffron),var(--gold));color:white;font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;font-weight:700}
+
+/* --- NOTIFICATIONS --- */
+.notif-bg{background:var(--navy-2);padding:88px 0}
+.notif-bg .sec-h{color:white}.notif-bg .sec-eye{color:var(--saffron-bright)}.notif-bg .sec-eye::before{background:var(--saffron-bright)}.notif-bg .sec-p{color:rgba(255,255,255,0.5)}
+.notif-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+.notif-c{border-radius:var(--r20);padding:28px;position:relative;overflow:hidden}
+.notif-c-wa{background:linear-gradient(145deg,#063d31,#075f47);border:1px solid rgba(6,214,131,0.12)}
+.notif-c-sms{background:linear-gradient(145deg,#0a1428,#0d2040);border:1px solid rgba(14,165,233,0.12)}
+.notif-c-em{background:linear-gradient(145deg,#2d0707,#451212);border:1px solid rgba(239,68,68,0.12)}
+.nc-ch{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:5px}
+.nc-ico{font-size:30px;display:block;margin-bottom:10px}
+.nc-h{font-family:'Noto Sans Devanagari',sans-serif;font-size:17px;font-weight:700;color:white;margin-bottom:14px}
+.nc-msg{background:rgba(255,255,255,0.07);border-radius:var(--r12);padding:13px;margin-bottom:13px;border:1px solid rgba(255,255,255,0.05)}
+.nc-msg p{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:rgba(255,255,255,0.78);line-height:1.68}
+.nc-msg p strong{color:white}
+.nc-chips{display:flex;flex-wrap:wrap;gap:7px}
+.nc-chip{padding:3px 9px;border-radius:var(--rpill);font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:600;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.09)}
+
+/* --- INTEGRATIONS --- */
+.integ-bg{background:white;padding:64px 0}
+.integ-row{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:36px}
+.integ-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 20px;border-radius:var(--r16);border:1.5px solid var(--border);background:var(--cream);min-width:100px;transition:all 0.2s}
+.integ-item:hover{border-color:var(--saffron);box-shadow:var(--sh-sm);transform:translateY(-3px)}
+.integ-ico{font-size:28px}
+.integ-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;color:var(--text-500)}
+
+/* --- MOBILE APP --- */
+.mapp-bg{background:var(--cream)}
+.mapp-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.mapp-desc{font-family:'Noto Sans Devanagari',sans-serif;font-size:15px;color:var(--text-500);line-height:1.78;margin-bottom:26px}
+.mapp-feats{display:flex;flex-direction:column;gap:14px;margin-bottom:30px}
+.mapp-feat{display:flex;align-items:flex-start;gap:13px}
+.mf-ico{width:38px;height:38px;border-radius:10px;background:var(--saffron-pale);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.mf-t h5{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:700;color:var(--text-900);margin-bottom:2px}
+.mf-t p{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-500);line-height:1.5}
+.store-row{display:flex;gap:11px;flex-wrap:wrap}
+.store-btn{display:flex;align-items:center;gap:10px;background:var(--text-900);color:white;padding:11px 18px;border-radius:var(--r12);transition:all 0.2s;cursor:pointer}
+.store-btn:hover{background:var(--slate-2);transform:translateY(-2px);box-shadow:var(--sh-md)}
+.sb-ico{font-size:22px}
+.sb-txt small{display:block;font-size:9px;color:rgba(255,255,255,0.45);letter-spacing:1px;text-transform:uppercase}
+.sb-txt span{font-size:14px;font-weight:700;color:white;font-family:'Plus Jakarta Sans',sans-serif}
+/* Phone frames */
+.phones{display:flex;gap:18px;justify-content:center;align-items:flex-end}
+.phone{background:var(--navy);border-radius:38px;padding:10px;box-shadow:var(--sh-xl);border:2px solid rgba(255,255,255,0.09);position:relative}
+.phone-main{width:195px}
+.phone-sec{width:165px;transform:translateY(28px) rotate(4deg);opacity:0.82}
+.phone-scr{background:linear-gradient(180deg,var(--navy-2) 0%,var(--navy-3) 100%);border-radius:30px;overflow:hidden}
+.pm-scr{height:370px}.ps-scr{height:305px}
+.ph-sb{padding:8px 14px 5px;display:flex;justify-content:space-between}
+.ph-sb-t{font-size:10px;font-weight:600;color:white;font-family:'Plus Jakarta Sans',sans-serif}
+.ph-sb-r{font-size:9px;color:rgba(255,255,255,0.6)}
+.ph-hdr{padding:7px 14px 10px;background:rgba(244,106,10,0.12);border-bottom:1px solid rgba(255,255,255,0.05)}
+.ph-app-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:700;color:white}
+.ph-school-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:9px;color:rgba(255,255,255,0.4)}
+.ph-body{padding:10px;display:flex;flex-direction:column;gap:7px}
+.ph-crd{background:rgba(255,255,255,0.06);border-radius:9px;padding:9px 11px;border:1px solid rgba(255,255,255,0.05)}
+.ph-row{display:flex;justify-content:space-between;align-items:center}
+.ph-lbl{font-family:'Noto Sans Devanagari',sans-serif;font-size:9px;color:rgba(255,255,255,0.45)}
+.ph-val{font-family:'Noto Sans Devanagari',sans-serif;font-size:15px;font-weight:800;color:white}
+.ph-chip{font-size:8px;padding:2px 7px;border-radius:var(--rpill);font-weight:700}
+.ph-chip-g{background:rgba(34,197,94,0.18);color:#4ade80}
+.ph-chip-o{background:rgba(244,106,10,0.2);color:var(--saffron-bright)}
+.ph-bar-w{margin-top:5px;height:3.5px;background:rgba(255,255,255,0.07);border-radius:2px}
+.ph-bar-f{height:100%;width:87%;background:linear-gradient(90deg,var(--green-mid),var(--green-bright));border-radius:2px}
+.ph-ntf{background:rgba(244,106,10,0.12);border-radius:8px;padding:7px 9px;border-left:2px solid var(--saffron)}
+.ph-ntf-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:9.5px;color:rgba(255,255,255,0.7);line-height:1.4}
+
+/* --- MARKET TABLE --- */
+.mkt-bg{background:white}
+.mkt-tbl{width:100%;border-collapse:collapse;border-radius:var(--r20);overflow:hidden;box-shadow:var(--sh-md);margin-top:48px}
+.mkt-tbl th{background:var(--navy);color:white;font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:700;padding:15px 18px;text-align:left}
+.mkt-tbl td{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-500);padding:12px 18px;border-bottom:1px solid var(--border);background:white;vertical-align:middle}
+.mkt-tbl tr:last-child td{border-bottom:none}
+.mkt-tbl tr.us td{background:var(--saffron-pale);font-weight:600;color:var(--text-900)}
+.chk{color:var(--green-mid);font-weight:800}.crs{color:#EF4444}.prt{color:var(--gold);font-weight:600}
+.us-head{background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;font-size:14px}
+
+/* --- TESTIMONIALS --- */
+.test-bg{background:var(--cream)}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+.test-c{background:white;border-radius:var(--r20);padding:26px;border:1.5px solid var(--border);transition:all 0.3s;position:relative;overflow:hidden}
+.test-c:hover{box-shadow:var(--sh-md);transform:translateY(-4px)}
+.test-c::before{content:'"';position:absolute;top:-16px;right:18px;font-size:110px;color:var(--saffron);opacity:0.07;font-family:Georgia,serif;line-height:1}
+.test-stars{color:#F59E0B;font-size:14px;letter-spacing:2px;margin-bottom:12px}
+.test-txt{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:var(--text-500);line-height:1.78;margin-bottom:18px;font-style:italic;position:relative;z-index:1}
+.test-aut{display:flex;align-items:center;gap:11px}
+.test-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;border:2px solid var(--border);flex-shrink:0}
+.test-nm{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:700;color:var(--text-900)}
+.test-rl{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:var(--text-300);margin-top:1px}
+
+/* --- SECURITY --- */
+.sec-bg{background:linear-gradient(145deg,var(--navy-2),var(--slate))}
+.sec-badges{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:36px}
+.sec-b{background:rgba(255,255,255,0.055);border:1px solid rgba(255,255,255,0.09);border-radius:var(--r16);padding:18px 14px;text-align:center;transition:all 0.25s}
+.sec-b:hover{background:rgba(255,255,255,0.09);transform:translateY(-3px)}
+.sec-b-ico{font-size:26px;margin-bottom:9px;display:block}
+.sec-b-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:700;color:white;margin-bottom:3px}
+.sec-b-d{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.45}
+
+/* --- PRICING --- */
+.price-bg{background:var(--cream-2)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:980px;margin:52px auto 0}
+.price-c{background:white;border-radius:var(--r24);padding:34px 26px;border:1.5px solid var(--border);text-align:center;transition:all 0.3s;position:relative;overflow:hidden}
+.price-c:hover{box-shadow:var(--sh-md)}
+.price-c.best{background:linear-gradient(155deg,var(--navy-2),var(--slate-2));border-color:var(--saffron);transform:scale(1.04);box-shadow:0 24px 64px rgba(5,15,30,0.36),0 0 0 1px rgba(244,106,10,0.28)}
+.best-lbl{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--saffron),var(--gold));color:white;padding:5px 20px;border-radius:0 0 12px 12px;font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;font-weight:700;white-space:nowrap;box-shadow:0 4px 14px rgba(244,106,10,0.35)}
+.price-plan{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--saffron);margin-bottom:10px;margin-top:22px}
+.price-c.best .price-plan{color:var(--saffron-bright)}
+.price-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:46px;font-weight:900;color:var(--text-900);line-height:1}
+.price-c.best .price-n{color:white}
+.price-sym{font-size:22px;font-weight:600;vertical-align:top;margin-top:7px;display:inline-block}
+.price-dur{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-300);margin:5px 0 22px}
+.price-c.best .price-dur{color:rgba(255,255,255,0.38)}
+.price-div{height:1px;background:var(--border);margin-bottom:20px}
+.price-c.best .price-div{background:rgba(255,255,255,0.10)}
+.price-feats{list-style:none;text-align:left;display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
+.pf{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-500);display:flex;align-items:flex-start;gap:7px;line-height:1.45}
+.pf::before{content:'✓';color:var(--green-mid);font-weight:800;font-size:11px;flex-shrink:0;margin-top:1px}
+.price-c.best .pf{color:rgba(255,255,255,0.65)}.price-c.best .pf::before{color:var(--saffron-bright)}
+.price-btn{width:100%;justify-content:center;padding:13px;font-size:14px;border-radius:var(--r12)}
+
+/* --- FAQ --- */
+.faq-bg{background:white}
+.faq-wrap{max-width:760px;margin:48px auto 0;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:var(--cream);border-radius:var(--r16);border:1.5px solid var(--border);overflow:hidden;transition:border-color 0.25s}
+.faq-item.open{border-color:var(--saffron)}
+.faq-q{padding:17px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px;cursor:pointer}
+.faq-qt{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:600;color:var(--text-900)}
+.faq-arr{width:26px;height:26px;border-radius:50%;background:white;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;transition:all 0.3s;color:var(--saffron)}
+.faq-item.open .faq-arr{background:var(--saffron);color:white;border-color:var(--saffron);transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease;padding:0 20px}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:16px}
+.faq-a p{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:var(--text-500);line-height:1.72}
+
+/* --- CONTACT --- */
+.contact-bg{background:var(--cream-2)}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.contact-form{background:white;border-radius:var(--r24);padding:36px;border:1.5px solid var(--border);box-shadow:var(--sh-sm)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.form-label{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:var(--text-700)}
+.form-input{padding:12px 16px;border-radius:var(--r12);border:1.5px solid var(--border);font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:var(--text-900);background:var(--cream);transition:border-color 0.2s;outline:none}
+.form-input:focus{border-color:var(--saffron)}
+.form-input::placeholder{color:var(--text-300)}
+.form-select{padding:12px 16px;border-radius:var(--r12);border:1.5px solid var(--border);font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:var(--text-900);background:var(--cream);outline:none;cursor:pointer;width:100%}
+textarea.form-input{resize:vertical;min-height:100px}
+.contact-info{display:flex;flex-direction:column;gap:24px}
+.ci-card{display:flex;align-items:flex-start;gap:14px;background:white;padding:20px;border-radius:var(--r16);border:1.5px solid var(--border)}
+.ci-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ci-h{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:700;color:var(--text-900);margin-bottom:3px}
+.ci-d{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:var(--text-500);line-height:1.6}
+
+/* --- CTA BANNER --- */
+.cta-banner{background:linear-gradient(135deg,var(--saffron) 0%,var(--gold) 60%,#E8A020 100%);padding:80px 60px;position:relative;overflow:hidden;text-align:center}
+.cta-banner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='52' height='52' viewBox='0 0 52 52' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26 4L26 0M26 52L26 48M4 26L0 26M52 26L48 26' stroke='rgba(255,255,255,0.07)' stroke-width='1'/%3E%3C/svg%3E");opacity:0.5}
+.cta-h{font-family:'Noto Sans Devanagari',sans-serif;font-size:42px;font-weight:900;color:white;margin-bottom:14px;position:relative;z-index:1;line-height:1.2}
+.cta-d{font-family:'Noto Sans Devanagari',sans-serif;font-size:17px;color:rgba(255,255,255,0.84);margin-bottom:32px;position:relative;z-index:1}
+.cta-btns{display:flex;gap:14px;justify-content:center;margin-bottom:22px;position:relative;z-index:1;flex-wrap:wrap}
+.cta-sm{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:rgba(255,255,255,0.6);position:relative;z-index:1}
+
+/* --- FOOTER --- */
+.footer-bg{background:var(--navy)}
+.footer-inner{max-width:1400px;margin:0 auto;padding:68px 60px 28px}
+.footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand-d{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:rgba(255,255,255,0.36);line-height:1.78;margin-top:14px;max-width:260px}
+.footer-soc{display:flex;gap:9px;margin-top:18px}
+.footer-soc-b{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.09);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;transition:all 0.2s}
+.footer-soc-b:hover{background:var(--saffron);border-color:var(--saffron);transform:translateY(-2px)}
+.footer-ct{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:700;color:white;margin-bottom:16px;letter-spacing:0.5px}
+.footer-ls{list-style:none;display:flex;flex-direction:column;gap:9px}
+.footer-ls li{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:rgba(255,255,255,0.38);cursor:pointer;transition:color 0.2s}
+.footer-ls li:hover{color:var(--saffron-bright)}
+.footer-bar{border-top:1px solid rgba(255,255,255,0.07);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-copy{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:rgba(255,255,255,0.22)}
+.india-row{display:flex;align-items:center;gap:8px}
+.india-flag{display:flex;flex-direction:column;width:20px;height:13px;border-radius:2px;overflow:hidden;border:1px solid rgba(255,255,255,0.12)}
+.if-s{flex:1}.if-s.t{background:var(--saffron)}.if-s.m{background:white}.if-s.b{background:var(--green-mid)}
+.india-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:rgba(255,255,255,0.25)}
+/* cookie */
+.cookie-bar{position:fixed;bottom:0;left:0;right:0;z-index:9998;background:var(--navy-3);border-top:1px solid rgba(255,255,255,0.08);padding:14px 40px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 -8px 32px rgba(0,0,0,0.3)}
+.cookie-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:rgba(255,255,255,0.62)}
+.cookie-t a{color:var(--saffron-bright);text-decoration:underline}
+.cookie-acts{display:flex;gap:10px;flex-shrink:0}
+
+/* ═══════════════════════════════════════════
+   ████  SCREEN 2: LOGIN / ROLE SELECT  ████
+═══════════════════════════════════════════ */
+.login-screen{min-height:calc(100vh - 52px);background:var(--navy);display:flex;flex-direction:column}
+.login-wrap{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 52px)}
+/* Left panel */
+.login-l{background:linear-gradient(145deg,var(--navy-2),var(--slate-2));display:flex;flex-direction:column;justify-content:space-between;padding:48px;position:relative;overflow:hidden}
+.login-l::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 500px at 80% 30%,rgba(244,106,10,0.12),transparent 70%)}
+.login-l-brand{position:relative;z-index:1}
+.login-l-mid{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;padding:40px 0}
+.login-preview-stack{width:100%;max-width:360px;position:relative}
+.lps-main{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:var(--r20);padding:22px;box-shadow:0 20px 50px rgba(0,0,0,0.35)}
+.lps-mini{background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r16);padding:14px;margin-top:-12px;margin-left:24px;margin-right:-24px;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+.lps-h{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:700;color:white;margin-bottom:12px}
+.lps-row{display:flex;gap:10px;margin-bottom:10px}
+.lps-stat{flex:1;background:rgba(255,255,255,0.07);border-radius:var(--r12);padding:10px;text-align:center}
+.lps-sn{font-family:'Noto Sans Devanagari',sans-serif;font-size:17px;font-weight:800;color:white}
+.lps-sl{font-family:'Noto Sans Devanagari',sans-serif;font-size:9px;color:rgba(255,255,255,0.4)}
+.lps-bar-w{height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.lps-bar-f{height:100%;background:linear-gradient(90deg,var(--saffron),var(--gold));border-radius:3px;width:78%}
+.lps-note{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:rgba(255,255,255,0.45)}
+.login-l-bottom{position:relative;z-index:1}
+.login-l-quote{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;font-style:italic}
+/* Right panel */
+.login-r{background:var(--cream);display:flex;align-items:center;justify-content:center;padding:48px}
+.login-box{width:100%;max-width:440px}
+.login-title{font-family:'Noto Sans Devanagari',sans-serif;font-size:28px;font-weight:800;color:var(--text-900);margin-bottom:6px}
+.login-sub{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:var(--text-500);margin-bottom:32px}
+/* Role selector */
+.role-selector{margin-bottom:26px}
+.role-sel-label{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:var(--text-700);margin-bottom:12px;display:block}
+.role-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.role-opt{padding:12px 14px;border-radius:var(--r12);border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all 0.2s;background:white}
+.role-opt:hover{border-color:var(--saffron);box-shadow:var(--sh-sm)}
+.role-opt.selected{border-color:var(--saffron);background:var(--saffron-pale);box-shadow:0 0 0 3px rgba(244,106,10,0.12)}
+.role-opt-ico{font-size:20px;flex-shrink:0}
+.role-opt-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:var(--text-900)}
+.role-opt-d{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:var(--text-300);margin-top:1px}
+/* Form */
+.login-form{display:flex;flex-direction:column;gap:14px}
+.lf-group{display:flex;flex-direction:column;gap:6px}
+.lf-label{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:var(--text-700)}
+.lf-input-wrap{position:relative}
+.lf-input{width:100%;padding:12px 16px 12px 44px;border-radius:var(--r12);border:1.5px solid var(--border);font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:var(--text-900);background:white;outline:none;transition:border-color 0.2s}
+.lf-input:focus{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(244,106,10,0.10)}
+.lf-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:17px;pointer-events:none}
+.lf-forgot{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--saffron);text-align:right;cursor:pointer;font-weight:600}
+.lf-divider{display:flex;align-items:center;gap:12px;margin:4px 0}
+.lf-div-line{flex:1;height:1px;background:var(--border)}
+.lf-div-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--text-300)}
+.biometric-btn{width:100%;padding:12px;border-radius:var(--r12);border:1.5px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:var(--text-700);font-weight:500}
+.biometric-btn:hover{border-color:var(--saffron);color:var(--saffron)}
+.login-footer{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-300);text-align:center;margin-top:18px}
+.login-footer a{color:var(--saffron);font-weight:600}
+
+/* ═══════════════════════════════════════════
+   ████  SCREEN 3: TEACHER DASHBOARD  ████
+═══════════════════════════════════════════ */
+.app-shell{display:flex;min-height:calc(100vh - 52px);background:var(--cream)}
+/* Sidebar */
+.sidebar{width:240px;background:var(--navy-2);display:flex;flex-direction:column;flex-shrink:0;position:relative;overflow:hidden}
+.sidebar::after{content:'';position:absolute;top:-50%;right:-30%;width:300px;height:300px;background:radial-gradient(circle,rgba(244,106,10,0.07),transparent 70%);border-radius:50%;pointer-events:none}
+.sidebar-brand{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.sidebar-brand-name{font-family:'Noto Sans Devanagari',sans-serif;font-size:16px;font-weight:800;color:white}
+.sidebar-brand-name em{color:var(--saffron-bright);font-style:normal}
+.sidebar-brand-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.sidebar-user{padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:8px}
+.su-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--saffron),var(--gold));display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.su-name{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:700;color:white}
+.su-role{font-family:'Noto Sans Devanagari',sans-serif;font-size:9px;color:rgba(255,255,255,0.38);margin-top:1px}
+.sidebar-nav{flex:1;padding:4px 12px;overflow-y:auto}
+.sn-section{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.22);padding:12px 8px 4px}
+.sn-item{display:flex;align-items:center;gap:10px;padding:10px 10px;border-radius:var(--r8);cursor:pointer;margin-bottom:1px;transition:all 0.18s}
+.sn-item:hover{background:rgba(255,255,255,0.06)}
+.sn-item.active{background:rgba(244,106,10,0.15);border-left:2px solid var(--saffron)}
+.sn-ico{font-size:17px;width:22px;flex-shrink:0;text-align:center}
+.sn-txt{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:rgba(255,255,255,0.58);font-weight:500}
+.sn-item.active .sn-txt{color:var(--saffron-bright);font-weight:600}
+.sn-badge{margin-left:auto;background:var(--saffron);color:white;padding:2px 7px;border-radius:var(--rpill);font-size:10px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif}
+.sidebar-bottom{padding:16px 12px;border-top:1px solid rgba(255,255,255,0.07)}
+/* Main */
+.app-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.app-topbar{height:60px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;box-shadow:var(--sh-xs);flex-shrink:0}
+.atb-left{display:flex;flex-direction:column}
+.atb-title{font-family:'Noto Sans Devanagari',sans-serif;font-size:17px;font-weight:700;color:var(--text-900)}
+.atb-sub{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:var(--text-300);margin-top:1px}
+.atb-right{display:flex;align-items:center;gap:12px}
+.atb-search{display:flex;align-items:center;gap:8px;background:var(--cream);border:1px solid var(--border);border-radius:var(--rpill);padding:8px 16px;width:220px}
+.atb-search input{background:none;border:none;outline:none;font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:var(--text-900);width:100%}
+.atb-search input::placeholder{color:var(--text-300)}
+.atb-ico-btn{width:36px;height:36px;border-radius:50%;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;position:relative;transition:all 0.2s}
+.atb-ico-btn:hover{border-color:var(--saffron)}
+.atb-notif-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--saffron);border-radius:50%;border:1.5px solid white}
+.app-body{flex:1;overflow-y:auto;padding:24px 28px}
+/* Dashboard content */
+.dash-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+.kpi{background:white;border-radius:var(--r16);padding:18px;border:1px solid var(--border);position:relative;overflow:hidden;transition:all 0.22s}
+.kpi:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r16) var(--r16) 0 0}
+.kpi-s::before{background:linear-gradient(90deg,var(--saffron),var(--gold))}
+.kpi-g::before{background:linear-gradient(90deg,var(--green-mid),var(--green-bright))}
+.kpi-b::before{background:linear-gradient(90deg,var(--sky),#60a5fa)}
+.kpi-p::before{background:linear-gradient(90deg,#8B5CF6,#D946EF)}
+.kpi-ico{font-size:22px;margin-bottom:8px;display:block}
+.kpi-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:26px;font-weight:800;color:var(--text-900);line-height:1}
+.kpi-l{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:var(--text-300);margin-top:4px}
+.kpi-trend{display:flex;align-items:center;gap:4px;margin-top:6px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600}
+.kpi-trend.up{color:var(--green-mid)}.kpi-trend.down{color:#EF4444}
+/* Middle row */
+.dash-mid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:22px}
+.dash-widget{background:white;border-radius:var(--r16);border:1px solid var(--border);overflow:hidden}
+.dw-head{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.dw-title{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:700;color:var(--text-900)}
+.dw-action{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--saffron);cursor:pointer;font-weight:600}
+.dw-body{padding:16px 18px}
+/* Attendance widget */
+.att-students{display:flex;flex-direction:column;gap:10px}
+.att-stu-row{display:flex;align-items:center;gap:12px}
+.att-stu-av{width:32px;height:32px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;border:1px solid var(--border)}
+.att-stu-info{flex:1}
+.att-stu-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:var(--text-900)}
+.att-stu-c{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:var(--text-300)}
+.att-bar-w{flex:1;height:6px;background:var(--cream);border-radius:3px;overflow:hidden;max-width:100px}
+.att-bar-f{height:100%;border-radius:3px}
+.att-pct{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;color:var(--text-700);min-width:36px;text-align:right}
+.att-status{padding:3px 9px;border-radius:var(--rpill);font-size:10px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif}
+.att-ok{background:var(--green-pale);color:var(--green-mid)}
+.att-warn{background:#FEF9C3;color:#A16207}
+.att-bad{background:#FEE2E2;color:#B91C1C}
+/* Upcoming */
+.upcoming-list{display:flex;flex-direction:column;gap:11px}
+.upc-item{display:flex;gap:12px;align-items:flex-start}
+.upc-date{width:40px;height:44px;border-radius:var(--r8);background:var(--saffron-pale);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(244,106,10,0.2)}
+.upc-day{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:var(--saffron);line-height:1}
+.upc-mon{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:700;color:var(--saffron);text-transform:uppercase;letter-spacing:1px}
+.upc-text-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:var(--text-900)}
+.upc-text-d{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:var(--text-300);margin-top:2px}
+/* Bottom row */
+.dash-bot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+/* Recent activities */
+.activity-list{display:flex;flex-direction:column;gap:12px}
+.act-item{display:flex;align-items:flex-start;gap:10px}
+.act-ico-w{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.act-txt-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:600;color:var(--text-900)}
+.act-txt-d{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:var(--text-300);margin-top:1px}
+/* Quick actions */
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qa-btn{padding:14px 10px;border-radius:var(--r12);border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:all 0.2s;text-align:center;background:white}
+.qa-btn:hover{border-color:var(--saffron);background:var(--saffron-pale);transform:translateY(-2px)}
+.qa-ico{font-size:22px}
+.qa-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;font-weight:600;color:var(--text-700)}
+/* Fee widget */
+.fee-summary{display:flex;flex-direction:column;gap:10px}
+.fee-row{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--cream);border-radius:var(--r8);border:1px solid var(--border)}
+.fee-class{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:600;color:var(--text-900)}
+.fee-amt{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;color:var(--green-mid)}
+.fee-pend{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:#EF4444}
+.fee-total{background:var(--navy-3);border-radius:var(--r12);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.fee-total-l{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:rgba(255,255,255,0.6)}
+.fee-total-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:white}
+
+/* ═══════════════════════════════════════════
+   ████  SCREEN 4: PARENT VIEW  ████
+═══════════════════════════════════════════ */
+.parent-screen{background:var(--cream);min-height:calc(100vh - 52px)}
+.parent-topbar{background:linear-gradient(145deg,var(--navy-2),var(--slate-2));padding:24px 28px 80px;position:relative;overflow:hidden}
+.parent-topbar::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 500px 300px at 80% 50%,rgba(244,106,10,0.15),transparent)}
+.pt-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;position:relative;z-index:1}
+.pt-greeting{font-family:'Noto Sans Devanagari',sans-serif;font-size:20px;font-weight:700;color:white}
+.pt-sub{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px}
+.pt-notif{position:relative;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
+.pt-notif-dot{position:absolute;top:8px;right:8px;width:8px;height:8px;background:var(--saffron);border-radius:50%;border:2px solid var(--slate-2)}
+/* Child selector */
+.child-selector{display:flex;gap:12px;position:relative;z-index:1}
+.child-chip{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.15);border-radius:var(--rpill);padding:9px 16px;cursor:pointer;transition:all 0.2s}
+.child-chip.active{background:rgba(244,106,10,0.25);border-color:rgba(244,106,10,0.5)}
+.cc-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,0.1)}
+.cc-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:white}
+.cc-c{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:rgba(255,255,255,0.45)}
+/* Cards */
+.parent-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:-56px auto 0;padding:0 28px;position:relative;z-index:2}
+.pc-card{background:white;border-radius:var(--r20);padding:20px;border:1px solid var(--border);box-shadow:var(--sh-md);transition:all 0.25s;cursor:pointer}
+.pc-card:hover{box-shadow:var(--sh-lg);transform:translateY(-3px)}
+.pc-card-ico{font-size:26px;margin-bottom:10px;display:block}
+.pc-card-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:22px;font-weight:800;color:var(--text-900);line-height:1;margin-bottom:4px}
+.pc-card-l{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:var(--text-300)}
+.pc-card-bar{height:4px;border-radius:2px;margin-top:10px;background:var(--cream);overflow:hidden}
+.pc-card-bar-f{height:100%;border-radius:2px}
+/* Content area */
+.parent-content{padding:22px 28px;max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.parent-widget{background:white;border-radius:var(--r20);border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-xs)}
+.pw-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.pw-title{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:700;color:var(--text-900)}
+.pw-link{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--saffron);font-weight:600;cursor:pointer}
+.pw-body{padding:16px 20px}
+/* Subject progress */
+.subj-list{display:flex;flex-direction:column;gap:13px}
+.subj-row{display:flex;align-items:center;gap:14px}
+.subj-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:var(--text-900);min-width:90px}
+.subj-bar-w{flex:1;height:8px;background:var(--cream);border-radius:4px;overflow:hidden;border:1px solid var(--border)}
+.subj-bar-f{height:100%;border-radius:4px}
+.subj-pct{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;min-width:38px;text-align:right}
+/* Fee list */
+.fee-items{display:flex;flex-direction:column;gap:10px}
+.fee-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--cream);border-radius:var(--r12);border:1px solid var(--border)}
+.fi-name{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:var(--text-900)}
+.fi-due{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:var(--text-300);margin-top:2px}
+.fi-right{text-align:right}
+.fi-amt{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:800;color:var(--text-900)}
+.fi-stat{display:inline-block;padding:2px 9px;border-radius:var(--rpill);font-size:10px;font-weight:700;margin-top:3px}
+.fi-paid{background:var(--green-pale);color:var(--green-mid)}
+.fi-due-chip{background:#FEE2E2;color:#B91C1C}
+/* Announcements */
+.ann-list{display:flex;flex-direction:column;gap:12px}
+.ann-item{display:flex;gap:13px;align-items:flex-start}
+.ann-ico{width:38px;height:38px;border-radius:var(--r8);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ann-title{font-family:'Noto Sans Devanagari',sans-serif;font-size:13px;font-weight:600;color:var(--text-900)}
+.ann-date{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--text-300);margin-top:2px}
+/* Bottom nav */
+.parent-bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:990;background:white;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);box-shadow:0 -4px 20px rgba(5,15,30,0.08)}
+.pbn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;cursor:pointer;transition:all 0.2s;gap:3px;position:relative}
+.pbn-item:hover .pbn-ico{transform:scale(1.15)}
+.pbn-ico{font-size:20px;transition:transform 0.2s}
+.pbn-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:9px;font-weight:600;color:var(--text-300)}
+.pbn-item.active .pbn-t{color:var(--saffron)}
+.pbn-dot{width:5px;height:5px;background:var(--saffron);border-radius:50%;position:absolute;top:8px;right:calc(50% - 14px)}
+
+/* ═══════════════════════════════════════════
+   ████  SCREEN 5: HEADMASTER DASHBOARD  ████
+═══════════════════════════════════════════ */
+.hm-dash{display:flex;min-height:calc(100vh - 52px);background:var(--cream-2)}
+.hm-sidebar{width:220px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column}
+.hm-brand{padding:18px 16px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.hm-brand-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:15px;font-weight:800;color:white}
+.hm-brand-n em{color:var(--saffron-bright);font-style:normal}
+.hm-brand-school{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.hm-nav{flex:1;padding:8px}
+.hm-nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r8);cursor:pointer;margin-bottom:2px;transition:all 0.18s}
+.hm-nav-item:hover{background:rgba(255,255,255,0.06)}
+.hm-nav-item.active{background:rgba(244,106,10,0.18);border-left:2px solid var(--saffron)}
+.hm-nav-ico{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.hm-nav-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:rgba(255,255,255,0.55);font-weight:500}
+.hm-nav-item.active .hm-nav-t{color:var(--saffron-bright);font-weight:600}
+.hm-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.hm-topbar{height:58px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;box-shadow:var(--sh-xs)}
+.hm-tb-title{font-family:'Noto Sans Devanagari',sans-serif;font-size:17px;font-weight:700;color:var(--text-900)}
+.hm-tb-date{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-300)}
+.hm-tb-right{display:flex;align-items:center;gap:10px}
+.hm-body{flex:1;overflow-y:auto;padding:22px 24px}
+/* Analytics row */
+.hm-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:20px}
+.hm-kpi{background:white;border-radius:var(--r16);padding:16px;border:1px solid var(--border);transition:all 0.22s;cursor:pointer}
+.hm-kpi:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.hm-kpi-ico{font-size:24px;margin-bottom:7px;display:block}
+.hm-kpi-n{font-family:'Noto Sans Devanagari',sans-serif;font-size:24px;font-weight:900;color:var(--text-900);line-height:1}
+.hm-kpi-l{font-family:'Noto Sans Devanagari',sans-serif;font-size:10px;color:var(--text-300);margin-top:4px}
+.hm-kpi-trend{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;margin-top:5px}
+.hm-kpi-trend.up{color:var(--green-mid)}.hm-kpi-trend.dn{color:#EF4444}
+/* Chart area */
+.hm-analytics{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:20px}
+.hm-chart-card{background:white;border-radius:var(--r20);border:1px solid var(--border);padding:20px}
+.hm-chart-title{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;font-weight:700;color:var(--text-900);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.hm-chart-title span{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;color:var(--text-300)}
+/* Bar chart simulation */
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:120px;padding:0 4px}
+.bc-bar{flex:1;border-radius:5px 5px 0 0;transition:all 0.3s;cursor:pointer;position:relative}
+.bc-bar:hover{opacity:0.85}
+.bc-bar-month{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--text-300);white-space:nowrap}
+.bc-bar-val{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;color:var(--text-700);white-space:nowrap}
+/* Donut chart simulation */
+.donut-chart{display:flex;flex-direction:column;align-items:center;gap:16px}
+.donut{width:100px;height:100px;border-radius:50%;position:relative;margin:0 auto}
+.donut-inner{position:absolute;inset:18px;border-radius:50%;background:white;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:var(--text-900)}
+.donut-l{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;color:var(--text-300);text-transform:uppercase;letter-spacing:1px}
+.donut-legend{width:100%;display:flex;flex-direction:column;gap:8px}
+.dl-item{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.dl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dl-t{font-family:'Noto Sans Devanagari',sans-serif;font-size:11px;color:var(--text-700);flex:1}
+.dl-v{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;color:var(--text-900)}
+/* Bottom tables */
+.hm-bottom{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.hm-table-card{background:white;border-radius:var(--r20);border:1px solid var(--border);overflow:hidden}
+.hm-table-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.hm-tbl{width:100%;border-collapse:collapse}
+.hm-tbl th{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-300);padding:8px 16px;text-align:left;border-bottom:1px solid var(--border);background:var(--cream)}
+.hm-tbl td{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--text-700);padding:10px 16px;border-bottom:1px solid var(--border)}
+.hm-tbl tr:last-child td{border-bottom:none}
+.hm-tbl tr:hover td{background:var(--saffron-pale)}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+.rv{opacity:0;transform:translateY(24px);transition:opacity 0.65s ease,transform 0.65s ease}
+.rv.in{opacity:1;transform:translateY(0)}
+.rv1{transition-delay:0.1s}.rv2{transition-delay:0.2s}.rv3{transition-delay:0.3s}.rv4{transition-delay:0.4s}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:1100px){
+  .lp-nav{padding:0 24px}.lp-links{display:none}.lp-hero-inner{padding:0 24px 48px}.hero-r{display:none}.hf-pos-1,.hf-pos-2{display:none}
+  .lp-sec{padding:64px 24px}.lp-sec-full .lp-sec-inner{padding:0 24px}
+  .roles-grid{grid-template-columns:repeat(3,1fr)}.feats-grid{grid-template-columns:1fr 1fr}.notif-grid{grid-template-columns:1fr}
+  .mapp-inner{grid-template-columns:1fr}.phones{margin-top:32px}.test-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .contact-inner{grid-template-columns:1fr}
+  .login-l{display:none}.login-wrap{grid-template-columns:1fr}
+  .sidebar{display:none}.app-body{padding:16px}
+  .hm-sidebar{display:none}.hm-body{padding:16px}
+  .parent-cards{grid-template-columns:1fr 1fr;max-width:100%}
+  .dash-kpis{grid-template-columns:1fr 1fr}.hm-kpis{grid-template-columns:repeat(3,1fr)}
+  .lp-stats{padding:22px 24px}
+}
+@media(max-width:640px){
+  .hero-h1{font-size:38px}.sec-h{font-size:30px}
+  .roles-grid{grid-template-columns:1fr 1fr}.feats-grid,.test-grid,.uniq-grid{grid-template-columns:1fr}
+  .price-grid{grid-template-columns:1fr}.price-c.best{transform:none}
+  .footer-grid{grid-template-columns:1fr}.hiw-steps{grid-template-columns:1fr 1fr}
+  .hiw-steps::before{display:none}
+  .sec-badges{grid-template-columns:repeat(2,1fr)}.hm-kpis{grid-template-columns:1fr 1fr}
+  .dash-mid,.dash-bot,.hm-analytics,.hm-bottom{grid-template-columns:1fr}
+  .parent-cards{grid-template-columns:1fr}
+  .page-nav{padding:0 16px}.page-nav-label{display:none}
+  .role-opts{grid-template-columns:1fr}
+  .cookie-bar{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ DESIGN REFERENCE NAV ═══ -->
+<nav class="page-nav">
+  <div class="page-nav-brand">शाळा<span>Connect</span></div>
+  <div class="page-nav-label">Design Ref →</div>
+  <div class="pn-tabs">
+    <div class="pn-tab active" onclick="showScreen('landing')"><div class="pn-dot"></div>🏠 लँडिंग पेज</div>
+    <div class="pn-tab" onclick="showScreen('login')"><div class="pn-dot"></div>🔐 Login / Role Select</div>
+    <div class="pn-tab" onclick="showScreen('teacher')"><div class="pn-dot"></div>👩‍🏫 Teacher Dashboard</div>
+    <div class="pn-tab" onclick="showScreen('parent')"><div class="pn-dot"></div>👨‍👩‍👦 Parent Mobile View</div>
+    <div class="pn-tab" onclick="showScreen('headmaster')"><div class="pn-dot"></div>👨‍💼 Headmaster Analytics</div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 1 — LANDING PAGE
+═══════════════════════════════════════════════════════ -->
+<div class="screen active" id="screen-landing">
+
+  <!-- Navbar -->
+  <nav class="lp-nav" id="lp-nav">
+    <div class="lp-logo">
+      <div class="lp-logo-mark">🏫</div>
+      <div><div class="lp-logo-text">शाळा<em>Connect</em></div><div class="lp-logo-sub">Maharashtra Edu Platform</div></div>
+    </div>
+    <div class="lp-links">
+      <a href="#">वैशिष्ट्ये</a><a href="#">मोबाईल अ‍ॅप</a><a href="#">किंमत</a><a href="#">अभिप्राय</a><a href="#">मदत</a>
+    </div>
+    <div class="lp-actions">
+      <button class="btn btn-ghost-dark">लॉगिन</button>
+      <button class="btn btn-primary">मोफत सुरू करा →</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="lp-hero">
+    <div class="hero-canvas">
+      <div class="hc-mesh"></div><div class="hc-grid"></div><div class="hc-noise"></div>
+      <div class="hc-chakra">☸</div>
+      <div class="hc-lines"><div class="hc-line"></div><div class="hc-line"></div><div class="hc-line"></div></div>
+    </div>
+    <!-- Floating badges -->
+    <div class="hero-float hero-float-1 hf-pos-1">
+      <div class="hf-ico">📱</div>
+      <div><div class="hf-main">WhatsApp गेला</div><div class="hf-sub">२,४७ पालकांना — आत्ता</div></div>
+    </div>
+    <div class="hero-float hero-float-2 hf-pos-2">
+      <div class="hf-ico">✅</div>
+      <div><div class="hf-main">फी जमा — ₹४,५००</div><div class="hf-sub">Razorpay यशस्वी</div></div>
+    </div>
+
+    <div class="lp-hero-inner">
+      <div class="hero-l">
+        <div class="hero-pill"><div class="hp-live"></div><span class="hp-text">महाराष्ट्र #१ शाळा व्यवस्थापन प्लॅटफॉर्म</span></div>
+        <h1 class="hero-h1"><span class="g1">डिजिटल शाळा</span><br>आता <span class="g2">मराठीत</span><br>सोपे, जलद, स्मार्ट</h1>
+        <p class="hero-sub">मुख्याध्यापक, शिक्षक, कारकून, विद्यार्थी आणि पालक — पाचही जणांसाठी एकच अ‍ॅप. हजेरीपासून दाखल्यापर्यंत, फीपासून निकालापर्यंत सर्व डिजिटल.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary btn-lg">🚀 ३० दिवस मोफत वापरा</button>
+          <button class="btn btn-outline-white btn-lg">▶ डेमो पहा</button>
+        </div>
+        <div class="hero-trust-row">
+          <div class="htr-item"><div class="htr-ico">🔒</div><div class="htr-t"><strong>१०० % सुरक्षित</strong>SSL Encrypted</div></div>
+          <div class="htr-item"><div class="htr-ico">🇮🇳</div><div class="htr-t"><strong>भारतात बनवले</strong>Pune, Maharashtra</div></div>
+          <div class="htr-item"><div class="htr-ico">📴</div><div class="htr-t"><strong>ऑफलाईन काम</strong>Net नसताना ही</div></div>
+        </div>
+      </div>
+      <div class="hero-r">
+        <div class="dash-card">
+          <div class="dc-topbar">
+            <div class="dc-user"><div class="dc-av">👨‍💼</div><div><div class="dc-name">मुख्य डॅशबोर्ड</div><div class="dc-role">पुणे विद्यामंदिर</div></div></div>
+            <div class="dc-badge">🟢 Live</div>
+          </div>
+          <div class="dc-stats">
+            <div class="dc-stat"><div class="dc-stat-accent" style="background:linear-gradient(90deg,var(--saffron),var(--gold))"></div><span class="dc-stat-ico">👨‍🎓</span><div class="dc-stat-n">१,२४७</div><div class="dc-stat-l">विद्यार्थी</div></div>
+            <div class="dc-stat"><div class="dc-stat-accent" style="background:linear-gradient(90deg,var(--green-mid),var(--green-bright))"></div><span class="dc-stat-ico">👩‍🏫</span><div class="dc-stat-n">४८</div><div class="dc-stat-l">शिक्षक</div></div>
+            <div class="dc-stat"><div class="dc-stat-accent" style="background:linear-gradient(90deg,var(--sky),#60a5fa)"></div><span class="dc-stat-ico">💰</span><div class="dc-stat-n">₹२.४L</div><div class="dc-stat-l">आजची फी</div></div>
+            <div class="dc-stat"><div class="dc-stat-accent" style="background:linear-gradient(90deg,#8B5CF6,#D946EF)"></div><span class="dc-stat-ico">📝</span><div class="dc-stat-n">८</div><div class="dc-stat-l">परीक्षा बाकी</div></div>
+          </div>
+          <div class="dc-att"><div class="dc-att-row"><span class="dc-att-l">📋 आजची हजेरी</span><span class="dc-att-v">८७% · १,०८५/१,२४७</span></div><div class="dc-bar"><div class="dc-bar-fill" style="width:87%"></div></div></div>
+          <div class="dc-feeds">
+            <div class="dc-feed"><div class="dc-feed-dot" style="background:var(--saffron);box-shadow:0 0 5px var(--saffron-glow)"></div><span class="dc-feed-t">⚠️ इ.७वी ब — ३ विद्यार्थी गैरहजर, WhatsApp गेले</span></div>
+            <div class="dc-feed"><div class="dc-feed-dot" style="background:var(--green-bright)"></div><span class="dc-feed-t">✅ वार्षिक परीक्षा वेळापत्रक सर्व पालकांना पाठवले</span></div>
+            <div class="dc-feed"><div class="dc-feed-dot" style="background:#60a5fa"></div><span class="dc-feed-t">💰 आजचे फी कलेक्शन ९२% पूर्ण — ₹२.४ लाख</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Stats Band -->
+  <div class="lp-stats">
+    <div class="lp-stats-inner">
+      <div class="lps-item"><div class="lps-n" data-count="50000">०</div><div class="lps-l">शाळा वापरतात</div></div>
+      <div class="lps-item"><div class="lps-n">२५ लाख+</div><div class="lps-l">विद्यार्थी</div></div>
+      <div class="lps-item"><div class="lps-n">९९.९%</div><div class="lps-l">Uptime गॅरंटी</div></div>
+      <div class="lps-item"><div class="lps-n">३६</div><div class="lps-l">जिल्हे सक्रिय</div></div>
+      <div class="lps-item"><div class="lps-n">4.9 ★</div><div class="lps-l">App Store Rating</div></div>
+    </div>
+  </div>
+
+  <!-- Roles -->
+  <div class="roles-bg lp-sec-full">
+    <div class="lp-sec-inner">
+      <div class="rv"><div class="sec-eye">वापरकर्ते</div><h2 class="sec-h">प्रत्येकासाठी <span class="ac">वेगळा अनुभव</span></h2><p class="sec-p">पाच भूमिका, पाच वेगळे डॅशबोर्ड — योग्य माहिती, योग्य व्यक्तीला, योग्य वेळी</p></div>
+      <div class="roles-grid">
+        <div class="role-c rc-1 rv rv1"><span class="role-c-ico">👨‍💼</span><div class="role-c-n">मुख्याध्यापक</div><div class="role-c-d">संपूर्ण शाळेचे नियंत्रण, अहवाल, परवानग्या</div><span class="role-c-ct">१५+ मॉड्यूल्स</span></div>
+        <div class="role-c rc-2 rv rv2"><span class="role-c-ico">👩‍🏫</span><div class="role-c-n">शिक्षक</div><div class="role-c-d">हजेरी, गुण, गृहपाठ, विद्यार्थी प्रगती</div><span class="role-c-ct">२०+ मॉड्यूल्स</span></div>
+        <div class="role-c rc-3 rv rv3"><span class="role-c-ico">🧑‍💻</span><div class="role-c-n">कारकून</div><div class="role-c-d">दाखले, शुल्क, दस्तऐवज, सरकारी अहवाल</div><span class="role-c-ct">१८+ मॉड्यूल्स</span></div>
+        <div class="role-c rc-4 rv rv4"><span class="role-c-ico">👦</span><div class="role-c-n">विद्यार्थी</div><div class="role-c-d">वेळापत्रक, गृहपाठ, निकाल, ई-लायब्ररी</div><span class="role-c-ct">१२+ मॉड्यूल्स</span></div>
+        <div class="role-c rc-5 rv rv4"><span class="role-c-ico">👨‍👩‍👦</span><div class="role-c-n">पालक</div><div class="role-c-d">हजेरी, गुण, शुल्क, शिक्षक भेट बुकिंग</div><span class="role-c-ct">१०+ मॉड्यूल्स</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="hiw-bg lp-sec-full">
+    <div class="lp-sec-inner">
+      <div class="rv"><div class="sec-eye">कसे वापरावे</div><h2 class="sec-h">४ सोप्या पायऱ्या, <span class="ac">शाळा डिजिटल</span></h2><p class="sec-p">तांत्रिक ज्ञान नको. मराठीत सर्व. पहिल्याच दिवशी वापर सुरू.</p></div>
+      <div class="hiw-steps">
+        <div class="hiw-step rv rv1"><div class="hiw-num hn-s">१</div><div class="hiw-t">नोंदणी करा</div><div class="hiw-d">शाळेचे नाव, जिल्हा, वर्ग संख्या — ५ मिनिटांत खाते. मोफत ३० दिवस.</div></div>
+        <div class="hiw-step rv rv2"><div class="hiw-num hn-g">२</div><div class="hiw-t">माहिती भरा</div><div class="hiw-d">Excel मधून विद्यार्थी import करा. शिक्षकांना invite करा.</div></div>
+        <div class="hiw-step rv rv3"><div class="hiw-num hn-b">३</div><div class="hiw-t">वापर सुरू करा</div><div class="hiw-d">हजेरी घ्या, फी घ्या, सूचना पाठवा. सर्व automatic.</div></div>
+        <div class="hiw-step rv rv4"><div class="hiw-num hn-gr">४</div><div class="hiw-t">रिपोर्ट पहा</div><div class="hiw-d">U-DISE, RTE, मासिक अहवाल — एका क्लिकमध्ये.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="feats-bg lp-sec-full" id="features">
+    <div class="lp-sec-inner">
+      <div class="rv"><div class="sec-eye">मुख्य वैशिष्ट्ये</div><h2 class="sec-h">शाळेचे <span class="ac">संपूर्ण डिजिटलायझेशन</span></h2><p class="sec-p">एकाच प्लॅटफॉर्मवर सर्व — कागद नाही, वेळ वाचतो, अचूकता वाढते</p></div>
+      <div class="feats-grid">
+        <div class="feat-c feat-dark rv rv1"><div class="feat-ico" style="background:rgba(244,106,10,0.2)">🤖</div><div class="feat-tag">AI-POWERED</div><div class="feat-tt">मराठी AI सहाय्यक</div><div class="feat-dd">मराठीत बोला — AI तुमचे काम करेल. रिपोर्ट तयार करा, प्रश्न विचारा.</div><ul class="feat-list"><li class="feat-li">मराठी व्हॉईस कमांड</li><li class="feat-li">Auto रिपोर्ट जनरेशन</li><li class="feat-li">विद्यार्थी प्रगती अंदाज</li><li class="feat-li">ChatBot पालकांसाठी</li></ul></div>
+        <div class="feat-c rv rv2"><div class="feat-ico" style="background:#FFF3E8">📋</div><div class="feat-tag">हजेरी</div><div class="feat-tt">स्मार्ट हजेरी प्रणाली</div><div class="feat-dd">QR कोड, बायोमेट्रिक किंवा मॅन्युअल — गैरहजर तर तात्काळ WhatsApp.</div><ul class="feat-list"><li class="feat-li">QR स्कॅन हजेरी</li><li class="feat-li">गैरहजर → WhatsApp तात्काळ</li><li class="feat-li">मासिक PDF अहवाल</li><li class="feat-li">RTE ८०% नियम चेक</li></ul></div>
+        <div class="feat-c rv rv3"><div class="feat-ico" style="background:#F0FDF4">💰</div><div class="feat-tag">शुल्क</div><div class="feat-tt">ऑनलाईन फी व्यवस्थापन</div><div class="feat-dd">UPI, नेटबँकिंग, कार्ड. थकित फी auto-reminder. Razorpay सुरक्षित.</div><ul class="feat-list"><li class="feat-li">Razorpay / UPI / QR</li><li class="feat-li">Auto reminder SMS</li><li class="feat-li">RTE मोफत प्रवेश track</li><li class="feat-li">शुल्क माफी व्यवस्थापन</li></ul></div>
+        <div class="feat-c rv rv1"><div class="feat-ico" style="background:#F0F8FF">📊</div><div class="feat-tag">परीक्षा</div><div class="feat-tt">परीक्षा व निकाल</div><div class="feat-dd">गुण प्रविष्टी ते मराठी रिपोर्ट कार्ड — एका क्लिकमध्ये. e-signature सहित.</div><ul class="feat-list"><li class="feat-li">ऑनलाईन गुण प्रविष्टी</li><li class="feat-li">मराठी रिपोर्ट कार्ड PDF</li><li class="feat-li">SSC / CBSE पॅटर्न</li><li class="feat-li">प्रगतिपुस्तक e-sign</li></ul></div>
+        <div class="feat-c rv rv2"><div class="feat-ico" style="background:#F5F0FF">📁</div><div class="feat-tag">प्रशासन</div><div class="feat-tt">सरकारी दस्तऐवज केंद्र</div><div class="feat-dd">TC, बोनाफाईड, जन्म दाखला — डिजिटल सहीसकट तत्काळ. U-DISE auto.</div><ul class="feat-list"><li class="feat-li">TC / बोनाफाईड auto</li><li class="feat-li">DigiLocker इंटीग्रेशन</li><li class="feat-li">U-DISE एक्सपोर्ट</li><li class="feat-li">शिष्यवृत्ती ट्रॅकिंग</li></ul></div>
+        <div class="feat-c rv rv3"><div class="feat-ico" style="background:#FFF0F0">📚</div><div class="feat-tag">शिक्षण</div><div class="feat-tt">ई-लर्निंग & गृहपाठ</div><div class="feat-dd">व्हिडिओ धडे, गृहपाठ, ऑनलाईन क्विझ — बालभारती पुस्तकांसह.</div><ul class="feat-list"><li class="feat-li">PDF / Video धडे</li><li class="feat-li">ऑनलाईन गृहपाठ submit</li><li class="feat-li">मराठी विषय साहित्य</li><li class="feat-li">बालभारती लिंक</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unique -->
+  <div class="uniq-bg lp-sec-full">
+    <div class="lp-sec-inner">
+      <div class="rv"><div class="sec-eye">अनन्यसाधारण</div><h2 class="sec-h">बाजारात नाही, <span class="ac">फक्त आमच्याकडे</span></h2><p class="sec-p">महाराष्ट्रासाठी खास — इतर कुठल्याही सॉफ्टवेअरमध्ये नाही असे</p></div>
+      <div class="uniq-grid">
+        <div class="uniq-c rv rv1"><div class="uniq-ico" style="background:#FFF3E8">🗣️</div><div class="uniq-body"><h4>मराठी व्हॉईस हजेरी</h4><p>मराठीत बोलून हजेरी घ्या — AI तात्काळ नोंद करतो. कीबोर्ड नको.</p><span class="uniq-bdg">🌟 फक्त शाळाConnect</span></div></div>
+        <div class="uniq-c rv rv2"><div class="uniq-ico" style="background:#F0FDF4">🤝</div><div class="uniq-body"><h4>पालक-शिक्षक भेट बुकिंग</h4><p>ऑनलाईन भेट बुक करा — WhatsApp confirmation, Calendar invite auto.</p><span class="uniq-bdg">🌟 अनोखे</span></div></div>
+        <div class="uniq-c rv rv3"><div class="uniq-ico" style="background:#F0F8FF">📍</div><div class="uniq-body"><h4>बस GPS ट्रॅकिंग</h4><p>बस कुठे आहे real-time. मूल बसमध्ये बसल्यावर WhatsApp येतो.</p><span class="uniq-bdg">🌟 पालकांसाठी खास</span></div></div>
+        <div class="uniq-c rv rv4"><div class="uniq-ico" style="background:#F5F0FF">🏆</div><div class="uniq-body"><h4>विद्यार्थी प्रगती लीडरबोर्ड</h4><p>वर्गवार, तालुक्यातील तुलना. पारदर्शी, प्रेरणादायी, गोपनीयता जपलेली.</p><span class="uniq-bdg">🌟 प्रेरणा टूल</span></div></div>
+        <div class="uniq-c rv rv1"><div class="uniq-ico" style="background:#FFF0F0">📰</div><div class="uniq-body"><h4>डिजिटल भित्तीपत्रक</h4><p>शाळेचे स्वतःचे social media feed. पालक, alumni सर्व पाहतात.</p><span class="uniq-bdg">🌟 Community</span></div></div>
+        <div class="uniq-c rv rv2"><div class="uniq-ico" style="background:#FFF3E8">🎓</div><div class="uniq-body"><h4>माजी विद्यार्थी नेटवर्क</h4><p>Alumni database, शिष्यवृत्ती देणगी, करिअर मार्गदर्शन.</p><span class="uniq-bdg">🌟 दीर्घकालीन मूल्य</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="notif-bg">
+    <div class="lp-sec-inner">
+      <div class="rv"><div class="sec-eye">सूचना प्रणाली</div><h2 class="sec-h">तीन चॅनेल, <span style="color:var(--saffron-bright)">एक संदेश</span></h2><p class="sec-p">WhatsApp, SMS आणि Email — मराठीत, तात्काळ, विश्वासार्हपणे</p></div>
+      <div class="notif-grid">
+        <div class="notif-c notif-c-wa rv rv1"><div class="nc-ch">Channel 01</div><span class="nc-ico">💚</span><div class="nc-h">WhatsApp सूचना</div><div class="nc-msg"><p>🏫 <strong>पुणे विद्यामंदिर</strong><br><br>प्रिय पालक,<br>आपला वार्ड <strong>रमेश पाटील (इ.७वी अ)</strong> आज गैरहजर आहे.<br><br>📅 दि.१९/०२/२०२५ | ⏰ ७:४५</p></div><div class="nc-chips"><span class="nc-chip">META API</span><span class="nc-chip">टेम्पलेट</span><span class="nc-chip">Group Broadcast</span><span class="nc-chip">Media Support</span></div></div>
+        <div class="notif-c notif-c-sms rv rv2"><div class="nc-ch">Channel 02</div><span class="nc-ico">💬</span><div class="nc-h">SMS सूचना</div><div class="nc-msg"><p><strong>शाळाConnect:</strong> रमेश पाटील (७अ) आज गैरहजर. अधिक माहितीसाठी app उघडा.<br>-पुणे विद्यामंदिर</p></div><div class="nc-chips"><span class="nc-chip">DLT Approved</span><span class="nc-chip">Unicode मराठी</span><span class="nc-chip">Bulk SMS</span><span class="nc-chip">Delivery Report</span></div></div>
+        <div class="notif-c notif-c-em rv rv3"><div class="nc-ch">Channel 03</div><span class="nc-ico">📧</span><div class="nc-h">Email सूचना</div><div class="nc-msg"><p><strong>विषय:</strong> वार्षिक परीक्षा वेळापत्रक<br><br>प्रिय पालक, वार्षिक परीक्षा दि.१५-३० मार्च. PDF संलग्न...</p></div><div class="nc-chips"><span class="nc-chip">HTML Template</span><span class="nc-chip">PDF Attach</span><span class="nc-chip">Open Tracking</span><span class="nc-chip">Auto Retry</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Integrations -->
+  <div class="integ-bg">
+    <div class="lp-sec-inner">
+      <div class="rv tac"><div class="sec-eye" style="justify-content:center">इंटीग्रेशन्स</div><h2 class="sec-h tac">तुमच्या आवडत्या <span class="ac">सेवांशी जोडलेले</span></h2></div>
+      <div class="integ-row rv">
+        <div class="integ-item"><span class="integ-ico">💚</span><span class="integ-name">WhatsApp</span></div>
+        <div class="integ-item"><span class="integ-ico">💳</span><span class="integ-name">Razorpay</span></div>
+        <div class="integ-item"><span class="integ-ico">🔗</span><span class="integ-name">DigiLocker</span></div>
+        <div class="integ-item"><span class="integ-ico">📊</span><span class="integ-name">U-DISE</span></div>
+        <div class="integ-item"><span class="integ-ico">🔔</span><span class="integ-name">Firebase</span></div>
+        <div class="integ-item"><span class="integ-ico">☁️</span><span class="integ-name">AWS India</span></div>
+        <div class="integ-item"><span class="integ-ico">📍</span><span class="integ-name">Google Maps</span></div>
+        <div class="integ-item"><span class="integ-ico">🤖</span><span class="integ-name">Claude AI</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile App -->
+  <div class="mapp-bg lp-sec-full" id="mobile-app">
+    <div class="lp-sec-inner">
+      <div class="mapp-inner">
+        <div class="rv">
+          <div class="sec-eye">मोबाईल अ‍ॅप</div>
+          <h2 class="sec-h">Android & iOS — <span class="ac">मराठीत</span></h2>
+          <p class="mapp-desc">खिशात शाळा! कुठूनही, कधीही — हजेरी, फी, निकाल. ऑफलाईन मोड, internet नसताना ही.</p>
+          <div class="mapp-feats">
+            <div class="mapp-feat"><div class="mf-ico">📴</div><div class="mf-t"><h5>ऑफलाईन मोड</h5><p>Net नसताना हजेरी घ्या — आल्यावर auto-sync.</p></div></div>
+            <div class="mapp-feat"><div class="mf-ico">🔔</div><div class="mf-t"><h5>Push Notifications</h5><p>महत्त्वाच्या घोषणा, परीक्षा — तात्काळ notification.</p></div></div>
+            <div class="mapp-feat"><div class="mf-ico">🔐</div><div class="mf-t"><h5>Biometric Login</h5><p>Fingerprint / Face ID ने सुरक्षित login.</p></div></div>
+            <div class="mapp-feat"><div class="mf-ico">🌙</div><div class="mf-t"><h5>Dark Mode</h5><p>रात्री आरामदायक. Auto-switch होते.</p></div></div>
+          </div>
+          <div class="store-row">
+            <div class="store-btn"><span class="sb-ico">🤖</span><div class="sb-txt"><small>Download on</small><span>Google Play</span></div></div>
+            <div class="store-btn"><span class="sb-ico">🍎</span><div class="sb-txt"><small>Download on the</small><span>App Store</span></div></div>
+          </div>
+        </div>
+        <div class="rv">
+          <div class="phones">
+            <div class="phone phone-main">
+              <div class="phone-scr pm-scr">
+                <div class="ph-sb"><span class="ph-sb-t">९:४१</span><span class="ph-sb-r">●●● 📶 🔋</span></div>
+                <div class="ph-hdr"><div class="ph-app-n">🏫 शाळाConnect</div><div class="ph-school-n">सुलभा देशमुख | इ.७वी अ</div></div>
+                <div class="ph-body">
+                  <div class="ph-crd"><div class="ph-row"><span class="ph-lbl">आजची हजेरी</span><span class="ph-chip ph-chip-g">✓ घेतली</span></div><div class="ph-bar-w"><div class="ph-bar-f"></div></div><div style="font-family:'Noto Sans Devanagari';font-size:9px;color:rgba(255,255,255,0.38);margin-top:3px">३७/४२ हजर</div></div>
+                  <div class="ph-crd"><div class="ph-row"><div><div class="ph-lbl">आजचा गृहपाठ</div><div style="font-family:'Noto Sans Devanagari';font-size:11px;font-weight:700;color:white">गणित — अध्याय ५</div></div><span class="ph-chip ph-chip-o">⏰ बाकी</span></div></div>
+                  <div class="ph-ntf"><div class="ph-ntf-t">📢 वार्षिक परीक्षा: १५ मार्च — वेळापत्रक पाठवा</div></div>
+                  <div class="ph-crd"><div class="ph-row"><span class="ph-lbl">सरासरी गुण</span><span class="ph-chip ph-chip-g">७२.४%</span></div></div>
+                  <div class="ph-crd"><div class="ph-row"><span class="ph-lbl">पालक भेट</span><span style="font-family:'Noto Sans Devanagari';font-size:10px;color:white">उद्या: रमेश पाटील - ४ वाजता</span></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="phone phone-sec">
+              <div class="phone-scr ps-scr">
+                <div class="ph-sb"><span class="ph-sb-t">९:४१</span><span class="ph-sb-r">📶🔋</span></div>
+                <div class="ph-hdr"><div class="ph-app-n">👨‍👩‍👦 पालक</div><div class="ph-school-n">रमेश पाटील — इ.७वी अ</div></div>
+                <div class="ph-body">
+                  <div class="ph-crd"><div class="ph-row"><span class="ph-lbl">आज</span><span class="ph-chip ph-chip-g">✅ हजर</span></div></div>
+                  <div class="ph-ntf"><div class="ph-ntf-t">💰 शुल्क थकित: ₹२,४०० — आत्ता भरा</div></div>
+                  <div class="ph-crd"><div class="ph-row"><span class="ph-lbl">अर्धवार्षिक</span><span class="ph-chip ph-chip-g">७८.५%</span></div></div>
+                  <div class="ph-crd"><div class="ph-row"><span class="ph-lbl">बस</span><span style="font-family:'Noto Sans Devanagari';font-size:10px;color:white">📍 ५ मिनिटे दूर</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Market Comparison -->
+  <div class="mkt-bg lp-sec-full">
+    <div class="lp-sec-inner">
+      <div class="rv"><div class="sec-eye">बाजार विश्लेषण</div><h2 class="sec-h">स्पर्धकांशी <span class="ac">थेट तुलना</span></h2></div>
+      <table class="mkt-tbl rv">
+        <thead><tr><th>वैशिष्ट्य</th><th>EduApp Pro</th><th>MySchoolApp</th><th>SchoolBell</th><th>iPrefer</th><th><span class="us-head">🏆 शाळाConnect</span></th></tr></thead>
+        <tbody>
+          <tr class="us"><td>पूर्ण मराठी UI</td><td class="crs">✗</td><td class="prt">अंशतः</td><td class="crs">✗</td><td class="crs">✗</td><td class="chk">✓ पूर्ण</td></tr>
+          <tr><td>WhatsApp+SMS+Email</td><td class="prt">SMS only</td><td class="prt">Email only</td><td class="chk">✓</td><td class="crs">✗</td><td class="chk">✓ तिन्ही</td></tr>
+          <tr class="us"><td>मराठी AI सहाय्यक</td><td class="crs">✗</td><td class="crs">✗</td><td class="crs">✗</td><td class="crs">✗</td><td class="chk">✓ खास</td></tr>
+          <tr><td>बस GPS ट्रॅकिंग</td><td class="crs">✗</td><td class="chk">✓</td><td class="crs">✗</td><td class="chk">✓</td><td class="chk">✓ +WhatsApp Alert</td></tr>
+          <tr class="us"><td>U-DISE / RTE अहवाल</td><td class="crs">✗</td><td class="prt">अंशतः</td><td class="chk">✓</td><td class="prt">अंशतः</td><td class="chk">✓ Full Auto</td></tr>
+          <tr><td>DigiLocker</td><td class="crs">✗</td><td class="crs">✗</td><td class="crs">✗</td><td class="crs">✗</td><td class="chk">✓</td></tr>
+          <tr class="us"><td>ऑफलाईन मोड</td><td class="crs">✗</td><td class="crs">✗</td><td class="prt">अंशतः</td><td class="crs">✗</td><td class="chk">✓ पूर्ण</td></tr>
+          <tr><td>मासिक किंमत</td><td>₹३,०००+</td><td>₹२,५००+</td><td>₹१,८००+</td><td>₹२,२००+</td><td class="chk">₹९९९ पासून</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="test-bg lp-sec-full">
+    <div class="lp-sec-inner">
+      <div class="rv"><div class="sec-eye">अभिप्राय</div><h2 class="sec-h">शाळा काय म्हणतात <span class="ac">आमच्याबद्दल</span></h2></div>
+      <div class="test-grid">
+        <div class="test-c rv rv1"><div class="test-stars">★★★★★</div><p class="test-txt">शाळाConnect वापरायला लागल्यापासून हजेरीचे रजिस्टर भरणे बंद झाले. पालकांना WhatsApp आपोआप जातो. खूप सोपे आहे, नवीन शिक्षकांनाही शिकायला वेळ नाही लागला.</p><div class="test-aut"><div class="test-av" style="background:var(--saffron-pale)">👩‍🏫</div><div><div class="test-nm">सुलभा देशमुख</div><div class="test-rl">शिक्षक, इ.७वी | पुणे विद्यामंदिर</div></div></div></div>
+        <div class="test-c rv rv2"><div class="test-stars">★★★★★</div><p class="test-txt">U-DISE अहवाल बनवायला आधी आठवडा लागायचा. आता एका क्लिकमध्ये PDF तयार होतो. मुख्याध्यापकांना approval द्यायला खूप सोपे झाले.</p><div class="test-aut"><div class="test-av" style="background:var(--green-pale)">🧑‍💻</div><div><div class="test-nm">महेश जाधव</div><div class="test-rl">कारकून | जि.प. शाळा, नाशिक</div></div></div></div>
+        <div class="test-c rv rv3"><div class="test-stars">★★★★★</div><p class="test-txt">माझ्या मुलाची हजेरी, गृहपाठ, परीक्षा — सगळे फोनवर दिसते. फी भरायला बँकेत जावे लागत नाही. शाळाConnect म्हणजे खूप मोठी सुविधा आहे.</p><div class="test-aut"><div class="test-av" style="background:#F0F0FF">👨‍👩‍👦</div><div><div class="test-nm">रजनी पाटील</div><div class="test-rl">पालक, इ.८वी | औरंगाबाद</div></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Security -->
+  <div style="background:linear-gradient(145deg,var(--navy-2),var(--slate));padding:64px 0">
+    <div class="lp-sec-inner">
+      <div class="rv tac"><div class="sec-eye" style="justify-content:center;color:var(--saffron-bright)">सुरक्षितता</div><h2 class="sec-h tac" style="color:white">तुमचा डेटा <span style="color:var(--saffron-bright)">१०० % सुरक्षित</span></h2></div>
+      <div class="sec-badges">
+        <div class="sec-b rv rv1"><span class="sec-b-ico">🔒</span><div class="sec-b-n">SSL Encrypted</div><div class="sec-b-d">AES-256 encryption सर्व डेटा</div></div>
+        <div class="sec-b rv rv2"><span class="sec-b-ico">🇮🇳</span><div class="sec-b-n">India Data Residency</div><div class="sec-b-d">डेटा भारतातच — AWS Mumbai</div></div>
+        <div class="sec-b rv rv3"><span class="sec-b-ico">🛡️</span><div class="sec-b-n">DPDP Act Compliant</div><div class="sec-b-d">भारतीय डेटा संरक्षण कायदा</div></div>
+        <div class="sec-b rv rv4"><span class="sec-b-ico">🔐</span><div class="sec-b-n">2-Factor Auth</div><div class="sec-b-d">दुहेरी सुरक्षा OTP + Password</div></div>
+        <div class="sec-b rv rv4"><span class="sec-b-ico">💾</span><div class="sec-b-n">Daily Backup</div><div class="sec-b-d">रोज auto-backup, ३० दिवस</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="price-bg lp-sec-full" id="pricing">
+    <div class="lp-sec-inner">
+      <div class="rv tac"><div class="sec-eye" style="justify-content:center">किंमत</div><h2 class="sec-h tac">परवडणारी, <span class="ac">पारदर्शी किंमत</span></h2><p class="sec-p" style="margin:0 auto;text-align:center">लपवलेले शुल्क नाही. कधीही रद्द करता येते.</p></div>
+      <div class="price-grid">
+        <div class="price-c rv rv1"><div class="price-plan">स्टार्टर</div><div class="price-n"><span class="price-sym">₹</span>९९९</div><div class="price-dur">दर महिना · ५०० विद्यार्थ्यांपर्यंत</div><div class="price-div"></div><ul class="price-feats"><li class="pf">हजेरी + SMS सूचना</li><li class="pf">फी व्यवस्थापन</li><li class="pf">मराठी रिपोर्ट कार्ड</li><li class="pf">WhatsApp (१,०००/महिना)</li><li class="pf">Email सपोर्ट</li></ul><button class="btn btn-secondary price-btn">सुरू करा →</button></div>
+        <div class="price-c best rv rv2"><div class="best-lbl">⭐ सर्वात लोकप्रिय</div><div class="price-plan">प्रो</div><div class="price-n"><span class="price-sym">₹</span>४,९९९</div><div class="price-dur">६ महिने · अमर्यादित विद्यार्थी</div><div class="price-div"></div><ul class="price-feats"><li class="pf">सर्व Starter सुविधा</li><li class="pf">AI मराठी सहाय्यक</li><li class="pf">ई-लर्निंग मॉड्यूल</li><li class="pf">U-DISE / RTE अहवाल</li><li class="pf">बस GPS ट्रॅकिंग</li><li class="pf">WhatsApp अमर्यादित</li><li class="pf">फोन सपोर्ट</li></ul><button class="btn btn-primary price-btn">सुरू करा →</button></div>
+        <div class="price-c rv rv3"><div class="price-plan">एंटरप्राइज</div><div class="price-n"><span class="price-sym">₹</span>७,९९९</div><div class="price-dur">१२ महिने · Multi-school</div><div class="price-div"></div><ul class="price-feats"><li class="pf">सर्व Pro सुविधा</li><li class="pf">Alumni नेटवर्क</li><li class="pf">DigiLocker</li><li class="pf">Custom ब्रँडिंग</li><li class="pf">Dedicated Manager</li><li class="pf">API Access</li></ul><button class="btn btn-secondary price-btn">सुरू करा →</button></div>
+      </div>
+      <p class="rv tac" style="margin-top:22px;font-family:'Noto Sans Devanagari';font-size:13px;color:var(--text-300)">🎓 सरकारी शाळांना ५०% सवलत &nbsp;|&nbsp; 🆓 ३० दिवस मोफत — कार्ड नको &nbsp;|&nbsp; ❌ कधीही रद्द करा</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-bg lp-sec-full">
+    <div class="lp-sec-inner">
+      <div class="rv tac"><div class="sec-eye" style="justify-content:center">FAQ</div><h2 class="sec-h tac">वारंवार <span class="ac">विचारले जाणारे प्रश्न</span></h2></div>
+      <div class="faq-wrap rv">
+        <div class="faq-item open"><div class="faq-q" onclick="faq(this)"><span class="faq-qt">शाळाConnect वापरायला तांत्रिक ज्ञान लागते का?</span><div class="faq-arr">▲</div></div><div class="faq-a"><p>नाही. शाळाConnect पूर्णपणे मराठीत आहे. Smartphone वापरता येत असेल तर हे अ‍ॅप वापरता येते. आम्ही मोफत training देतो आणि video tutorials मराठीत आहेत.</p></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="faq(this)"><span class="faq-qt">जुना Excel डेटा import करता येईल का?</span><div class="faq-arr">▼</div></div><div class="faq-a"><p>होय. विद्यार्थी यादी, शिक्षकांची माहिती — Excel / CSV मधून import होते. आमची team onboarding मध्ये मदत करते. १ दिवसात setup पूर्ण.</p></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="faq(this)"><span class="faq-qt">Internet नसल्यास हजेरी घेता येईल का?</span><div class="faq-arr">▼</div></div><div class="faq-a"><p>होय! Pro आणि Enterprise मध्ये ऑफलाईन मोड आहे. Net नसताना हजेरी घ्या — नेटवर्क आल्यावर auto-sync होते.</p></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="faq(this)"><span class="faq-qt">WhatsApp सूचनांसाठी अतिरिक्त खर्च येतो का?</span><div class="faq-arr">▼</div></div><div class="faq-a"><p>Starter मध्ये महिन्याला १,००० WhatsApp messages मोफत. Pro मध्ये अमर्यादित. जास्त लागल्यास ₹०.१३–०.१६ / message.</p></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="faq(this)"><span class="faq-qt">सरकारी (ZP) शाळांसाठी विशेष सुविधा आहे का?</span><div class="faq-arr">▼</div></div><div class="faq-a"><p>होय. ZP शाळांसाठी ५०% सवलत. U-DISE, RTE, शिष्यवृत्ती formats तयार आहेत. BEO/DEO dashboard — जिल्ह्यातील सर्व शाळांचा एकत्र आढावा.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-bg lp-sec-full">
+    <div class="lp-sec-inner">
+      <div class="rv"><div class="sec-eye">संपर्क</div><h2 class="sec-h">आमच्याशी <span class="ac">बोला</span></h2><p class="sec-p">Demo बुक करा, प्रश्न विचारा, किंवा फक्त हाय करा</p></div>
+      <div class="contact-inner" style="margin-top:40px">
+        <div class="contact-form rv">
+          <h3 style="font-family:'Noto Sans Devanagari';font-size:20px;font-weight:700;color:var(--text-900);margin-bottom:22px">Demo बुक करा — मोफत</h3>
+          <div class="form-row">
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">नाव</label><input class="form-input" placeholder="तुमचे पूर्ण नाव" /></div>
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">शाळेचे नाव</label><input class="form-input" placeholder="शाळेचे नाव" /></div>
+          </div>
+          <div class="form-row" style="margin-top:0">
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">मोबाईल नंबर</label><input class="form-input" placeholder="९XXXXXXXXX" /></div>
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">जिल्हा</label><select class="form-select"><option>जिल्हा निवडा</option><option>पुणे</option><option>नाशिक</option><option>नागपूर</option><option>औरंगाबाद</option><option>मुंबई</option><option>इतर</option></select></div>
+          </div>
+          <div class="form-group"><label class="form-label">भूमिका</label><select class="form-select"><option>भूमिका निवडा</option><option>मुख्याध्यापक</option><option>शिक्षक</option><option>कारकून</option><option>ट्रस्टी / संस्थाचालक</option></select></div>
+          <div class="form-group"><label class="form-label">संदेश (ऐच्छिक)</label><textarea class="form-input" placeholder="तुमचा प्रश्न किंवा आवश्यकता लिहा..."></textarea></div>
+          <button class="btn btn-primary btn-lg w100" style="justify-content:center">📅 Demo बुक करा — मोफत</button>
+          <p style="font-family:'Noto Sans Devanagari';font-size:12px;color:var(--text-300);text-align:center;margin-top:12px">आम्ही २४ तासांत संपर्क करू. कुठलेही बंधन नाही.</p>
+        </div>
+        <div class="contact-info rv">
+          <div class="ci-card"><div class="ci-ico" style="background:#FFF3E8">📞</div><div><div class="ci-h">टोल-फ्री हेल्पलाइन</div><div class="ci-d">१८०० ××× ××××<br>सोम–शनि, सकाळी ९ ते संध्याकाळी ७</div></div></div>
+          <div class="ci-card"><div class="ci-ico" style="background:#F0FDF4">💚</div><div><div class="ci-h">WhatsApp सपोर्ट</div><div class="ci-d">९८×××××××××<br>मराठीत, तात्काळ उत्तर</div></div></div>
+          <div class="ci-card"><div class="ci-ico" style="background:#F0F8FF">📧</div><div><div class="ci-h">Email</div><div class="ci-d">info@shalaconnect.in<br>support@shalaconnect.in</div></div></div>
+          <div class="ci-card"><div class="ci-ico" style="background:#F5F0FF">📍</div><div><div class="ci-h">कार्यालय</div><div class="ci-d">पुणे, महाराष्ट्र ४११ ०५३<br>IT Park, Hinjewadi</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <h2 class="cta-h">तुमची शाळा डिजिटल करायला<br>आजच सुरुवात करा</h2>
+    <p class="cta-d">३० दिवस मोफत. क्रेडिट कार्ड नको. Setup मध्ये आमची मदत.</p>
+    <div class="cta-btns"><button class="btn btn-white btn-lg">🚀 मोफत सुरू करा</button><button class="btn btn-outline-white btn-lg">📞 Demo बुक करा</button></div>
+    <p class="cta-sm">✓ Setup मोफत &nbsp; ✓ Training मराठीत &nbsp; ✓ कधीही रद्द करा &nbsp; ✓ Data export करता येतो</p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-bg"><div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="lp-logo"><div class="lp-logo-mark">🏫</div><div><div class="lp-logo-text">शाळा<em>Connect</em></div><div class="lp-logo-sub">Maharashtra Edu Platform</div></div></div>
+        <p class="footer-brand-d">महाराष्ट्रातील प्राथमिक व माध्यमिक शाळांसाठी भारताचे सर्वात प्रगत मराठी शाळा व्यवस्थापन सॉफ्टवेअर.</p>
+        <div class="footer-soc"><div class="footer-soc-b">📘</div><div class="footer-soc-b">💚</div><div class="footer-soc-b">🐦</div><div class="footer-soc-b">📸</div><div class="footer-soc-b">▶</div></div>
+      </div>
+      <div><div class="footer-ct">उत्पादन</div><ul class="footer-ls"><li>सर्व वैशिष्ट्ये</li><li>किंमत</li><li>डेमो</li><li>Android अ‍ॅप</li><li>iOS अ‍ॅप</li><li>API</li></ul></div>
+      <div><div class="footer-ct">सहाय्य</div><ul class="footer-ls"><li>मदत केंद्र</li><li>Video Tutorials</li><li>WhatsApp</li><li>Training</li><li>Community</li><li>Status Page</li></ul></div>
+      <div><div class="footer-ct">संपर्क</div><ul class="footer-ls"><li>📞 १८०० ××× ××××</li><li>💚 WhatsApp</li><li>📧 info@shalaconnect.in</li><li>📍 पुणे, महाराष्ट्र</li><li>🕐 सोम–शनि ९–७</li></ul></div>
+    </div>
+    <div class="footer-bar"><div class="footer-copy">© २०२५ शाळाConnect Technologies Pvt. Ltd. | गोपनीयता धोरण | वापर अटी</div><div class="india-row"><div class="india-flag"><div class="if-s t"></div><div class="if-s m"></div><div class="if-s b"></div></div><span class="india-t">Made with ❤️ in Maharashtra 🇮🇳</span></div></div>
+  </div></div>
+
+  <!-- Cookie -->
+  <div class="cookie-bar" id="cookie-bar">
+    <span class="cookie-t">🍪 आम्ही cookies वापरतो — उत्तम अनुभवासाठी. <a href="#">अधिक माहिती</a></span>
+    <div class="cookie-acts"><button class="btn btn-secondary btn-sm" onclick="document.getElementById('cookie-bar').style.display='none'">नाकारा</button><button class="btn btn-primary btn-sm" onclick="document.getElementById('cookie-bar').style.display='none'">मान्य आहे ✓</button></div>
+  </div>
+</div><!-- end screen-landing -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 2 — LOGIN
+═══════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-login">
+  <div class="login-screen">
+    <div class="login-wrap">
+      <div class="login-l">
+        <div class="login-l-brand"><div class="lp-logo"><div class="lp-logo-mark">🏫</div><div><div class="lp-logo-text">शाळा<em>Connect</em></div><div class="lp-logo-sub">Maharashtra Edu Platform</div></div></div></div>
+        <div class="login-l-mid">
+          <div class="login-preview-stack">
+            <div class="lps-main">
+              <div class="lps-h">📊 आजचा सारांश</div>
+              <div class="lps-row">
+                <div class="lps-stat"><div class="lps-sn">१,२४७</div><div class="lps-sl">विद्यार्थी</div></div>
+                <div class="lps-stat"><div class="lps-sn">८७%</div><div class="lps-sl">हजेरी</div></div>
+                <div class="lps-stat"><div class="lps-sn">₹२.४L</div><div class="lps-sl">फी जमा</div></div>
+              </div>
+              <div class="lps-bar-w"><div class="lps-bar-f"></div></div>
+              <div class="lps-note">💚 ३ विद्यार्थ्यांचे WhatsApp गेले</div>
+            </div>
+            <div class="lps-mini">
+              <div style="font-family:'Noto Sans Devanagari';font-size:11px;color:rgba(255,255,255,0.6)">🔔 वार्षिक परीक्षा — १५ मार्चपासून</div>
+            </div>
+          </div>
+        </div>
+        <div class="login-l-bottom"><p class="login-l-quote">"शिक्षण म्हणजे सर्वात शक्तिशाली शस्त्र आहे जे तुम्ही जगाला बदलण्यासाठी वापरू शकता."<br>— नेल्सन मंडेला</p></div>
+      </div>
+      <div class="login-r">
+        <div class="login-box">
+          <div class="login-title">🙏 स्वागत आहे</div>
+          <p class="login-sub">तुमच्या शाळाConnect खात्यात प्रवेश करा</p>
+          <!-- Role selector -->
+          <div class="role-selector">
+            <span class="role-sel-label">तुम्ही कोण आहात?</span>
+            <div class="role-opts">
+              <div class="role-opt selected" onclick="selectRole(this)"><span class="role-opt-ico">👨‍💼</span><div><div class="role-opt-n">मुख्याध्यापक</div><div class="role-opt-d">Headmaster</div></div></div>
+              <div class="role-opt" onclick="selectRole(this)"><span class="role-opt-ico">👩‍🏫</span><div><div class="role-opt-n">शिक्षक</div><div class="role-opt-d">Teacher</div></div></div>
+              <div class="role-opt" onclick="selectRole(this)"><span class="role-opt-ico">🧑‍💻</span><div><div class="role-opt-n">कारकून</div><div class="role-opt-d">Clerk</div></div></div>
+              <div class="role-opt" onclick="selectRole(this)"><span class="role-opt-ico">👨‍👩‍👦</span><div><div class="role-opt-n">पालक</div><div class="role-opt-d">Parent</div></div></div>
+            </div>
+          </div>
+          <!-- Form -->
+          <div class="login-form">
+            <div class="lf-group"><label class="lf-label">मोबाईल नंबर / Email</label><div class="lf-input-wrap"><span class="lf-ico">📱</span><input class="lf-input" placeholder="९XXXXXXXXX किंवा email@example.com" /></div></div>
+            <div class="lf-group"><label class="lf-label">पासवर्ड</label><div class="lf-input-wrap"><span class="lf-ico">🔒</span><input class="lf-input" type="password" placeholder="••••••••" /></div><span class="lf-forgot">पासवर्ड विसरलात?</span></div>
+            <button class="btn btn-primary btn-lg w100" style="justify-content:center">आत जा →</button>
+            <div class="lf-divider"><div class="lf-div-line"></div><span class="lf-div-t">किंवा</span><div class="lf-div-line"></div></div>
+            <button class="biometric-btn"><span style="font-size:20px">🤳</span> Fingerprint / Face ID ने login करा</button>
+          </div>
+          <p class="login-footer">नवीन शाळा? <a href="#">मोफत नोंदणी करा →</a></p>
+          <p style="font-family:'Noto Sans Devanagari';font-size:11px;color:var(--text-300);text-align:center;margin-top:16px">🔒 SSL Encrypted · DPDP Compliant · Made in India 🇮🇳</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 3 — TEACHER DASHBOARD
+═══════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-teacher">
+  <div class="app-shell">
+    <div class="sidebar">
+      <div class="sidebar-brand"><div class="sidebar-brand-name">शाळा<em>Connect</em></div><div class="sidebar-brand-sub">Teacher Portal</div></div>
+      <div class="sidebar-user"><div class="su-av">👩</div><div><div class="su-name">सुलभा देशमुख</div><div class="su-role">शिक्षक · इ.७वी अ · गणित</div></div></div>
+      <div class="sidebar-nav">
+        <div class="sn-section">मुख्य</div>
+        <div class="sn-item active"><span class="sn-ico">🏠</span><span class="sn-txt">डॅशबोर्ड</span></div>
+        <div class="sn-item"><span class="sn-ico">📋</span><span class="sn-txt">हजेरी</span><span class="sn-badge">आज</span></div>
+        <div class="sn-item"><span class="sn-ico">📝</span><span class="sn-txt">गृहपाठ</span></div>
+        <div class="sn-item"><span class="sn-ico">📊</span><span class="sn-txt">परीक्षा व गुण</span></div>
+        <div class="sn-section">विद्यार्थी</div>
+        <div class="sn-item"><span class="sn-ico">👦</span><span class="sn-txt">विद्यार्थी यादी</span></div>
+        <div class="sn-item"><span class="sn-ico">📈</span><span class="sn-txt">प्रगती अहवाल</span></div>
+        <div class="sn-section">संवाद</div>
+        <div class="sn-item"><span class="sn-ico">💬</span><span class="sn-txt">पालक संदेश</span><span class="sn-badge">३</span></div>
+        <div class="sn-item"><span class="sn-ico">🤝</span><span class="sn-txt">भेट बुकिंग</span></div>
+        <div class="sn-section">शिक्षण</div>
+        <div class="sn-item"><span class="sn-ico">📚</span><span class="sn-txt">ई-लर्निंग</span></div>
+        <div class="sn-item"><span class="sn-ico">📅</span><span class="sn-txt">वेळापत्रक</span></div>
+        <div class="sn-item"><span class="sn-ico">🤖</span><span class="sn-txt">AI सहाय्यक</span></div>
+      </div>
+      <div class="sidebar-bottom"><div class="sn-item"><span class="sn-ico">⚙️</span><span class="sn-txt">सेटिंग्ज</span></div><div class="sn-item"><span class="sn-ico">🚪</span><span class="sn-txt">लॉगआउट</span></div></div>
+    </div>
+    <div class="app-main">
+      <div class="app-topbar">
+        <div class="atb-left"><div class="atb-title">नमस्कार, सुलभाताई 👋</div><div class="atb-sub">गुरुवार, १९ फेब्रुवारी · पुणे विद्यामंदिर</div></div>
+        <div class="atb-right">
+          <div class="atb-search"><span>🔍</span><input placeholder="शोधा..." /></div>
+          <div class="atb-ico-btn">📅</div>
+          <div class="atb-ico-btn">🔔<div class="atb-notif-dot"></div></div>
+          <div class="atb-ico-btn">👩</div>
+        </div>
+      </div>
+      <div class="app-body">
+        <!-- KPIs -->
+        <div class="dash-kpis">
+          <div class="kpi kpi-s"><span class="kpi-ico">📋</span><div class="kpi-n">४२</div><div class="kpi-l">आजची हजेरी — इ.७वी अ</div><div class="kpi-trend up">↑ ३७ हजर · ५ गैरहजर</div></div>
+          <div class="kpi kpi-g"><span class="kpi-ico">📝</span><div class="kpi-n">३</div><div class="kpi-l">गृहपाठ बाकी</div><div class="kpi-trend down">⚠️ आठवड्याचे</div></div>
+          <div class="kpi kpi-b"><span class="kpi-ico">📊</span><div class="kpi-n">७२.४%</div><div class="kpi-l">इ.७वी अ सरासरी गुण</div><div class="kpi-trend up">↑ मागील महिन्यापेक्षा +४%</div></div>
+          <div class="kpi kpi-p"><span class="kpi-ico">💬</span><div class="kpi-n">३</div><div class="kpi-l">अवाचित पालक संदेश</div><div class="kpi-trend down">⚠️ उत्तर द्या</div></div>
+        </div>
+        <!-- Middle -->
+        <div class="dash-mid">
+          <div class="dash-widget">
+            <div class="dw-head"><span class="dw-title">📋 आजची हजेरी — इ.७वी अ</span><span class="dw-action">संपूर्ण पहा →</span></div>
+            <div class="dw-body">
+              <div class="att-students">
+                <div class="att-stu-row"><div class="att-stu-av">👦</div><div class="att-stu-info"><div class="att-stu-n">रमेश पाटील</div><div class="att-stu-c">रोल नं. ०१</div></div><div class="att-bar-w"><div class="att-bar-f" style="width:95%;background:var(--green-mid)"></div></div><span class="att-pct">९५%</span><span class="att-status att-ok">हजर</span></div>
+                <div class="att-stu-row"><div class="att-stu-av">👧</div><div class="att-stu-info"><div class="att-stu-n">सीता जाधव</div><div class="att-stu-c">रोल नं. ०२</div></div><div class="att-bar-w"><div class="att-bar-f" style="width:72%;background:var(--gold)"></div></div><span class="att-pct">७२%</span><span class="att-status att-warn">लक्ष द्या</span></div>
+                <div class="att-stu-row"><div class="att-stu-av">👦</div><div class="att-stu-info"><div class="att-stu-n">अमित शिंदे</div><div class="att-stu-c">रोल नं. ०३</div></div><div class="att-bar-w"><div class="att-bar-f" style="width:62%;background:#EF4444"></div></div><span class="att-pct">६२%</span><span class="att-status att-bad">⚠️ कमी</span></div>
+                <div class="att-stu-row"><div class="att-stu-av">👧</div><div class="att-stu-info"><div class="att-stu-n">प्रिया कुलकर्णी</div><div class="att-stu-c">रोल नं. ०४</div></div><div class="att-bar-w"><div class="att-bar-f" style="width:100%;background:var(--green-mid)"></div></div><span class="att-pct">१००%</span><span class="att-status att-ok">हजर</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-widget">
+            <div class="dw-head"><span class="dw-title">📅 आगामी कार्यक्रम</span></div>
+            <div class="dw-body">
+              <div class="upcoming-list">
+                <div class="upc-item"><div class="upc-date"><div class="upc-day">२१</div><div class="upc-mon">FEB</div></div><div><div class="upc-text-t">गणित टेस्ट — इ.७वी अ</div><div class="upc-text-d">सकाळी ११:०० · वर्ग ७अ</div></div></div>
+                <div class="upc-item"><div class="upc-date"><div class="upc-day">२५</div><div class="upc-mon">FEB</div></div><div><div class="upc-text-t">पालक-शिक्षक भेट</div><div class="upc-text-d">दुपारी ४:०० · ३ भेटी बुक</div></div></div>
+                <div class="upc-item"><div class="upc-date"><div class="upc-day">१५</div><div class="upc-mon">MAR</div></div><div><div class="upc-text-t">वार्षिक परीक्षा सुरू</div><div class="upc-text-d">वेळापत्रक पाठवा</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Bottom -->
+        <div class="dash-bot">
+          <div class="dash-widget">
+            <div class="dw-head"><span class="dw-title">⚡ जलद कार्ये</span></div>
+            <div class="dw-body"><div class="qa-grid"><div class="qa-btn"><span class="qa-ico">📋</span><span class="qa-t">हजेरी घ्या</span></div><div class="qa-btn"><span class="qa-ico">📝</span><span class="qa-t">गृहपाठ द्या</span></div><div class="qa-btn"><span class="qa-ico">📢</span><span class="qa-t">सूचना पाठवा</span></div><div class="qa-btn"><span class="qa-ico">📊</span><span class="qa-t">गुण भरा</span></div><div class="qa-btn"><span class="qa-ico">📄</span><span class="qa-t">दाखला द्या</span></div><div class="qa-btn"><span class="qa-ico">🤖</span><span class="qa-t">AI विचारा</span></div></div></div>
+          </div>
+          <div class="dash-widget">
+            <div class="dw-head"><span class="dw-title">🕐 अलीकडील कार्ये</span></div>
+            <div class="dw-body"><div class="activity-list"><div class="act-item"><div class="act-ico-w" style="background:#FFF3E8">📋</div><div><div class="act-txt-t">इ.७वी अ हजेरी घेतली</div><div class="act-txt-d">आज · सकाळी ७:५५</div></div></div><div class="act-item"><div class="act-ico-w" style="background:#F0FDF4">💬</div><div><div class="act-txt-t">रमेश पाटीलच्या आईस WhatsApp</div><div class="act-txt-d">काल · दुपारी ३:२०</div></div></div><div class="act-item"><div class="act-ico-w" style="background:#F0F8FF">📊</div><div><div class="act-txt-t">अर्धवार्षिक गुण प्रविष्ट केले</div><div class="act-txt-d">२ दिवसांपूर्वी</div></div></div><div class="act-item"><div class="act-ico-w" style="background:#F5F0FF">📝</div><div><div class="act-txt-t">गणित गृहपाठ दिला — अध्याय ४</div><div class="act-txt-d">३ दिवसांपूर्वी</div></div></div></div></div>
+          </div>
+          <div class="dash-widget">
+            <div class="dw-head"><span class="dw-title">💰 शुल्क स्थिती</span></div>
+            <div class="dw-body"><div class="fee-summary"><div class="fee-row"><span class="fee-class">इ.७वी अ</span><div><span class="fee-amt">₹१.२L</span><div class="fee-pend">बाकी: ₹३२,०००</div></div></div><div class="fee-row"><span class="fee-class">इ.७वी ब</span><div><span class="fee-amt">₹१.१L</span><div class="fee-pend">बाकी: ₹२४,०००</div></div></div><div class="fee-row"><span class="fee-class">इ.७वी क</span><div><span class="fee-amt">₹१.३L</span><div class="fee-pend">बाकी: ₹१८,०००</div></div></div><div class="fee-total"><span class="fee-total-l">एकूण जमा</span><span class="fee-total-n">₹३.६L</span></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 4 — PARENT VIEW (Mobile-style)
+═══════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-parent">
+  <div class="parent-screen" style="padding-bottom:70px">
+    <div class="parent-topbar">
+      <div class="pt-top">
+        <div><div class="pt-greeting">नमस्कार, रजनी ताई 🙏</div><div class="pt-sub">गुरुवार, १९ फेब्रुवारी · पुणे विद्यामंदिर</div></div>
+        <div class="pt-notif">🔔<div class="pt-notif-dot"></div></div>
+      </div>
+      <div class="child-selector">
+        <div class="child-chip active"><div class="cc-av">👦</div><div><div class="cc-n">रमेश</div><div class="cc-c">इ.७वी अ</div></div></div>
+        <div class="child-chip"><div class="cc-av">👧</div><div><div class="cc-n">प्रिया</div><div class="cc-c">इ.३री ब</div></div></div>
+      </div>
+    </div>
+    <!-- Cards -->
+    <div class="parent-cards">
+      <div class="pc-card"><span class="pc-card-ico">📋</span><div class="pc-card-n">८७%</div><div class="pc-card-l">या महिन्याची हजेरी</div><div class="pc-card-bar"><div class="pc-card-bar-f" style="width:87%;background:linear-gradient(90deg,var(--green-mid),var(--green-bright))"></div></div></div>
+      <div class="pc-card"><span class="pc-card-ico">📊</span><div class="pc-card-n">७८.५%</div><div class="pc-card-l">अर्धवार्षिक गुण</div><div class="pc-card-bar"><div class="pc-card-bar-f" style="width:78%;background:linear-gradient(90deg,var(--sky),#60a5fa)"></div></div></div>
+      <div class="pc-card"><span class="pc-card-ico">💰</span><div class="pc-card-n">₹२,४००</div><div class="pc-card-l">थकित शुल्क</div><div class="pc-card-bar"><div class="pc-card-bar-f" style="width:40%;background:linear-gradient(90deg,#EF4444,#F87171)"></div></div></div>
+    </div>
+    <!-- Content -->
+    <div class="parent-content">
+      <!-- Subject progress -->
+      <div class="parent-widget">
+        <div class="pw-head"><span class="pw-title">📊 विषयनिहाय गुण</span><span class="pw-link">संपूर्ण पहा →</span></div>
+        <div class="pw-body">
+          <div class="subj-list">
+            <div class="subj-row"><span class="subj-n">गणित</span><div class="subj-bar-w"><div class="subj-bar-f" style="width:82%;background:linear-gradient(90deg,var(--saffron),var(--gold))"></div></div><span class="subj-pct" style="color:var(--saffron)">८२%</span></div>
+            <div class="subj-row"><span class="subj-n">विज्ञान</span><div class="subj-bar-w"><div class="subj-bar-f" style="width:75%;background:linear-gradient(90deg,var(--sky),#60a5fa)"></div></div><span class="subj-pct" style="color:var(--sky)">७५%</span></div>
+            <div class="subj-row"><span class="subj-n">मराठी</span><div class="subj-bar-w"><div class="subj-bar-f" style="width:90%;background:linear-gradient(90deg,var(--green-mid),var(--green-bright))"></div></div><span class="subj-pct" style="color:var(--green-mid)">९०%</span></div>
+            <div class="subj-row"><span class="subj-n">इंग्रजी</span><div class="subj-bar-w"><div class="subj-bar-f" style="width:65%;background:linear-gradient(90deg,#8B5CF6,#D946EF)"></div></div><span class="subj-pct" style="color:#8B5CF6">६५%</span></div>
+            <div class="subj-row"><span class="subj-n">इतिहास</span><div class="subj-bar-w"><div class="subj-bar-f" style="width:78%;background:linear-gradient(90deg,var(--gold),#FCD34D)"></div></div><span class="subj-pct" style="color:var(--gold)">७८%</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- Fee -->
+      <div class="parent-widget">
+        <div class="pw-head"><span class="pw-title">💰 शुल्क स्थिती</span><span class="pw-link">ऑनलाईन भरा →</span></div>
+        <div class="pw-body">
+          <div class="fee-items">
+            <div class="fee-item"><div><div class="fi-name">प्रथम सत्र शुल्क</div><div class="fi-due">दि. १५ जून २०२४</div></div><div class="fi-right"><div class="fi-amt">₹४,५००</div><span class="fi-stat fi-paid">✓ भरले</span></div></div>
+            <div class="fee-item"><div><div class="fi-name">द्वितीय सत्र शुल्क</div><div class="fi-due">दि. १५ जानेवारी · थकित!</div></div><div class="fi-right"><div class="fi-amt">₹२,४००</div><span class="fi-stat fi-due-chip">⚠️ थकित</span></div></div>
+            <div class="fee-item"><div><div class="fi-name">परीक्षा शुल्क</div><div class="fi-due">दि. २८ फेब्रुवारी · येणे</div></div><div class="fi-right"><div class="fi-amt">₹५००</div><span class="fi-stat" style="background:#F0F8FF;color:var(--sky)">येणे</span></div></div>
+          </div>
+          <button class="btn btn-primary w100" style="justify-content:center;margin-top:14px">💳 ₹२,४०० आत्ता भरा (UPI / कार्ड)</button>
+        </div>
+      </div>
+      <!-- Announcements -->
+      <div class="parent-widget">
+        <div class="pw-head"><span class="pw-title">📢 शाळेच्या घोषणा</span><span class="pw-link">सर्व पहा →</span></div>
+        <div class="pw-body">
+          <div class="ann-list">
+            <div class="ann-item"><div class="ann-ico" style="background:#FFF3E8">📅</div><div><div class="ann-title">वार्षिक परीक्षा वेळापत्रक जाहीर</div><div class="ann-date">दि. १५ मार्च ते ३० मार्च २०२५</div></div></div>
+            <div class="ann-item"><div class="ann-ico" style="background:#F0FDF4">🏆</div><div><div class="ann-title">वार्षिक क्रीडा स्पर्धा — नोंदणी सुरू</div><div class="ann-date">दि. १ मार्च | शेवटची तारीख: २५ फेब्रु</div></div></div>
+            <div class="ann-item"><div class="ann-ico" style="background:#F0F8FF">🤝</div><div><div class="ann-title">पालक-शिक्षक भेट दि. २५ फेब्रुवारी</div><div class="ann-date">Online बुकिंग उपलब्ध</div></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Bus tracking -->
+      <div class="parent-widget">
+        <div class="pw-head"><span class="pw-title">📍 बस ट्रॅकिंग</span><span class="pw-link">Live पहा →</span></div>
+        <div class="pw-body">
+          <div style="background:linear-gradient(135deg,var(--navy-2),var(--slate));border-radius:var(--r12);padding:16px;display:flex;align-items:center;gap:16px">
+            <div style="font-size:36px">🚌</div>
+            <div style="flex:1"><div style="font-family:'Noto Sans Devanagari';font-size:14px;font-weight:700;color:white">बस क्र. MH-12-AB-1234</div><div style="font-family:'Noto Sans Devanagari';font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px">📍 FC Road, पुणे — ५ मिनिटे दूर</div><div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:8px;overflow:hidden"><div style="height:100%;width:75%;background:linear-gradient(90deg,var(--saffron),var(--gold));border-radius:2px"></div></div></div>
+            <div style="text-align:right"><div style="font-family:'Plus Jakarta Sans';font-size:18px;font-weight:800;color:var(--green-bright)">~५ min</div><div style="font-family:'Noto Sans Devanagari';font-size:10px;color:rgba(255,255,255,0.4)">पोचायला</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bottom Nav -->
+  <div class="parent-bottom-nav">
+    <div class="pbn-item active"><span class="pbn-ico">🏠</span><span class="pbn-t">मुख्य</span></div>
+    <div class="pbn-item"><span class="pbn-ico">📊</span><span class="pbn-t">गुण</span></div>
+    <div class="pbn-item"><span class="pbn-ico">💰</span><span class="pbn-t">शुल्क</span><div class="pbn-dot"></div></div>
+    <div class="pbn-item"><span class="pbn-ico">📢</span><span class="pbn-t">घोषणा</span></div>
+    <div class="pbn-item"><span class="pbn-ico">👤</span><span class="pbn-t">प्रोफाइल</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 5 — HEADMASTER ANALYTICS
+═══════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-headmaster">
+  <div class="hm-dash">
+    <div class="hm-sidebar">
+      <div class="hm-brand"><div class="hm-brand-n">शाळा<em>Connect</em></div><div class="hm-brand-school">पुणे विद्यामंदिर</div></div>
+      <div class="hm-nav">
+        <div class="hm-nav-item active"><span class="hm-nav-ico">📊</span><span class="hm-nav-t">Analytics</span></div>
+        <div class="hm-nav-item"><span class="hm-nav-ico">👨‍🎓</span><span class="hm-nav-t">विद्यार्थी</span></div>
+        <div class="hm-nav-item"><span class="hm-nav-ico">👩‍🏫</span><span class="hm-nav-t">शिक्षक</span></div>
+        <div class="hm-nav-item"><span class="hm-nav-ico">💰</span><span class="hm-nav-t">शुल्क</span></div>
+        <div class="hm-nav-item"><span class="hm-nav-ico">📋</span><span class="hm-nav-t">हजेरी</span></div>
+        <div class="hm-nav-item"><span class="hm-nav-ico">📝</span><span class="hm-nav-t">परीक्षा</span></div>
+        <div class="hm-nav-item"><span class="hm-nav-ico">📁</span><span class="hm-nav-t">दस्तऐवज</span></div>
+        <div class="hm-nav-item"><span class="hm-nav-ico">📢</span><span class="hm-nav-t">घोषणा</span></div>
+        <div class="hm-nav-item"><span class="hm-nav-ico">⚙️</span><span class="hm-nav-t">सेटिंग्ज</span></div>
+      </div>
+    </div>
+    <div class="hm-main">
+      <div class="hm-topbar">
+        <div><div class="hm-tb-title">📊 शाळा Analytics Dashboard</div></div>
+        <div class="hm-tb-date">गुरुवार, १९ फेब्रुवारी २०२५ | शैक्षणिक वर्ष २०२४–२५</div>
+        <div class="hm-tb-right"><button class="btn btn-secondary btn-sm">📄 अहवाल डाउनलोड</button><button class="btn btn-primary btn-sm">📢 सूचना पाठवा</button></div>
+      </div>
+      <div class="hm-body">
+        <!-- KPIs -->
+        <div class="hm-kpis">
+          <div class="hm-kpi"><span class="hm-kpi-ico">👨‍🎓</span><div class="hm-kpi-n">१,२४७</div><div class="hm-kpi-l">एकूण विद्यार्थी</div><div class="hm-kpi-trend up">↑ +२३ नवीन प्रवेश</div></div>
+          <div class="hm-kpi"><span class="hm-kpi-ico">📋</span><div class="hm-kpi-n">८७%</div><div class="hm-kpi-l">सरासरी हजेरी</div><div class="hm-kpi-trend up">↑ मागील महिन्यापेक्षा +३%</div></div>
+          <div class="hm-kpi"><span class="hm-kpi-ico">💰</span><div class="hm-kpi-n">₹४२L</div><div class="hm-kpi-l">वार्षिक शुल्क जमा</div><div class="hm-kpi-trend dn">↓ ₹८L थकित अजून</div></div>
+          <div class="hm-kpi"><span class="hm-kpi-ico">📊</span><div class="hm-kpi-n">७४.२%</div><div class="hm-kpi-l">सरासरी गुण</div><div class="hm-kpi-trend up">↑ मागील वर्षापेक्षा +२.५%</div></div>
+          <div class="hm-kpi"><span class="hm-kpi-ico">👩‍🏫</span><div class="hm-kpi-n">४८</div><div class="hm-kpi-l">शिक्षक</div><div class="hm-kpi-trend up">↑ सर्व active</div></div>
+        </div>
+        <!-- Analytics -->
+        <div class="hm-analytics">
+          <div class="hm-chart-card">
+            <div class="hm-chart-title">📈 मासिक शुल्क संकलन (₹ लाखात)<span>२०२४–२५</span></div>
+            <div class="bar-chart">
+              <div class="bc-bar" style="height:60%;background:linear-gradient(180deg,var(--saffron),var(--gold))"><div class="bc-bar-val">₹3.2L</div><div class="bc-bar-month">जून</div></div>
+              <div class="bc-bar" style="height:45%;background:linear-gradient(180deg,var(--saffron),var(--gold))"><div class="bc-bar-val">₹2.4L</div><div class="bc-bar-month">जुलै</div></div>
+              <div class="bc-bar" style="height:70%;background:linear-gradient(180deg,var(--saffron),var(--gold))"><div class="bc-bar-val">₹3.8L</div><div class="bc-bar-month">ऑग</div></div>
+              <div class="bc-bar" style="height:55%;background:linear-gradient(180deg,var(--saffron),var(--gold))"><div class="bc-bar-val">₹2.9L</div><div class="bc-bar-month">सप्ट</div></div>
+              <div class="bc-bar" style="height:80%;background:linear-gradient(180deg,var(--saffron),var(--gold))"><div class="bc-bar-val">₹4.2L</div><div class="bc-bar-month">ऑक्ट</div></div>
+              <div class="bc-bar" style="height:65%;background:linear-gradient(180deg,var(--saffron),var(--gold))"><div class="bc-bar-val">₹3.4L</div><div class="bc-bar-month">नोव्ह</div></div>
+              <div class="bc-bar" style="height:90%;background:linear-gradient(180deg,var(--saffron),var(--gold))"><div class="bc-bar-val">₹4.8L</div><div class="bc-bar-month">डिसें</div></div>
+              <div class="bc-bar" style="height:75%;background:linear-gradient(180deg,var(--saffron),var(--gold))"><div class="bc-bar-val">₹4.0L</div><div class="bc-bar-month">जाने</div></div>
+              <div class="bc-bar" style="height:50%;background:linear-gradient(180deg,rgba(244,106,10,0.5),rgba(245,158,11,0.5));border:2px dashed var(--saffron)"><div class="bc-bar-val">₹2.4L</div><div class="bc-bar-month">फेब्रु</div></div>
+            </div>
+          </div>
+          <div class="hm-chart-card">
+            <div class="hm-chart-title">📊 हजेरी वितरण</div>
+            <div class="donut-chart">
+              <div class="donut" style="background:conic-gradient(var(--green-mid) 0% 87%, var(--gold) 87% 96%, #EF4444 96% 100%)">
+                <div class="donut-inner"><div class="donut-n">८७%</div><div class="donut-l">हजेरी</div></div>
+              </div>
+              <div class="donut-legend">
+                <div class="dl-item"><div class="dl-dot" style="background:var(--green-mid)"></div><span class="dl-t">हजर</span><span class="dl-v">१,०८५</span></div>
+                <div class="dl-item"><div class="dl-dot" style="background:var(--gold)"></div><span class="dl-t">उशीर</span><span class="dl-v">११२</span></div>
+                <div class="dl-item"><div class="dl-dot" style="background:#EF4444"></div><span class="dl-t">गैरहजर</span><span class="dl-v">५०</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Bottom tables -->
+        <div class="hm-bottom">
+          <div class="hm-table-card">
+            <div class="hm-table-head"><span class="dw-title">📚 वर्गनिहाय कामगिरी</span><span class="dw-action">सर्व पहा →</span></div>
+            <table class="hm-tbl">
+              <thead><tr><th>वर्ग</th><th>विद्यार्थी</th><th>हजेरी</th><th>सरासरी गुण</th><th>स्थिती</th></tr></thead>
+              <tbody>
+                <tr><td>इ.१०वी</td><td>१८४</td><td><span class="att-status att-ok">९२%</span></td><td>७८.५%</td><td>🏆 उत्तम</td></tr>
+                <tr><td>इ.९वी</td><td>२०२</td><td><span class="att-status att-ok">८९%</span></td><td>७५.२%</td><td>✅ चांगले</td></tr>
+                <tr><td>इ.८वी</td><td>१९५</td><td><span class="att-status att-warn">८१%</span></td><td>७१.८%</td><td>⚠️ लक्ष द्या</td></tr>
+                <tr><td>इ.७वी</td><td>१८८</td><td><span class="att-status att-ok">८७%</span></td><td>७२.४%</td><td>✅ चांगले</td></tr>
+                <tr><td>इ.६वी</td><td>१७८</td><td><span class="att-status att-bad">७४%</span></td><td>६९.१%</td><td>⚠️ सुधारणा हवी</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="hm-table-card">
+            <div class="hm-table-head"><span class="dw-title">💰 शुल्क थकबाकी — वर्गनिहाय</span><span class="dw-action">reminder पाठवा →</span></div>
+            <table class="hm-tbl">
+              <thead><tr><th>वर्ग</th><th>एकूण विद्यार्थी</th><th>थकित</th><th>रक्कम</th></tr></thead>
+              <tbody>
+                <tr><td>इ.१०वी</td><td>१८४</td><td style="color:#EF4444;font-weight:700">१२</td><td style="color:#EF4444;font-weight:700">₹२९,४००</td></tr>
+                <tr><td>इ.९वी</td><td>२०२</td><td style="color:var(--gold);font-weight:700">८</td><td style="color:var(--gold);font-weight:700">₹१९,५००</td></tr>
+                <tr><td>इ.८वी</td><td>१९५</td><td style="color:var(--gold);font-weight:700">१५</td><td style="color:var(--gold);font-weight:700">₹३६,७५०</td></tr>
+                <tr><td>इ.७वी</td><td>१८८</td><td style="color:var(--green-mid);font-weight:700">५</td><td style="color:var(--green-mid);font-weight:700">₹१२,२५०</td></tr>
+                <tr><td><strong>एकूण</strong></td><td><strong>१,२४७</strong></td><td style="color:#EF4444;font-weight:800">५२</td><td style="color:#EF4444;font-weight:800">₹७.९L</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Tab switching
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.pn-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// Navbar scroll effect
+const lpNav = document.getElementById('lp-nav');
+const landing = document.getElementById('screen-landing');
+function handleScroll(){
+  if(landing.classList.contains('active'))
+    lpNav.classList.toggle('solid', window.scrollY > 80);
+}
+window.addEventListener('scroll', handleScroll);
+
+// Scroll reveal
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:0.10,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+// FAQ
+function faq(btn){
+  const item=btn.parentElement;
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');const a=i.querySelector('.faq-arr');if(a)a.textContent='▼';});
+  if(!open){item.classList.add('open');btn.querySelector('.faq-arr').textContent='▲';}
+}
+
+// Role selector
+function selectRole(el){
+  document.querySelectorAll('.role-opt').forEach(r=>r.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// Counter
+function counter(el,target){
+  let v=0,step=target/80,t=setInterval(()=>{
+    v+=step;
+    if(v>=target){v=target;clearInterval(t);}
+    if(target>=1000){el.textContent=Math.floor(v/1000)+',000+';}
+    else el.textContent=Math.floor(v)+'+';
+  },20);
+}
+const statsOb=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('[data-count]').forEach(el=>counter(el,+el.dataset.count));
+      statsOb.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+const sb=document.querySelector('.lp-stats');if(sb)statsOb.observe(sb);
+</script>
+</body>
+</html>
