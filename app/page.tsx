@@ -427,10 +427,155 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA / Pricing */}
-      <section id="pricing" className="bg-gradient-to-r from-saffron via-gold to-amber-500 py-20 px-6 md:px-16 text-center">
+      {/* Testimonials */}
+      <section className="bg-cream py-20 md:py-24 px-6 md:px-16">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-5 h-0.5 bg-saffron rounded" />
+            <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">अभिप्राय</span>
+          </div>
+          <h2 className="text-3xl md:text-[40px] font-extrabold text-text-900 mb-12 font-[family-name:var(--font-noto-devanagari)]">
+            शाळा काय म्हणतात <span className="text-saffron">आमच्याबद्दल</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                stars: 5,
+                text: "शाळाConnect वापरायला लागल्यापासून हजेरीचे रजिस्टर भरणे बंद झाले. पालकांना WhatsApp आपोआप जातो. खूप सोपे आहे, नवीन शिक्षकांनाही शिकायला वेळ नाही लागला.",
+                name: "सुलभा देशमुख",
+                role: "शिक्षक, इ.७वी | पुणे विद्यामंदिर",
+                emoji: "👩‍🏫",
+                bg: "#FFF3E8",
+              },
+              {
+                stars: 5,
+                text: "U-DISE अहवाल बनवायला आधी आठवडा लागायचा. आता एका क्लिकमध्ये PDF तयार होतो. मुख्याध्यापकांना approval द्यायला खूप सोपे झाले.",
+                name: "महेश जाधव",
+                role: "कारकून | जि.प. शाळा, नाशिक",
+                emoji: "🧑‍💻",
+                bg: "#F0FDF4",
+              },
+              {
+                stars: 5,
+                text: "माझ्या मुलाची हजेरी, गृहपाठ, परीक्षा — सगळे फोनवर दिसते. फी भरायला बँकेत जावे लागत नाही. शाळाConnect म्हणजे खूप मोठी सुविधा आहे.",
+                name: "रजनी पाटील",
+                role: "पालक, इ.८वी | औरंगाबाद",
+                emoji: "👨‍👩‍👦",
+                bg: "#F0F0FF",
+              },
+            ].map((t, i) => (
+              <div key={i} className="bg-white rounded-3xl p-7 border border-border-school shadow-sm flex flex-col gap-4">
+                <div className="text-saffron text-lg tracking-wider">{"★".repeat(t.stars)}</div>
+                <p className="text-sm text-text-500 leading-relaxed flex-1 font-[family-name:var(--font-noto-devanagari)]">{t.text}</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-border-school">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl flex-shrink-0" style={{ background: t.bg }}>{t.emoji}</div>
+                  <div>
+                    <div className="font-bold text-text-900 text-sm font-[family-name:var(--font-noto-devanagari)]">{t.name}</div>
+                    <div className="text-[11px] text-text-300 font-[family-name:var(--font-noto-devanagari)]">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section id="pricing" className="bg-white py-20 md:py-24 px-6 md:px-16">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <div className="w-5 h-0.5 bg-saffron rounded" />
+              <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">किंमत</span>
+              <div className="w-5 h-0.5 bg-saffron rounded" />
+            </div>
+            <h2 className="text-3xl md:text-[40px] font-extrabold text-text-900 mb-3 font-[family-name:var(--font-noto-devanagari)]">
+              परवडणारी, <span className="text-saffron">पारदर्शी किंमत</span>
+            </h2>
+            <p className="text-base text-text-500 font-[family-name:var(--font-noto-devanagari)]">लपवलेले शुल्क नाही. कधीही रद्द करता येते.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            {/* Starter */}
+            <div className="rounded-3xl p-8 border-2 border-border-school bg-white">
+              <div className="font-bold text-text-500 text-sm mb-4 font-[family-name:var(--font-noto-devanagari)]">स्टार्टर</div>
+              <div className="flex items-end gap-1 mb-1">
+                <span className="text-2xl font-bold text-text-900">₹</span>
+                <span className="text-5xl font-extrabold text-text-900 leading-none">९९९</span>
+              </div>
+              <div className="text-xs text-text-300 mb-6 font-[family-name:var(--font-noto-devanagari)]">दर महिना · ५०० विद्यार्थ्यांपर्यंत</div>
+              <div className="h-px bg-border-school mb-6" />
+              <ul className="flex flex-col gap-3 mb-8">
+                {["हजेरी + SMS सूचना", "फी व्यवस्थापन", "मराठी रिपोर्ट कार्ड", "WhatsApp (१,०००/महिना)", "Email सपोर्ट"].map((f) => (
+                  <li key={f} className="flex items-center gap-2.5 text-sm text-text-500 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-[10px] text-green-700 flex-shrink-0">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/register" className="block text-center px-6 py-3.5 rounded-2xl border-2 border-text-900 text-text-900 font-bold text-sm hover:bg-text-900 hover:text-white transition-all font-[family-name:var(--font-noto-devanagari)]">
+                सुरू करा →
+              </Link>
+            </div>
+
+            {/* Pro - highlighted */}
+            <div className="rounded-3xl p-8 border-2 border-saffron bg-navy relative shadow-2xl shadow-saffron/20 -mt-4 md:-mt-6">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-saffron to-gold text-white text-[10px] font-extrabold px-4 py-1.5 rounded-full whitespace-nowrap tracking-wide">
+                ⭐ सर्वात लोकप्रिय
+              </div>
+              <div className="font-bold text-white/60 text-sm mb-4 font-[family-name:var(--font-noto-devanagari)]">प्रो</div>
+              <div className="flex items-end gap-1 mb-1">
+                <span className="text-2xl font-bold text-white">₹</span>
+                <span className="text-5xl font-extrabold text-white leading-none">४,९९९</span>
+              </div>
+              <div className="text-xs text-white/45 mb-6 font-[family-name:var(--font-noto-devanagari)]">६ महिने · अमर्यादित विद्यार्थी</div>
+              <div className="h-px bg-white/10 mb-6" />
+              <ul className="flex flex-col gap-3 mb-8">
+                {["सर्व Starter सुविधा", "AI मराठी सहाय्यक", "ई-लर्निंग मॉड्यूल", "U-DISE / RTE अहवाल", "बस GPS ट्रॅकिंग", "WhatsApp अमर्यादित", "फोन सपोर्ट"].map((f) => (
+                  <li key={f} className="flex items-center gap-2.5 text-sm text-white/80 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-5 h-5 rounded-full bg-saffron/20 flex items-center justify-center text-[10px] text-saffron-bright flex-shrink-0">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/register" className="block text-center px-6 py-3.5 rounded-2xl bg-gradient-to-r from-saffron to-saffron-bright text-white font-bold text-sm shadow-lg shadow-saffron/30 hover:shadow-xl hover:-translate-y-0.5 transition-all font-[family-name:var(--font-noto-devanagari)]">
+                सुरू करा →
+              </Link>
+            </div>
+
+            {/* Enterprise */}
+            <div className="rounded-3xl p-8 border-2 border-border-school bg-white">
+              <div className="font-bold text-text-500 text-sm mb-4 font-[family-name:var(--font-noto-devanagari)]">एंटरप्राइज</div>
+              <div className="flex items-end gap-1 mb-1">
+                <span className="text-2xl font-bold text-text-900">₹</span>
+                <span className="text-5xl font-extrabold text-text-900 leading-none">७,९९९</span>
+              </div>
+              <div className="text-xs text-text-300 mb-6 font-[family-name:var(--font-noto-devanagari)]">१२ महिने · Multi-school</div>
+              <div className="h-px bg-border-school mb-6" />
+              <ul className="flex flex-col gap-3 mb-8">
+                {["सर्व Pro सुविधा", "Alumni नेटवर्क", "DigiLocker", "Custom ब्रँडिंग", "Dedicated Manager", "API Access"].map((f) => (
+                  <li key={f} className="flex items-center gap-2.5 text-sm text-text-500 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-[10px] text-green-700 flex-shrink-0">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/register" className="block text-center px-6 py-3.5 rounded-2xl border-2 border-text-900 text-text-900 font-bold text-sm hover:bg-text-900 hover:text-white transition-all font-[family-name:var(--font-noto-devanagari)]">
+                सुरू करा →
+              </Link>
+            </div>
+          </div>
+
+          <p className="text-center mt-8 text-sm text-text-300 font-[family-name:var(--font-noto-devanagari)]">
+            🎓 सरकारी शाळांना ५०% सवलत &nbsp;|&nbsp; 🆓 ३० दिवस मोफत — कार्ड नको &nbsp;|&nbsp; ❌ कधीही रद्द करा
+          </p>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="bg-gradient-to-r from-saffron via-gold to-amber-500 py-20 px-6 md:px-16 text-center">
         <h2 className="text-3xl md:text-[42px] font-extrabold text-white mb-4 font-[family-name:var(--font-noto-devanagari)]">
-          आजच शाळा डिजिटल करा
+          तुमची शाळा डिजिटल करायला<br className="hidden md:block" /> आजच सुरुवात करा
         </h2>
         <p className="text-[17px] text-white/85 mb-8 font-[family-name:var(--font-noto-devanagari)]">
           ३० दिवस मोफत. क्रेडिट कार्ड नको. रद्द करणे मोफत.
@@ -440,7 +585,7 @@ export default function Home() {
             href="/register"
             className="px-10 py-4 rounded-full bg-white text-saffron font-bold text-base hover:shadow-xl hover:-translate-y-1 transition-all font-[family-name:var(--font-noto-devanagari)]"
           >
-            मोफत नोंदणी करा →
+            🚀 मोफत नोंदणी करा →
           </Link>
           <Link
             href="/login"
