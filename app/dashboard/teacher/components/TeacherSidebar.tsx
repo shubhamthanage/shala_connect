@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { LogoutButton } from "@/components/auth/LogoutButton"
 
@@ -40,14 +39,14 @@ export function TeacherSidebar({
         }}
       />
       <div className="p-5 border-b border-white/10 relative z-10">
-        <Link href="/dashboard/teacher" className="block">
-          <div className="font-extrabold text-white text-base font-[family-name:var(--font-noto-devanagari)]">
+        <a href="/dashboard/teacher" className="block">
+          <div className="font-extrabold text-white text-base font-body">
             शाळा<span className="text-saffron-bright">Connect</span>
           </div>
-          <div className="text-[9px] text-white/30 tracking-[2px] uppercase font-semibold mt-0.5 font-[family-name:var(--font-plus-jakarta)]">
+          <div className="text-[9px] text-white/30 tracking-[2px] uppercase font-semibold mt-0.5 font-body">
             {schoolName}
           </div>
-        </Link>
+        </a>
       </div>
       <div className="py-4 px-3 border-b border-white/10 relative z-10">
         <div className="flex items-center gap-2.5">
@@ -55,23 +54,23 @@ export function TeacherSidebar({
             👩‍🏫
           </div>
           <div className="min-w-0">
-            <div className="font-bold text-white text-xs font-[family-name:var(--font-noto-devanagari)] truncate">
+            <div className="font-bold text-white text-xs font-body truncate">
               {teacherName}
             </div>
-            <div className="text-[9px] text-white/38 font-[family-name:var(--font-noto-devanagari)]">
+            <div className="text-[9px] text-white/38 font-body">
               शिक्षक
             </div>
           </div>
         </div>
       </div>
       <nav className="flex-1 py-4 px-3 overflow-y-auto relative z-10">
-        <div className="text-[9px] font-extrabold tracking-[2px] uppercase text-white/22 px-2 py-1 font-[family-name:var(--font-plus-jakarta)]">
+        <div className="text-[9px] font-extrabold tracking-[2px] uppercase text-white/22 px-2 py-1 font-body">
           मुख्य
         </div>
         {NAV_ITEMS.slice(0, 4).map((item) => {
           const isActive = pathname === item.href
           return (
-            <Link
+            <a
               key={item.href}
               href={item.href}
               className={`flex items-center gap-2.5 py-2.5 px-2.5 rounded-lg mb-0.5 transition-all ${
@@ -82,27 +81,27 @@ export function TeacherSidebar({
             >
               <span className="text-base w-5 text-center flex-shrink-0">{item.icon}</span>
               <span
-                className={`text-[13px] font-medium font-[family-name:var(--font-noto-devanagari)] flex-1 ${
+                className={`text-[13px] font-medium font-body flex-1 ${
                   isActive ? "text-saffron-bright font-semibold" : ""
                 }`}
               >
                 {item.label}
               </span>
               {item.badge && (
-                <span className="bg-saffron text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full font-[family-name:var(--font-plus-jakarta)]">
+                <span className="bg-saffron text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full font-body">
                   {item.badge}
                 </span>
               )}
-            </Link>
+            </a>
           )
         })}
-        <div className="text-[9px] font-extrabold tracking-[2px] uppercase text-white/22 px-2 py-1 mt-3 font-[family-name:var(--font-plus-jakarta)]">
+        <div className="text-[9px] font-extrabold tracking-[2px] uppercase text-white/22 px-2 py-1 mt-3 font-body">
           विद्यार्थी
         </div>
         {NAV_ITEMS.slice(4, 6).map((item) => {
           const isActive = pathname === item.href
           return (
-            <Link
+            <a
               key={item.href}
               href={item.href}
               className={`flex items-center gap-2.5 py-2.5 px-2.5 rounded-lg mb-0.5 transition-all ${
@@ -113,22 +112,22 @@ export function TeacherSidebar({
             >
               <span className="text-base w-5 text-center flex-shrink-0">{item.icon}</span>
               <span
-                className={`text-[13px] font-medium font-[family-name:var(--font-noto-devanagari)] ${
+                className={`text-[13px] font-medium font-body ${
                   isActive ? "text-saffron-bright font-semibold" : ""
                 }`}
               >
                 {item.label}
               </span>
-            </Link>
+            </a>
           )
         })}
-        <div className="text-[9px] font-extrabold tracking-[2px] uppercase text-white/22 px-2 py-1 mt-3 font-[family-name:var(--font-plus-jakarta)]">
+        <div className="text-[9px] font-extrabold tracking-[2px] uppercase text-white/22 px-2 py-1 mt-3 font-body">
           संवाद
         </div>
         {NAV_ITEMS.slice(6, 8).map((item) => {
           const isActive = pathname === item.href
           return (
-            <Link
+            <a
               key={item.href}
               href={item.href}
               className={`flex items-center gap-2.5 py-2.5 px-2.5 rounded-lg mb-0.5 transition-all ${
@@ -139,27 +138,27 @@ export function TeacherSidebar({
             >
               <span className="text-base w-5 text-center flex-shrink-0">{item.icon}</span>
               <span
-                className={`text-[13px] font-medium font-[family-name:var(--font-noto-devanagari)] flex-1 ${
+                className={`text-[13px] font-medium font-body flex-1 ${
                   isActive ? "text-saffron-bright font-semibold" : ""
                 }`}
               >
                 {item.label}
               </span>
               {item.badge && (
-                <span className="bg-saffron text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full font-[family-name:var(--font-plus-jakarta)]">
+                <span className="bg-saffron text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full font-body">
                   {item.badge}
                 </span>
               )}
-            </Link>
+            </a>
           )
         })}
-        <div className="text-[9px] font-extrabold tracking-[2px] uppercase text-white/22 px-2 py-1 mt-3 font-[family-name:var(--font-plus-jakarta)]">
+        <div className="text-[9px] font-extrabold tracking-[2px] uppercase text-white/22 px-2 py-1 mt-3 font-body">
           शिक्षण
         </div>
         {NAV_ITEMS.slice(8).map((item) => {
           const isActive = pathname === item.href
           return (
-            <Link
+            <a
               key={item.href}
               href={item.href}
               className={`flex items-center gap-2.5 py-2.5 px-2.5 rounded-lg mb-0.5 transition-all ${
@@ -170,27 +169,27 @@ export function TeacherSidebar({
             >
               <span className="text-base w-5 text-center flex-shrink-0">{item.icon}</span>
               <span
-                className={`text-[13px] font-medium font-[family-name:var(--font-noto-devanagari)] ${
+                className={`text-[13px] font-medium font-body ${
                   isActive ? "text-saffron-bright font-semibold" : ""
                 }`}
               >
                 {item.label}
               </span>
-            </Link>
+            </a>
           )
         })}
       </nav>
       <div className="p-3 border-t border-white/10 relative z-10">
-        <Link
+        <a
           href="/dashboard/teacher/settings"
           className="flex items-center gap-2.5 py-2 px-2 rounded-lg hover:bg-white/6 text-white/58"
         >
           <span className="text-base">⚙️</span>
-          <span className="text-[13px] font-[family-name:var(--font-noto-devanagari)]">सेटिंग्ज</span>
-        </Link>
+          <span className="text-[13px] font-body">सेटिंग्ज</span>
+        </a>
         <LogoutButton className="flex items-center gap-2.5 py-2 px-2 rounded-lg hover:bg-white/6 text-white/50 w-full text-left">
           <span className="text-base">🚪</span>
-          <span className="text-[13px] font-[family-name:var(--font-noto-devanagari)]">लॉगआउट</span>
+          <span className="text-[13px] font-body">लॉगआउट</span>
         </LogoutButton>
       </div>
     </aside>

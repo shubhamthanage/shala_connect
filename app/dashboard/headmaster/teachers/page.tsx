@@ -1,6 +1,13 @@
-import Link from "next/link"
+import { redirect } from "next/navigation"
+import { getHeadmasterSchoolId, getSchoolTeachers } from "@/app/actions/users"
+import { EmptyState } from "@/components/ui/EmptyState"
 
-export default function TeachersPage() {
+export default async function TeachersPage() {
+  const schoolId = await getHeadmasterSchoolId()
+  if (!schoolId) redirect("/login")
+
+  const teachers = await getSchoolTeachers(schoolId)
+
   return (
     <>
       <div className="h-[60px] bg-white border-b border-border-school flex items-center justify-between px-6 flex-shrink-0 shadow-sm">

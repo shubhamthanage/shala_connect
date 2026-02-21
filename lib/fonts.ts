@@ -1,16 +1,14 @@
 /**
  * ShalaConnect font configurations
- * Fonts loaded via @import in app/globals.css
+ * Baloo 2 = Headings, Hero, Titles
+ * Noto Sans Devanagari = Body, Labels, Forms, Tables
  */
 
 export const fontFamilies = {
+  heading: "var(--font-heading)",
+  body: "var(--font-body)",
   notoDevanagari: "var(--font-noto-devanagari)",
-  plusJakarta: "var(--font-plus-jakarta)",
 } as const
 
-/** Default font stack (matches design.html) */
-export const fontStack = [
-  "var(--font-plus-jakarta)",
-  "var(--font-noto-devanagari)",
-  "sans-serif",
-] as const
+/** Use font-heading for headings/hero/titles, font-body for body/labels/forms/tables */
+export const fontStack = ["var(--font-body)", "sans-serif"] as const

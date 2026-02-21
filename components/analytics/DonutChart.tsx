@@ -33,8 +33,8 @@ export function DonutChart({ data }: DonutChartProps) {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-border-school p-5">
-      <div className="font-bold text-text-900 text-sm mb-4 font-[family-name:var(--font-noto-devanagari)]">
+    <div className="card-elevated p-5">
+      <div className="font-bold text-text-900 text-sm mb-4 font-body">
         📊 हजेरी वितरण
       </div>
       <div className="flex flex-col items-center gap-4">
@@ -65,10 +65,10 @@ export function DonutChart({ data }: DonutChartProps) {
             </PieChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span className="text-xl font-extrabold text-text-900 font-[family-name:var(--font-plus-jakarta)]">
+            <span className="text-xl font-extrabold text-text-900 font-heading">
               {presentPct}%
             </span>
-            <span className="text-[9px] text-text-300 uppercase tracking-wider font-[family-name:var(--font-plus-jakarta)]">
+            <span className="text-[9px] text-text-300 uppercase tracking-wider font-body">
               हजेरी
             </span>
           </div>
@@ -77,33 +77,33 @@ export function DonutChart({ data }: DonutChartProps) {
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-green-mid shrink-0" />
-              <span className="text-[11px] text-text-700 font-[family-name:var(--font-noto-devanagari)]">
+              <span className="text-[11px] text-text-700 font-body">
                 हजर
               </span>
             </div>
-            <span className="text-[11px] font-bold text-text-900 font-[family-name:var(--font-plus-jakarta)]">
+            <span className="text-[11px] font-bold text-text-900 font-body">
               {data.present}
             </span>
           </div>
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-gold shrink-0" />
-              <span className="text-[11px] text-text-700 font-[family-name:var(--font-noto-devanagari)]">
+              <span className="text-[11px] text-text-700 font-body">
                 उशीर
               </span>
             </div>
-            <span className="text-[11px] font-bold text-text-900 font-[family-name:var(--font-plus-jakarta)]">
+            <span className="text-[11px] font-bold text-text-900 font-body">
               {data.late}
             </span>
           </div>
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0" />
-              <span className="text-[11px] text-text-700 font-[family-name:var(--font-noto-devanagari)]">
+              <span className="text-[11px] text-text-700 font-body">
                 गैरहजर
               </span>
             </div>
-            <span className="text-[11px] font-bold text-text-900 font-[family-name:var(--font-plus-jakarta)]">
+            <span className="text-[11px] font-bold text-text-900 font-body">
               {data.absent}
             </span>
           </div>

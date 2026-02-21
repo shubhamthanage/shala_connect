@@ -17,7 +17,11 @@ export interface ParentDashboardData {
 
 export async function getParentDashboard(): Promise<ParentDashboardData | null> {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
+  // #region agent log
+  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-4',hypothesisId:'H12',location:'app/actions/parent.ts:getParentDashboard',message:'parent dashboard session status',data:{hasSession:!!session,hasUser:!!user,role:(user?.user_metadata?.role as string|undefined)??null},timestamp:Date.now()})}).catch(()=>{})
+  // #endregion
   if (!user) return null
 
   let { data: parentUser } = await supabase
@@ -41,8 +45,25 @@ export async function getParentDashboard(): Promise<ParentDashboardData | null> 
       // No admin key or insert failed
     }
   }
+  if (!parentUser && user.user_metadata?.role === "parent") {
+    try {
+      const admin = createAdminClient()
+      const { data: adminUser } = await admin
+        .from("users")
+        .select("id")
+        .eq("auth_id", user.id)
+        .eq("role", "parent")
+        .maybeSingle()
+      if (adminUser) parentUser = adminUser
+    } catch {
+      // Ignore admin fallback failure
+    }
+  }
 
   if (!parentUser) return null
+  // #region agent log
+  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'post-fix-3',hypothesisId:'H12',location:'app/actions/parent.ts:getParentDashboard',message:'parent user lookup final status',data:{hasParentUser:!!parentUser},timestamp:Date.now()})}).catch(()=>{})
+  // #endregion
 
   const admin = createAdminClient()
 

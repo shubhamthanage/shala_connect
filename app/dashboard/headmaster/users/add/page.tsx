@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import { addUser } from "@/app/actions/register"
 import { getHeadmasterSchoolId, getSchoolClasses, getSchoolStudents } from "@/app/actions/users"
 import toast from "react-hot-toast"
@@ -57,6 +56,9 @@ export default function AddUserPage() {
         getSchoolStudents(id).then(setStudents)
       } else {
         toast.error("शाळा आढळली नाही")
+        // #region agent log
+        fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-7',hypothesisId:'H20',location:'app/dashboard/headmaster/users/add/page.tsx:useEffect',message:'headmaster user add redirecting to login due to missing school id',data:{hasSchoolId:false},timestamp:Date.now()})}).catch(()=>{})
+        // #endregion
         router.push("/login")
       }
     })
@@ -126,33 +128,33 @@ export default function AddUserPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <Link
+      <a
         href="/dashboard/headmaster"
-        className="inline-flex items-center gap-2 text-text-500 hover:text-saffron mb-6 font-[family-name:var(--font-noto-devanagari)]"
+        className="inline-flex items-center gap-2 text-text-500 hover:text-saffron mb-6 font-body"
       >
         <ArrowLeft className="w-4 h-4" />
         मागे
-      </Link>
+      </a>
 
       <div className="bg-white rounded-2xl shadow-lg border border-border-school p-8">
-        <h1 className="text-2xl font-extrabold text-text-900 mb-2 font-[family-name:var(--font-noto-devanagari)] flex items-center gap-2">
+        <h1 className="text-2xl font-extrabold text-text-900 mb-2 font-body flex items-center gap-2">
           <UserPlus className="w-6 h-6 text-saffron" />
           वापरकर्ता जोडा
         </h1>
-        <p className="text-text-500 mb-6 font-[family-name:var(--font-noto-devanagari)]">
+        <p className="text-text-500 mb-6 font-body">
           शिक्षक, कारकून, विद्यार्थी किंवा पालक जोडा
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-2 font-[family-name:var(--font-noto-devanagari)]">भूमिका</label>
+            <label className="block text-sm font-semibold text-text-700 mb-2 font-body">भूमिका</label>
             <div className="grid grid-cols-2 gap-2">
               {ROLES.map((r) => (
                 <button
                   key={r.value}
                   type="button"
                   onClick={() => setForm({ ...form, role: r.value, classId: "", studentId: "" })}
-                  className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all font-[family-name:var(--font-noto-devanagari)] ${
+                  className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all font-body ${
                     form.role === r.value
                       ? "border-saffron bg-saffron-pale"
                       : "border-border-school hover:border-saffron"
@@ -166,37 +168,37 @@ export default function AddUserPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">नाव *</label>
+            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">नाव *</label>
             <input
               type="text"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               placeholder="पूर्ण नाव"
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">ईमेल *</label>
+            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">ईमेल *</label>
             <input
               type="email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               placeholder="email@example.com"
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">पासवर्ड *</label>
+            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">पासवर्ड *</label>
             <input
               type="password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               placeholder="किमान ६ अक्षरे"
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
               required
               minLength={6}
             />
@@ -204,24 +206,24 @@ export default function AddUserPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">मोबाईल</label>
+            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">मोबाईल</label>
             <input
               type="tel"
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
               placeholder="९XXXXXXXXX"
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
             />
           </div>
 
           {form.role === "student" && (
             <>
               <div>
-                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">वर्ग *</label>
+                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">वर्ग *</label>
                 <select
                   value={form.classId}
                   onChange={(e) => setForm({ ...form, classId: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
                   required
                 >
                   <option value="">वर्ग निवडा</option>
@@ -235,21 +237,21 @@ export default function AddUserPage() {
                   )}
                 </select>
                 {classes.length === 0 && (
-                  <p className="text-sm text-text-500 mt-1 font-[family-name:var(--font-noto-devanagari)]">
-                    <Link href="/dashboard/headmaster/classes/add" className="text-saffron hover:underline">
+                  <p className="text-sm text-text-500 mt-1 font-body">
+                    <a href="/dashboard/headmaster/classes/add" className="text-saffron hover:underline">
                       वर्ग जोडा
-                    </Link>
+                    </a>
                   </p>
                 )}
               </div>
               <div>
-                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">रोल नंबर</label>
+                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">रोल नंबर</label>
                 <input
                   type="text"
                   value={form.rollNumber}
                   onChange={(e) => setForm({ ...form, rollNumber: e.target.value })}
                   placeholder="उदा. १"
-                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
                 />
               </div>
             </>
@@ -258,11 +260,11 @@ export default function AddUserPage() {
           {form.role === "parent" && (
             <>
               <div>
-                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">विद्यार्थी *</label>
+                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">विद्यार्थी *</label>
                 <select
                   value={form.studentId}
                   onChange={(e) => setForm({ ...form, studentId: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
                   required
                 >
                   <option value="">विद्यार्थी निवडा</option>
@@ -277,11 +279,11 @@ export default function AddUserPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">नाते</label>
+                <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">नाते</label>
                 <select
                   value={form.relation}
                   onChange={(e) => setForm({ ...form, relation: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
                 >
                   <option value="parent">पालक</option>
                   <option value="mother">आई</option>
@@ -295,7 +297,7 @@ export default function AddUserPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl transition-all disabled:opacity-70 font-[family-name:var(--font-noto-devanagari)]"
+            className="w-full py-4 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl transition-all disabled:opacity-70 font-body"
           >
             {loading ? "जोडत आहे..." : "वापरकर्ता जोडा"}
           </button>

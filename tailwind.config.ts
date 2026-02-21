@@ -9,13 +9,75 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "375px",
+      },
       fontFamily: {
-        sans: ["var(--font-plus-jakarta)", "var(--font-noto-devanagari)", "sans-serif"],
+        sans: ["var(--font-body)"],
+        heading: ["var(--font-heading)"],
+        body: ["var(--font-body)"],
+        sora: ["var(--font-sans)"],
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        r4: "var(--r4)",
+        r8: "var(--r8)",
+        r12: "var(--r12)",
+        r16: "var(--r16)",
+        r20: "var(--r20)",
+        r24: "var(--r24)",
+        r32: "var(--r32)",
+        pill: "var(--rpill)",
+      },
+      boxShadow: {
+        xs: "var(--sh-xs)",
+        "sh-sm": "var(--sh-sm)",
+        "sh-md": "var(--sh-md)",
+        "sh-lg": "var(--sh-lg)",
+        "sh-xl": "var(--sh-xl)",
+        "saffron-glow": "0 4px 16px var(--saffron-glow)",
+        "saffron-hover": "0 8px 28px rgba(244, 106, 10, 0.45)",
+        "focus-ring": "0 0 0 3px rgba(244, 106, 10, 0.25)",
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "in-out": "cubic-bezier(0.65, 0, 0.35, 1)",
+      },
+      transitionDuration: {
+        fast: "150ms",
+        normal: "250ms",
+        slow: "350ms",
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in-up": {
+          "0%": { opacity: "0", transform: "translateY(16px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.96)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "count-up": {
+          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "fade-in-up": "fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "scale-in": "scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        shimmer: "shimmer 1.5s ease-in-out infinite",
+        "count-up": "count-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
       },
       colors: {
         /* ShalaConnect design tokens */
@@ -41,6 +103,7 @@ const config: Config = {
         "text-500": "#4A6380",
         "text-300": "#8AAABF",
         "border-school": "#E5EEF6",
+        "border-2": "#D0E2F0",
         /* Shadcn/ui */
         background: "oklch(var(--background))",
         foreground: "oklch(var(--foreground))",

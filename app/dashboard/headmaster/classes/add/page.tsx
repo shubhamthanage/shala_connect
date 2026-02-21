@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import { getHeadmasterSchoolId, getSchoolClasses, addClass } from "@/app/actions/users"
 import toast from "react-hot-toast"
 import { BookOpen, ArrowLeft } from "lucide-react"
@@ -29,6 +28,9 @@ export default function AddClassPage() {
         )
       } else {
         toast.error("शाळा आढळली नाही")
+        // #region agent log
+        fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-7',hypothesisId:'H19',location:'app/dashboard/headmaster/classes/add/page.tsx:useEffect',message:'headmaster class add redirecting to login due to missing school id',data:{hasSchoolId:false},timestamp:Date.now()})}).catch(()=>{})
+        // #endregion
         router.push("/login")
       }
     })
@@ -80,30 +82,30 @@ export default function AddClassPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <Link
+      <a
         href="/dashboard/headmaster"
-        className="inline-flex items-center gap-2 text-text-500 hover:text-saffron mb-6 font-[family-name:var(--font-noto-devanagari)]"
+        className="inline-flex items-center gap-2 text-text-500 hover:text-saffron mb-6 font-body"
       >
         <ArrowLeft className="w-4 h-4" />
         मागे
-      </Link>
+      </a>
 
       <div className="bg-white rounded-2xl shadow-lg border border-border-school p-8">
-        <h1 className="text-2xl font-extrabold text-text-900 mb-2 font-[family-name:var(--font-noto-devanagari)] flex items-center gap-2">
+        <h1 className="text-2xl font-extrabold text-text-900 mb-2 font-body flex items-center gap-2">
           <BookOpen className="w-6 h-6 text-saffron" />
           वर्ग जोडा
         </h1>
-        <p className="text-text-500 mb-6 font-[family-name:var(--font-noto-devanagari)]">
+        <p className="text-text-500 mb-6 font-body">
           नवीन वर्ग तयार करा
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-2 font-[family-name:var(--font-noto-devanagari)]">इयत्ता</label>
+            <label className="block text-sm font-semibold text-text-700 mb-2 font-body">इयत्ता</label>
             <select
               value={form.grade}
               onChange={(e) => setForm({ ...form, grade: parseInt(e.target.value) })}
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
             >
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((g) => (
                 <option key={g} value={g}>
@@ -114,14 +116,14 @@ export default function AddClassPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-2 font-[family-name:var(--font-noto-devanagari)]">विभाग</label>
+            <label className="block text-sm font-semibold text-text-700 mb-2 font-body">विभाग</label>
             <div className="flex gap-2">
               {DIVISIONS.map((d) => (
                 <button
                   key={d}
                   type="button"
                   onClick={() => setForm({ ...form, division: d })}
-                  className={`flex-1 py-3 rounded-xl border-2 transition-all font-[family-name:var(--font-noto-devanagari)] ${
+                  className={`flex-1 py-3 rounded-xl border-2 transition-all font-body ${
                     form.division === d
                       ? "border-saffron bg-saffron-pale"
                       : "border-border-school hover:border-saffron"
@@ -134,13 +136,13 @@ export default function AddClassPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">शैक्षणिक वर्ष</label>
+            <label className="block text-sm font-semibold text-text-700 mb-1.5 font-body">शैक्षणिक वर्ष</label>
             <input
               type="text"
               value={form.academicYear}
               onChange={(e) => setForm({ ...form, academicYear: e.target.value })}
               placeholder="2024-25"
-              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-[family-name:var(--font-noto-devanagari)]"
+              className="w-full px-4 py-3 rounded-xl border-2 border-border-school bg-cream outline-none focus:border-saffron font-body"
               required
             />
           </div>
@@ -148,7 +150,7 @@ export default function AddClassPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl transition-all disabled:opacity-70 font-[family-name:var(--font-noto-devanagari)]"
+            className="w-full py-4 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold shadow-lg shadow-saffron/30 hover:shadow-xl transition-all disabled:opacity-70 font-body"
           >
             {loading ? "जोडत आहे..." : "वर्ग जोडा"}
           </button>

@@ -20,7 +20,7 @@ export default async function FeesPage() {
       <div className="flex-1 overflow-y-auto p-6 bg-[#F4F7FB]">
         {!data ? (
           <div className="bg-white rounded-2xl border border-border-school p-12 text-center">
-            <p className="text-text-500 font-[family-name:var(--font-noto-devanagari)]">
+            <p className="text-text-500 font-body">
               डेटा लोड करण्यात अयशस्वी
             </p>
           </div>

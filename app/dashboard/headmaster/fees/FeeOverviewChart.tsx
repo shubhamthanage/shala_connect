@@ -22,7 +22,7 @@ export function FeeOverviewChart({
 
   return (
     <div className="bg-white rounded-2xl border border-border-school p-5">
-      <div className="font-bold text-text-900 text-sm mb-4 font-[family-name:var(--font-noto-devanagari)]">
+      <div className="font-bold text-text-900 text-sm mb-4 font-body">
         एकूण शुल्क स्थिती
       </div>
       <div className="h-[120px]">
@@ -57,13 +57,13 @@ export function FeeOverviewChart({
       <div className="flex gap-6 mt-3">
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-green-mid" />
-          <span className="text-xs text-text-600 font-[family-name:var(--font-noto-devanagari)]">
+          <span className="text-xs text-text-600 font-body">
             जमा: {formatCurrency(totalCollected)}
           </span>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-saffron" />
-          <span className="text-xs text-text-600 font-[family-name:var(--font-noto-devanagari)]">
+          <span className="text-xs text-text-600 font-body">
             थकित: {formatCurrency(totalPending)}
           </span>
         </div>

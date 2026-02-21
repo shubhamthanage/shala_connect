@@ -1,4 +1,13 @@
-export default function AnnouncementsPage() {
+import { redirect } from "next/navigation"
+import { getHeadmasterSchoolId } from "@/app/actions/users"
+import { AnnouncementsClient } from "./AnnouncementsClient"
+
+export const dynamic = "force-dynamic"
+
+export default async function AnnouncementsPage() {
+  const schoolId = await getHeadmasterSchoolId()
+  if (!schoolId) redirect("/login")
+
   return (
     <>
       <div className="h-[60px] bg-white border-b border-border-school flex items-center justify-between px-6 flex-shrink-0 shadow-sm">

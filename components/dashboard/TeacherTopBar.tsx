@@ -15,7 +15,7 @@ export function TeacherTopBar({
         <div className="font-bold text-text-900 text-[17px] font-[family-name:var(--font-noto-devanagari)]">
           नमस्कार, {teacherName} 🙏
         </div>
-        <div className="text-[11px] text-text-300 mt-0.5 font-[family-name:var(--font-noto-devanagari)]">
+        <div className="text-[11px] text-text-300 mt-0.5 font-body">
           {dateStr} · {schoolName}
         </div>
       </div>
@@ -25,7 +25,7 @@ export function TeacherTopBar({
           <input
             type="text"
             placeholder="शोधा..."
-            className="bg-transparent border-none outline-none text-[13px] text-text-900 w-full font-[family-name:var(--font-noto-devanagari)] placeholder:text-text-300"
+            className="bg-transparent border-none outline-none text-[13px] text-text-900 w-full font-body placeholder:text-text-300"
           />
         </div>
         <button className="w-9 h-9 rounded-full bg-[#F4F7FB] border border-border-school flex items-center justify-center text-base hover:border-saffron transition-colors">

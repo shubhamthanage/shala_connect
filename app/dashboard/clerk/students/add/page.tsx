@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import { addUser } from "@/app/actions/register"
 import { getClerkSchoolId, getSchoolClasses, getSchoolStudents } from "@/app/actions/users"
 import toast from "react-hot-toast"
@@ -56,11 +55,17 @@ export default function ClerkAddStudentPage() {
           getSchoolStudents(id).then(setStudents)
         } else {
           toast.error("शाळा आढळली नाही")
+          // #region agent log
+          fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-7',hypothesisId:'H18',location:'app/dashboard/clerk/students/add/page.tsx:useEffect',message:'clerk add page redirecting to login due to missing school id',data:{hasSchoolId:false},timestamp:Date.now()})}).catch(()=>{})
+          // #endregion
           router.push("/login")
         }
       })
       .catch((err) => {
         toast.error(err instanceof Error ? err.message : "शाळा आढळली नाही")
+        // #region agent log
+        fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-7',hypothesisId:'H18',location:'app/dashboard/clerk/students/add/page.tsx:useEffect',message:'clerk add page redirecting to login from school lookup error',data:{error:err instanceof Error?err.message:'unknown'},timestamp:Date.now()})}).catch(()=>{})
+        // #endregion
         router.push("/login")
       })
   }, [router])

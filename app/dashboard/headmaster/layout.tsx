@@ -1,9 +1,10 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import Link from "next/link"
 import { createAdminClient } from "@/lib/supabase/admin"
 import { HmSidebarNav } from "./components/HmSidebarNav"
 import { LogoutButton } from "@/components/auth/LogoutButton"
+import { DashboardTopbar } from "@/components/dashboard/DashboardTopbar"
+import { WelcomeTour } from "@/components/onboarding/WelcomeTour"
 
 export const dynamic = "force-dynamic"
 
@@ -13,7 +14,9 @@ export default async function HeadmasterLayout({
   children: React.ReactNode
 }) {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  // Use getSession() - middleware has already refreshed tokens; getUser() can fail on sub-page RSC fetches
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
 
   if (!user) redirect("/login?error=no_session")
 
@@ -41,17 +44,17 @@ export default async function HeadmasterLayout({
   return (
     <div className="flex min-h-screen bg-[#F4F7FB]">
       {/* Mobile nav bar - visible only on small screens */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-navy border-b border-white/10 px-4 py-3 flex items-center justify-between">
-        <Link href="/dashboard/headmaster" className="font-bold text-white text-base font-[family-name:var(--font-noto-devanagari)]">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-navy-2 border-b border-white/[0.07] px-4 py-3 flex items-center justify-between">
+        <a href="/dashboard/headmaster" className="font-bold text-white text-base font-heading">
           शाळा<span className="text-saffron-bright">Connect</span>
-        </Link>
+        </a>
         <div className="flex gap-2">
-          <Link href="/dashboard/headmaster/classes/add" className="px-3 py-1.5 rounded-lg border border-white/30 text-white text-xs font-semibold font-[family-name:var(--font-noto-devanagari)]">
+          <a href="/dashboard/headmaster/classes/add" className="px-3 py-1.5 rounded-lg border border-white/30 text-white text-xs font-semibold font-body">
             + वर्ग
-          </Link>
-          <Link href="/dashboard/headmaster/users/add" className="px-3 py-1.5 rounded-lg bg-saffron text-white text-xs font-semibold font-[family-name:var(--font-noto-devanagari)]">
+          </a>
+          <a href="/dashboard/headmaster/users/add" className="px-3 py-1.5 rounded-lg bg-gradient-to-br from-saffron to-saffron-bright text-white text-xs font-semibold shadow-saffron-glow font-body">
             + जोडा
-          </Link>
+          </a>
         </div>
       </div>
 
@@ -112,7 +115,9 @@ export default async function HeadmasterLayout({
 
       {/* Main content - add pt for mobile nav */}
       <main className="flex-1 flex flex-col overflow-hidden pt-14 lg:pt-0">
+        <DashboardTopbar />
         {children}
+        <WelcomeTour />
       </main>
     </div>
   )

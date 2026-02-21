@@ -21,7 +21,7 @@ function LeftPanel() {
             🏫
           </div>
           <div>
-            <div className="font-extrabold text-white text-xl font-[family-name:var(--font-noto-devanagari)]">
+            <div className="font-extrabold text-white text-xl font-heading">
               शाळा<span className="text-saffron-bright">Connect</span>
             </div>
             <div className="text-[9px] text-white/35 tracking-[2.5px] uppercase font-semibold">
@@ -33,13 +33,13 @@ function LeftPanel() {
       <div className="relative z-10 flex-1 flex items-center justify-center py-10">
         <div className="text-center">
           <div className="text-5xl mb-4">🔐</div>
-          <p className="text-white/80 text-sm font-[family-name:var(--font-noto-devanagari)]">
+          <p className="text-white/80 text-sm font-body">
             पासवर्ड विसरलात? तुमचा ईमेल टाका आणि आम्ही reset link पाठवतो.
           </p>
         </div>
       </div>
       <div className="relative z-10">
-        <p className="text-sm text-white/45 leading-relaxed italic font-[family-name:var(--font-noto-devanagari)]">
+        <p className="text-sm text-white/45 leading-relaxed italic font-body">
           &quot;शिक्षण म्हणजे सर्वात शक्तिशाली शस्त्र आहे जे तुम्ही जगाला
           बदलण्यासाठी वापरू शकता.&quot;
           <br />— नेल्सन मंडेला
@@ -89,15 +89,15 @@ export default function ForgotPasswordPage() {
         <LeftPanel />
         <div className="bg-cream flex items-center justify-center p-12">
           <div className="w-full max-w-[440px]">
-            <h1 className="text-[28px] font-extrabold text-text-900 mb-1.5 font-[family-name:var(--font-noto-devanagari)]">
+            <h1 className="text-[28px] font-extrabold text-text-900 mb-1.5 font-heading">
               पासवर्ड रीसेट करा
             </h1>
-            <p className="text-sm text-text-500 mb-8 font-[family-name:var(--font-noto-devanagari)]">
+            <p className="text-sm text-text-500 mb-8 font-body">
               तुमचा ईमेल टाका — आम्ही reset link पाठवतो
             </p>
 
             {success ? (
-              <div className="rounded-xl border-2 border-green-500/30 bg-green-50 p-6 font-[family-name:var(--font-noto-devanagari)]">
+              <div className="rounded-xl border-2 border-green-500/30 bg-green-50 p-6 font-body">
                 <div className="font-bold text-green-800 text-base mb-2">
                   ✅ Reset link पाठवला!
                 </div>
@@ -111,7 +111,7 @@ export default function ForgotPasswordPage() {
             ) : (
               <form onSubmit={handleReset} className="flex flex-col gap-3.5">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[13px] font-semibold text-text-700 font-[family-name:var(--font-noto-devanagari)]">
+                  <label className="text-[13px] font-semibold text-text-700 font-body">
                     ईमेल
                   </label>
                   <div className="relative">
@@ -121,20 +121,20 @@ export default function ForgotPasswordPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="email@example.com"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-border-school bg-white text-text-900 text-sm outline-none transition-colors focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.1)] font-[family-name:var(--font-noto-devanagari)] placeholder:text-text-300"
+                      className="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-border-school bg-white text-text-900 text-sm outline-none transition-colors focus:border-saffron focus:shadow-[0_0_0_3px_rgba(244,106,10,0.1)] font-body placeholder:text-text-300"
                       disabled={loading}
                     />
                   </div>
                 </div>
                 {error && (
-                  <p className="text-sm text-red-600 font-[family-name:var(--font-noto-devanagari)]">
+                  <p className="text-sm text-red-600 font-body">
                     {error}
                   </p>
                 )}
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold text-[15px] flex items-center justify-center gap-2 shadow-lg shadow-saffron/30 hover:shadow-xl hover:shadow-saffron/45 hover:-translate-y-0.5 transition-all disabled:opacity-70 font-[family-name:var(--font-noto-devanagari)]"
+                  className="w-full py-4 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white font-semibold text-[15px] flex items-center justify-center gap-2 shadow-lg shadow-saffron/30 hover:shadow-xl hover:shadow-saffron/45 hover:-translate-y-0.5 transition-all disabled:opacity-70 font-body"
                 >
                   {loading ? "पाठवत आहे..." : "Reset Link पाठवा"}
                 </button>
@@ -143,12 +143,12 @@ export default function ForgotPasswordPage() {
 
             <Link
               href="/login"
-              className="mt-6 inline-flex items-center gap-2 text-sm text-saffron font-semibold hover:underline font-[family-name:var(--font-noto-devanagari)]"
+              className="mt-6 inline-flex items-center gap-2 text-sm text-saffron font-semibold hover:underline font-body"
             >
               ← लॉगिनवर परत जा
             </Link>
 
-            <p className="text-[11px] text-text-300 text-center mt-8 font-[family-name:var(--font-noto-devanagari)]">
+            <p className="text-[11px] text-text-300 text-center mt-8 font-body">
               🔒 SSL Encrypted · DPDP Compliant · Made in India 🇮🇳
             </p>
           </div>

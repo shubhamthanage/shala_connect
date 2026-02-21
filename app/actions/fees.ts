@@ -28,7 +28,8 @@ export interface FeeOverviewData {
 
 export async function getFeeOverview(): Promise<FeeOverviewData | null> {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
   if (!user) return null
 
   const { data: userData } = await supabase
@@ -136,7 +137,8 @@ export async function getFeeOverview(): Promise<FeeOverviewData | null> {
 
 export async function sendFeeReminder(studentId: string): Promise<{ success: boolean; error?: string }> {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
   if (!user) return { success: false, error: "Unauthorized" }
 
   const admin = createAdminClient()

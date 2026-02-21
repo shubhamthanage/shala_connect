@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { redirect } from "next/navigation"
 import { getHeadmasterSchoolId, getSchoolStudentsWithClass } from "@/app/actions/users"
 
@@ -22,12 +21,12 @@ export default async function StudentsPage() {
           </div>
           <div className="text-[11px] text-text-300 font-[family-name:var(--font-noto-devanagari)]">एकूण {students.length} विद्यार्थी</div>
         </div>
-        <Link
+        <a
           href="/dashboard/headmaster/users/add"
           className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-br from-saffron to-saffron-bright text-white text-sm font-semibold shadow-md shadow-saffron/25 hover:shadow-lg hover:-translate-y-0.5 transition-all font-[family-name:var(--font-noto-devanagari)]"
         >
           + विद्यार्थी जोडा
-        </Link>
+        </a>
       </div>
       <div className="flex-1 overflow-y-auto p-6 bg-[#F4F7FB]">
         <div className="bg-white rounded-2xl border border-border-school overflow-hidden shadow-sm">

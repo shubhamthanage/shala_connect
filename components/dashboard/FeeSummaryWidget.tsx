@@ -8,7 +8,7 @@ export function FeeSummaryWidget({
   return (
     <div className="bg-white rounded-2xl border border-border-school overflow-hidden">
       <div className="px-4 py-4 border-b border-border-school">
-        <span className="font-bold text-text-900 text-sm font-[family-name:var(--font-noto-devanagari)]">
+        <span className="font-bold text-text-900 text-sm font-heading">
           💰 शुल्क स्थिती
         </span>
       </div>
@@ -19,14 +19,14 @@ export function FeeSummaryWidget({
               key={i}
               className="flex justify-between items-center py-2.5 px-3 bg-cream rounded-lg border border-border-school"
             >
-              <span className="font-semibold text-text-900 text-xs font-[family-name:var(--font-noto-devanagari)]">
+              <span className="font-semibold text-text-900 text-xs font-body">
                 {c.label}
               </span>
               <div>
-                <span className="font-bold text-green-mid text-xs font-[family-name:var(--font-plus-jakarta)]">
+                <span className="font-bold text-green-mid text-xs font-body">
                   {c.collected}
                 </span>
-                <div className="text-[11px] text-red-500 font-[family-name:var(--font-noto-devanagari)]">
+                <div className="text-[11px] text-red-500 font-body">
                   बाकी: {c.pending}
                 </div>
               </div>
@@ -34,10 +34,10 @@ export function FeeSummaryWidget({
           ))}
         </div>
         <div className="mt-2 p-3 bg-navy-3 rounded-xl flex justify-between items-center">
-          <span className="text-xs text-white/60 font-[family-name:var(--font-noto-devanagari)]">
+          <span className="text-xs text-white/60 font-body">
             एकूण जमा
           </span>
-          <span className="font-extrabold text-white text-lg font-[family-name:var(--font-plus-jakarta)]">
+          <span className="font-extrabold text-white text-lg font-heading">
             {totalCollected}
           </span>
         </div>

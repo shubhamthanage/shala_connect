@@ -1,4 +1,13 @@
-export default function SettingsPage() {
+import { redirect } from "next/navigation"
+import { getHeadmasterSchool } from "@/app/actions/headmaster"
+import { SettingsForm } from "./SettingsForm"
+
+export const dynamic = "force-dynamic"
+
+export default async function SettingsPage() {
+  const school = await getHeadmasterSchool()
+  if (!school) redirect("/login")
+
   return (
     <>
       <div className="h-[60px] bg-white border-b border-border-school flex items-center justify-between px-6 flex-shrink-0 shadow-sm">

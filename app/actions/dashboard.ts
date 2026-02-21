@@ -36,7 +36,8 @@ const DEFAULT_SCHOOL_ID = "a0000000-0000-0000-0000-000000000001"
 
 export async function getHeadmasterDashboard(): Promise<HeadmasterDashboardData | null> {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
   if (!user) return null
 
   let { data: userData } = await supabase

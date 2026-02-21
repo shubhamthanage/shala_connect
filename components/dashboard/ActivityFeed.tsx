@@ -9,7 +9,7 @@ export function ActivityFeed({ activities }: { activities: Activity[] }) {
   return (
     <div className="bg-white rounded-2xl border border-border-school overflow-hidden">
       <div className="px-4 py-4 border-b border-border-school">
-        <span className="font-bold text-text-900 text-sm font-[family-name:var(--font-noto-devanagari)]">
+        <span className="font-bold text-text-900 text-sm font-heading">
           🕐 अलीकडील कार्ये
         </span>
       </div>
@@ -24,10 +24,10 @@ export function ActivityFeed({ activities }: { activities: Activity[] }) {
                 {a.icon}
               </div>
               <div>
-                <div className="font-semibold text-text-900 text-xs font-[family-name:var(--font-noto-devanagari)]">
+                <div className="font-semibold text-text-900 text-xs font-body">
                   {a.title}
                 </div>
-                <div className="text-[10px] text-text-300 mt-0.5 font-[family-name:var(--font-noto-devanagari)]">
+                <div className="text-[10px] text-text-300 mt-0.5 font-body">
                   {a.time}
                 </div>
               </div>

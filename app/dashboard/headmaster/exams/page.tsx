@@ -1,4 +1,22 @@
-export default function ExamsPage() {
+import { redirect } from "next/navigation"
+import { getHeadmasterSchoolId } from "@/app/actions/users"
+import { createAdminClient } from "@/lib/supabase/admin"
+import { EmptyState } from "@/components/ui/EmptyState"
+
+export const dynamic = "force-dynamic"
+
+export default async function ExamsPage() {
+  const schoolId = await getHeadmasterSchoolId()
+  if (!schoolId) redirect("/login")
+
+  const admin = createAdminClient()
+  const { data: exams } = await admin
+    .from("exams")
+    .select("id, exam_name, subject, date, class_id, classes(grade, division)")
+    .eq("school_id", schoolId)
+    .order("date", { ascending: false })
+    .limit(20)
+
   return (
     <>
       <div className="h-[60px] bg-white border-b border-border-school flex items-center justify-between px-6 flex-shrink-0 shadow-sm">

@@ -1,9 +1,22 @@
-import { redirect } from "next/navigation"
 import { getStudentDashboard } from "@/app/actions/student"
 
 export default async function StudentDashboardPage() {
   const data = await getStudentDashboard()
-  if (!data) redirect("/login?error=no_school")
+  if (!data) {
+    // #region agent log
+    fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'post-fix-4',hypothesisId:'H13',location:'app/dashboard/student/page.tsx',message:'student page shows fallback instead of login redirect',data:{},timestamp:Date.now()})}).catch(()=>{})
+    // #endregion
+    return (
+      <div className="p-8">
+        <h1 className="text-2xl font-bold text-text-900 mb-2 font-body">
+          👦 विद्यार्थी डॅशबोर्ड
+        </h1>
+        <p className="text-text-500 mb-8 font-body">
+          तुमच्या खात्याची माहिती सेटअप होत आहे. कृपया थोड्या वेळाने पुन्हा प्रयत्न करा.
+        </p>
+      </div>
+    )
+  }
 
   const today = new Date()
   const dayNames = ["रविवार", "सोमवार", "मंगळवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"]
