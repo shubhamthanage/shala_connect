@@ -225,16 +225,16 @@ export default function Home() {
       </div>
 
       {/* Roles Section */}
-      <section id="features" className="bg-white py-20 md:py-24 px-6 md:px-16">
+      <section id="features" className="bg-navy-2 py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-5 h-0.5 bg-saffron rounded" />
             <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">वापरकर्ते</span>
           </div>
-          <h2 className="text-3xl md:text-[40px] font-extrabold text-text-900 mb-4 font-[family-name:var(--font-noto-devanagari)]">
+          <h2 className="text-3xl md:text-[40px] font-extrabold text-white mb-4 font-[family-name:var(--font-noto-devanagari)]">
             प्रत्येकासाठी <span className="text-saffron">वेगळा अनुभव</span>
           </h2>
-          <p className="text-base text-text-500 leading-relaxed max-w-[560px] mb-12 font-[family-name:var(--font-noto-devanagari)]">
+          <p className="text-base text-white/55 leading-relaxed max-w-[560px] mb-12 font-[family-name:var(--font-noto-devanagari)]">
             पाच भूमिका, पाच वेगळे डॅशबोर्ड — योग्य माहिती, योग्य व्यक्तीला, योग्य वेळी
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
@@ -247,12 +247,12 @@ export default function Home() {
             ].map((role, i) => (
               <div
                 key={i}
-                className="rounded-[20px] p-6 md:p-7 text-center border-2 border-border-school bg-white hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl transition-all cursor-pointer group"
+                className="rounded-[20px] p-6 md:p-7 text-center border border-white/10 bg-white/[0.07] hover:-translate-y-2 hover:scale-[1.02] hover:bg-white/[0.11] transition-all cursor-pointer"
               >
                 <span className="text-4xl md:text-5xl block mb-3">{role.emoji}</span>
-                <div className="font-bold text-text-900 text-base mb-2 font-[family-name:var(--font-noto-devanagari)]">{role.name}</div>
-                <div className="text-xs text-text-500 leading-relaxed mb-4 font-[family-name:var(--font-noto-devanagari)]">{role.desc}</div>
-                <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold bg-cream text-text-500 border border-border-school font-[family-name:var(--font-noto-devanagari)]">
+                <div className="font-bold text-white text-base mb-2 font-[family-name:var(--font-noto-devanagari)]">{role.name}</div>
+                <div className="text-xs text-white/55 leading-relaxed mb-4 font-[family-name:var(--font-noto-devanagari)]">{role.desc}</div>
+                <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold bg-white/10 text-white/60 border border-white/15 font-[family-name:var(--font-noto-devanagari)]">
                   {role.tag}
                 </span>
               </div>
@@ -262,28 +262,28 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="bg-cream py-20 md:py-24 px-6 md:px-16">
+      <section id="how-it-works" className="bg-navy py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-5 h-0.5 bg-saffron rounded" />
             <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">कसे वापरावे</span>
           </div>
-          <h2 className="text-3xl md:text-[40px] font-extrabold text-text-900 mb-4 font-[family-name:var(--font-noto-devanagari)]">
+          <h2 className="text-3xl md:text-[40px] font-extrabold text-white mb-4 font-[family-name:var(--font-noto-devanagari)]">
             ४ सोप्या पायऱ्या, <span className="text-saffron">शाळा डिजिटल</span>
           </h2>
-          <p className="text-base text-text-500 leading-relaxed max-w-[560px] mb-12 font-[family-name:var(--font-noto-devanagari)]">
+          <p className="text-base text-white/55 leading-relaxed max-w-[560px] mb-12 font-[family-name:var(--font-noto-devanagari)]">
             तांत्रिक ज्ञान नको. मराठीत सर्व. पहिल्याच दिवशी वापर सुरू.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-            <div className="absolute top-8 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-saffron via-gold to-green-mid hidden md:block -z-0" />
+            <div className="absolute top-8 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-saffron via-gold to-green-mid hidden md:block -z-0 opacity-40" />
             {[
               { num: "१", title: "नोंदणी करा", desc: "शाळेचे नाव, जिल्हा, वर्ग संख्या — ५ मिनिटांत खाते. मोफत ३० दिवस.", color: "saffron" },
               { num: "२", title: "माहिती भरा", desc: "Excel मधून विद्यार्थी import करा. शिक्षकांना invite करा.", color: "gold" },
               { num: "३", title: "वापर सुरू करा", desc: "हजेरी घ्या, फी घ्या, सूचना पाठवा. सर्व automatic.", color: "sky" },
               { num: "४", title: "रिपोर्ट पहा", desc: "U-DISE, RTE, मासिक अहवाल — एका क्लिकमध्ये.", color: "green-mid" },
             ].map((step, i) => (
-              <div key={i} className="text-center relative z-10">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-lg mx-auto mb-4 border-2 border-white bg-${step.color} text-white shadow-lg`}
+              <div key={i} className="text-center relative z-10 bg-white/[0.05] border border-white/10 rounded-2xl p-6">
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-lg mx-auto mb-4 border-2 border-white/20 text-white shadow-lg`}
                   style={{
                     background: step.color === "saffron" ? "linear-gradient(135deg, #F46A0A, #F59E0B)" :
                       step.color === "gold" ? "linear-gradient(135deg, #F59E0B, #FCD34D)" :
@@ -292,8 +292,8 @@ export default function Home() {
                 >
                   {step.num}
                 </div>
-                <div className="font-bold text-text-900 text-[15px] mb-2 font-[family-name:var(--font-noto-devanagari)]">{step.title}</div>
-                <div className="text-xs text-text-500 leading-relaxed font-[family-name:var(--font-noto-devanagari)]">{step.desc}</div>
+                <div className="font-bold text-white text-[15px] mb-2 font-[family-name:var(--font-noto-devanagari)]">{step.title}</div>
+                <div className="text-xs text-white/55 leading-relaxed font-[family-name:var(--font-noto-devanagari)]">{step.desc}</div>
               </div>
             ))}
           </div>
@@ -335,16 +335,16 @@ export default function Home() {
             </div>
 
             {/* Attendance Card */}
-            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#FFF3E8" }}>📋</div>
-              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-orange-50 text-saffron border border-orange-100 mb-3">हजेरी</span>
-              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">स्मार्ट हजेरी प्रणाली</h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+            <div className="rounded-3xl p-7 bg-white/[0.07] border border-white/10 hover:-translate-y-1 hover:bg-white/[0.11] transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "rgba(244,106,10,0.2)" }}>📋</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-saffron/20 text-saffron-bright border border-saffron/30 mb-3">हजेरी</span>
+              <h3 className="font-bold text-white text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">स्मार्ट हजेरी प्रणाली</h3>
+              <p className="text-sm text-white/55 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
                 QR कोड, बायोमेट्रिक किंवा मॅन्युअल — गैरहजर तर तात्काळ WhatsApp.
               </p>
               <ul className="flex flex-col gap-2">
                 {["QR स्कॅन हजेरी", "गैरहजर → WhatsApp तात्काळ", "मासिक PDF अहवाल", "RTE ८०% नियम चेक"].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
+                  <li key={item} className="flex items-center gap-2 text-xs text-white/65 font-[family-name:var(--font-noto-devanagari)]">
                     <span className="w-1.5 h-1.5 rounded-full bg-saffron flex-shrink-0" />
                     {item}
                   </li>
@@ -353,17 +353,17 @@ export default function Home() {
             </div>
 
             {/* Fee Card */}
-            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#F0FDF4" }}>💰</div>
-              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-green-50 text-green-700 border border-green-100 mb-3">शुल्क</span>
-              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">ऑनलाईन फी व्यवस्थापन</h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+            <div className="rounded-3xl p-7 bg-white/[0.07] border border-white/10 hover:-translate-y-1 hover:bg-white/[0.11] transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "rgba(22,163,74,0.2)" }}>💰</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-green-bright/20 text-green-bright border border-green-bright/30 mb-3">शुल्क</span>
+              <h3 className="font-bold text-white text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">ऑनलाईन फी व्यवस्थापन</h3>
+              <p className="text-sm text-white/55 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
                 UPI, नेटबँकिंग, कार्ड. थकित फी auto-reminder. Razorpay सुरक्षित.
               </p>
               <ul className="flex flex-col gap-2">
                 {["Razorpay / UPI / QR", "Auto reminder SMS", "RTE मोफत प्रवेश track", "शुल्क माफी व्यवस्थापन"].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0" />
+                  <li key={item} className="flex items-center gap-2 text-xs text-white/65 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-bright flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -371,17 +371,17 @@ export default function Home() {
             </div>
 
             {/* Exam Card */}
-            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#F0F8FF" }}>📊</div>
-              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-sky-50 text-sky-700 border border-sky-100 mb-3">परीक्षा</span>
-              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">परीक्षा व निकाल</h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+            <div className="rounded-3xl p-7 bg-white/[0.07] border border-white/10 hover:-translate-y-1 hover:bg-white/[0.11] transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "rgba(14,165,233,0.2)" }}>📊</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-sky/20 text-sky border border-sky/30 mb-3">परीक्षा</span>
+              <h3 className="font-bold text-white text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">परीक्षा व निकाल</h3>
+              <p className="text-sm text-white/55 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
                 गुण प्रविष्टी ते मराठी रिपोर्ट कार्ड — एका क्लिकमध्ये. e-signature सहित.
               </p>
               <ul className="flex flex-col gap-2">
                 {["ऑनलाईन गुण प्रविष्टी", "मराठी रिपोर्ट कार्ड PDF", "SSC / CBSE पॅटर्न", "प्रगतिपुस्तक e-sign"].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-sky-500 flex-shrink-0" />
+                  <li key={item} className="flex items-center gap-2 text-xs text-white/65 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -389,17 +389,17 @@ export default function Home() {
             </div>
 
             {/* Admin Docs Card */}
-            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#F5F0FF" }}>📁</div>
-              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-purple-50 text-purple-700 border border-purple-100 mb-3">प्रशासन</span>
-              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">सरकारी दस्तऐवज केंद्र</h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+            <div className="rounded-3xl p-7 bg-white/[0.07] border border-white/10 hover:-translate-y-1 hover:bg-white/[0.11] transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "rgba(139,92,246,0.2)" }}>📁</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-violet-400/20 text-violet-300 border border-violet-400/30 mb-3">प्रशासन</span>
+              <h3 className="font-bold text-white text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">सरकारी दस्तऐवज केंद्र</h3>
+              <p className="text-sm text-white/55 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
                 TC, बोनाफाईड, जन्म दाखला — डिजिटल सहीसकट तत्काळ. U-DISE auto.
               </p>
               <ul className="flex flex-col gap-2">
                 {["TC / बोनाफाईड auto", "DigiLocker इंटीग्रेशन", "U-DISE एक्सपोर्ट", "शिष्यवृत्ती ट्रॅकिंग"].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0" />
+                  <li key={item} className="flex items-center gap-2 text-xs text-white/65 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-violet-400 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -407,16 +407,16 @@ export default function Home() {
             </div>
 
             {/* eLearning Card */}
-            <div className="rounded-3xl p-7 bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "#FFF0F0" }}>📚</div>
-              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-red-50 text-red-700 border border-red-100 mb-3">शिक्षण</span>
-              <h3 className="font-bold text-[#1a1a2e] text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">ई-लर्निंग & गृहपाठ</h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
+            <div className="rounded-3xl p-7 bg-white/[0.07] border border-white/10 hover:-translate-y-1 hover:bg-white/[0.11] transition-all">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: "rgba(239,68,68,0.2)" }}>📚</div>
+              <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-widest uppercase bg-red-400/20 text-red-300 border border-red-400/30 mb-3">शिक्षण</span>
+              <h3 className="font-bold text-white text-lg mb-2 font-[family-name:var(--font-noto-devanagari)]">ई-लर्निंग & गृहपाठ</h3>
+              <p className="text-sm text-white/55 leading-relaxed mb-5 font-[family-name:var(--font-noto-devanagari)]">
                 व्हिडिओ धडे, गृहपाठ, ऑनलाईन क्विझ — बालभारती पुस्तकांसह.
               </p>
               <ul className="flex flex-col gap-2">
                 {["PDF / Video धडे", "ऑनलाईन गृहपाठ submit", "मराठी विषय साहित्य", "बालभारती लिंक"].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-gray-500 font-[family-name:var(--font-noto-devanagari)]">
+                  <li key={item} className="flex items-center gap-2 text-xs text-white/65 font-[family-name:var(--font-noto-devanagari)]">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
                     {item}
                   </li>
@@ -428,13 +428,13 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="bg-cream py-20 md:py-24 px-6 md:px-16">
+      <section className="bg-navy-2 py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-5 h-0.5 bg-saffron rounded" />
             <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">अभिप्राय</span>
           </div>
-          <h2 className="text-3xl md:text-[40px] font-extrabold text-text-900 mb-12 font-[family-name:var(--font-noto-devanagari)]">
+          <h2 className="text-3xl md:text-[40px] font-extrabold text-white mb-12 font-[family-name:var(--font-noto-devanagari)]">
             शाळा काय म्हणतात <span className="text-saffron">आमच्याबद्दल</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -445,7 +445,7 @@ export default function Home() {
                 name: "सुलभा देशमुख",
                 role: "शिक्षक, इ.७वी | पुणे विद्यामंदिर",
                 emoji: "👩‍🏫",
-                bg: "#FFF3E8",
+                iconBg: "rgba(244,106,10,0.2)",
               },
               {
                 stars: 5,
@@ -453,7 +453,7 @@ export default function Home() {
                 name: "महेश जाधव",
                 role: "कारकून | जि.प. शाळा, नाशिक",
                 emoji: "🧑‍💻",
-                bg: "#F0FDF4",
+                iconBg: "rgba(22,163,74,0.2)",
               },
               {
                 stars: 5,
@@ -461,17 +461,17 @@ export default function Home() {
                 name: "रजनी पाटील",
                 role: "पालक, इ.८वी | औरंगाबाद",
                 emoji: "👨‍👩‍👦",
-                bg: "#F0F0FF",
+                iconBg: "rgba(139,92,246,0.2)",
               },
             ].map((t, i) => (
-              <div key={i} className="bg-white rounded-3xl p-7 border border-border-school shadow-sm flex flex-col gap-4">
+              <div key={i} className="bg-white/[0.07] border border-white/10 rounded-3xl p-7 flex flex-col gap-4">
                 <div className="text-saffron text-lg tracking-wider">{"★".repeat(t.stars)}</div>
-                <p className="text-sm text-text-500 leading-relaxed flex-1 font-[family-name:var(--font-noto-devanagari)]">{t.text}</p>
-                <div className="flex items-center gap-3 pt-4 border-t border-border-school">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl flex-shrink-0" style={{ background: t.bg }}>{t.emoji}</div>
+                <p className="text-sm text-white/65 leading-relaxed flex-1 font-[family-name:var(--font-noto-devanagari)]">{t.text}</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl flex-shrink-0" style={{ background: t.iconBg }}>{t.emoji}</div>
                   <div>
-                    <div className="font-bold text-text-900 text-sm font-[family-name:var(--font-noto-devanagari)]">{t.name}</div>
-                    <div className="text-[11px] text-text-300 font-[family-name:var(--font-noto-devanagari)]">{t.role}</div>
+                    <div className="font-bold text-white text-sm font-[family-name:var(--font-noto-devanagari)]">{t.name}</div>
+                    <div className="text-[11px] text-white/40 font-[family-name:var(--font-noto-devanagari)]">{t.role}</div>
                   </div>
                 </div>
               </div>
@@ -481,7 +481,7 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="bg-white py-20 md:py-24 px-6 md:px-16">
+      <section id="pricing" className="bg-navy py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-3">
@@ -489,31 +489,31 @@ export default function Home() {
               <span className="text-[10px] font-extrabold tracking-[3px] uppercase text-saffron">किंमत</span>
               <div className="w-5 h-0.5 bg-saffron rounded" />
             </div>
-            <h2 className="text-3xl md:text-[40px] font-extrabold text-text-900 mb-3 font-[family-name:var(--font-noto-devanagari)]">
+            <h2 className="text-3xl md:text-[40px] font-extrabold text-white mb-3 font-[family-name:var(--font-noto-devanagari)]">
               परवडणारी, <span className="text-saffron">पारदर्शी किंमत</span>
             </h2>
-            <p className="text-base text-text-500 font-[family-name:var(--font-noto-devanagari)]">लपवलेले शुल्क नाही. कधीही रद्द करता येते.</p>
+            <p className="text-base text-white/55 font-[family-name:var(--font-noto-devanagari)]">लपवलेले शुल्क नाही. कधीही रद्द करता येते.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {/* Starter */}
-            <div className="rounded-3xl p-8 border-2 border-border-school bg-white">
-              <div className="font-bold text-text-500 text-sm mb-4 font-[family-name:var(--font-noto-devanagari)]">स्टार्टर</div>
+            <div className="rounded-3xl p-8 border border-white/10 bg-white/[0.07]">
+              <div className="font-bold text-white/55 text-sm mb-4 font-[family-name:var(--font-noto-devanagari)]">स्टार्टर</div>
               <div className="flex items-end gap-1 mb-1">
-                <span className="text-2xl font-bold text-text-900">₹</span>
-                <span className="text-5xl font-extrabold text-text-900 leading-none">९९९</span>
+                <span className="text-2xl font-bold text-white">₹</span>
+                <span className="text-5xl font-extrabold text-white leading-none">९९९</span>
               </div>
-              <div className="text-xs text-text-300 mb-6 font-[family-name:var(--font-noto-devanagari)]">दर महिना · ५०० विद्यार्थ्यांपर्यंत</div>
-              <div className="h-px bg-border-school mb-6" />
+              <div className="text-xs text-white/40 mb-6 font-[family-name:var(--font-noto-devanagari)]">दर महिना · ५०० विद्यार्थ्यांपर्यंत</div>
+              <div className="h-px bg-white/10 mb-6" />
               <ul className="flex flex-col gap-3 mb-8">
                 {["हजेरी + SMS सूचना", "फी व्यवस्थापन", "मराठी रिपोर्ट कार्ड", "WhatsApp (१,०००/महिना)", "Email सपोर्ट"].map((f) => (
-                  <li key={f} className="flex items-center gap-2.5 text-sm text-text-500 font-[family-name:var(--font-noto-devanagari)]">
-                    <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-[10px] text-green-700 flex-shrink-0">✓</span>
+                  <li key={f} className="flex items-center gap-2.5 text-sm text-white/65 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-5 h-5 rounded-full bg-saffron/20 flex items-center justify-center text-[10px] text-saffron-bright flex-shrink-0">✓</span>
                     {f}
                   </li>
                 ))}
               </ul>
-              <Link href="/register" className="block text-center px-6 py-3.5 rounded-2xl border-2 border-text-900 text-text-900 font-bold text-sm hover:bg-text-900 hover:text-white transition-all font-[family-name:var(--font-noto-devanagari)]">
+              <Link href="/register" className="block text-center px-6 py-3.5 rounded-2xl border border-white/30 text-white font-bold text-sm hover:bg-white/10 transition-all font-[family-name:var(--font-noto-devanagari)]">
                 सुरू करा →
               </Link>
             </div>
@@ -544,29 +544,29 @@ export default function Home() {
             </div>
 
             {/* Enterprise */}
-            <div className="rounded-3xl p-8 border-2 border-border-school bg-white">
-              <div className="font-bold text-text-500 text-sm mb-4 font-[family-name:var(--font-noto-devanagari)]">एंटरप्राइज</div>
+            <div className="rounded-3xl p-8 border border-white/10 bg-white/[0.07]">
+              <div className="font-bold text-white/55 text-sm mb-4 font-[family-name:var(--font-noto-devanagari)]">एंटरप्राइज</div>
               <div className="flex items-end gap-1 mb-1">
-                <span className="text-2xl font-bold text-text-900">₹</span>
-                <span className="text-5xl font-extrabold text-text-900 leading-none">७,९९९</span>
+                <span className="text-2xl font-bold text-white">₹</span>
+                <span className="text-5xl font-extrabold text-white leading-none">७,९९९</span>
               </div>
-              <div className="text-xs text-text-300 mb-6 font-[family-name:var(--font-noto-devanagari)]">१२ महिने · Multi-school</div>
-              <div className="h-px bg-border-school mb-6" />
+              <div className="text-xs text-white/40 mb-6 font-[family-name:var(--font-noto-devanagari)]">१२ महिने · Multi-school</div>
+              <div className="h-px bg-white/10 mb-6" />
               <ul className="flex flex-col gap-3 mb-8">
                 {["सर्व Pro सुविधा", "Alumni नेटवर्क", "DigiLocker", "Custom ब्रँडिंग", "Dedicated Manager", "API Access"].map((f) => (
-                  <li key={f} className="flex items-center gap-2.5 text-sm text-text-500 font-[family-name:var(--font-noto-devanagari)]">
-                    <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-[10px] text-green-700 flex-shrink-0">✓</span>
+                  <li key={f} className="flex items-center gap-2.5 text-sm text-white/65 font-[family-name:var(--font-noto-devanagari)]">
+                    <span className="w-5 h-5 rounded-full bg-saffron/20 flex items-center justify-center text-[10px] text-saffron-bright flex-shrink-0">✓</span>
                     {f}
                   </li>
                 ))}
               </ul>
-              <Link href="/register" className="block text-center px-6 py-3.5 rounded-2xl border-2 border-text-900 text-text-900 font-bold text-sm hover:bg-text-900 hover:text-white transition-all font-[family-name:var(--font-noto-devanagari)]">
+              <Link href="/register" className="block text-center px-6 py-3.5 rounded-2xl border border-white/30 text-white font-bold text-sm hover:bg-white/10 transition-all font-[family-name:var(--font-noto-devanagari)]">
                 सुरू करा →
               </Link>
             </div>
           </div>
 
-          <p className="text-center mt-8 text-sm text-text-300 font-[family-name:var(--font-noto-devanagari)]">
+          <p className="text-center mt-8 text-sm text-white/40 font-[family-name:var(--font-noto-devanagari)]">
             🎓 सरकारी शाळांना ५०% सवलत &nbsp;|&nbsp; 🆓 ३० दिवस मोफत — कार्ड नको &nbsp;|&nbsp; ❌ कधीही रद्द करा
           </p>
         </div>
