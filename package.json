@@ -27,7 +27,8 @@
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "recharts": "^2.12.7",
-    "tailwind-merge": "^2.5.0"
+    "tailwind-merge": "^2.5.0",
+    "pg": "^8.18.0"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -38,7 +39,6 @@
     "bcrypt": "^6.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.18",
-    "pg": "^8.18.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",

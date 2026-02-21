@@ -37,7 +37,7 @@ export async function GET() {
   try {
     const pg = new Client({ connectionString: dbUrl })
     await pg.connect()
-    const res = await pg.query(
+    const res = await pg.query<{ id: string; email: string }>(
       "SELECT id, email FROM auth.users WHERE email LIKE '%@shalaconnect.test'"
     )
     rows = res.rows
