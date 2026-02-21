@@ -237,7 +237,7 @@
     @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold font-body;
     @apply bg-white/10 border border-white/15 text-white;
     @apply transition-all duration-200;
-    @apply hover:bg-white/15;
+    @apply hover:bg-white/15 active:scale-[0.98];
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-navy;
   }
   /* Card — elevated with shadow */
@@ -276,6 +276,10 @@
   .nav-link {
     @apply text-sm font-medium text-white/65 transition-colors duration-200 font-body;
     @apply hover:text-white;
+  }
+  .nav-link-active {
+    @apply text-saffron-bright font-semibold;
+    @apply border-b-2 border-saffron-bright pb-1 -mb-0.5;
   }
   /* Skeleton shimmer */
   .skeleton-shimmer {
@@ -399,6 +403,63 @@
   background: linear-gradient(90deg, #f0f4f8 25%, #e2eaf2 50%, #f0f4f8 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
+}
+
+/* ─── Hero canvas animations (from design.html) ──────────── */
+@keyframes spin60 {
+  from { transform: translateY(-55%) rotate(0deg); }
+  to { transform: translateY(-55%) rotate(360deg); }
+}
+@keyframes lineSweep {
+  0%, 100% { opacity: 0; transform: scaleX(0); }
+  40%, 60% { opacity: 1; transform: scaleX(1); }
+}
+@keyframes dashBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(0.2deg); }
+}
+.animate-spin60 { animation: spin60 60s linear infinite; }
+.animate-line-sweep { animation: lineSweep 8s ease-in-out infinite; }
+.animate-dash-bob { animation: dashBob 6s ease-in-out infinite; }
+
+/* ─── UI polish animations ──────────────────────────────── */
+@keyframes floatB {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-8px) translateX(-4px); }
+}
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroFadeLeft {
+  from { opacity: 0; transform: translateX(36px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes barAnim {
+  from { width: 0; }
+}
+.animate-float-badge { animation: floatB 5s ease-in-out infinite; }
+.animate-float-badge-2 { animation: floatB 5s ease-in-out infinite 2.5s; }
+.animate-hero-fade-up { animation: heroFadeUp 0.7s ease both; }
+.animate-hero-fade-up-1 { animation: heroFadeUp 0.7s 0.2s ease both; }
+.animate-hero-fade-up-2 { animation: heroFadeUp 0.7s 0.35s ease both; }
+.animate-hero-fade-up-3 { animation: heroFadeUp 0.7s 0.5s ease both; }
+.animate-hero-fade-up-4 { animation: heroFadeUp 0.7s 0.65s ease both; }
+.animate-hero-fade-up-5 { animation: heroFadeUp 0.7s 0.8s ease both; }
+.animate-hero-fade-left { animation: heroFadeLeft 0.9s 0.4s ease both; }
+.animate-bar-fill { animation: barAnim 2s ease forwards; }
+.transition-role-card { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.animate-glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.animate-pro-glow {
+  animation: proGlow 4s ease-in-out infinite;
+}
+@keyframes proGlow {
+  0%, 100% { box-shadow: 0 24px 64px rgba(5,15,30,0.36), 0 0 0 1px rgba(244,106,10,0.28); }
+  50% { box-shadow: 0 24px 64px rgba(5,15,30,0.36), 0 0 0 1px rgba(244,106,10,0.28), 0 0 24px rgba(244,106,10,0.15); }
 }
 
 /* ─── Progress bar utility ──────────────────────────────── */

@@ -79,7 +79,7 @@ export default function Home() {
               <Link
                 key={l.href + l.label}
                 href={l.href}
-                className={`nav-link transition-colors ${isActive ? "text-saffron-bright font-semibold" : ""}`}
+                className={`nav-link transition-colors relative ${isActive ? "nav-link-active" : ""}`}
               >
                 {l.label}
               </Link>
@@ -151,8 +151,9 @@ export default function Home() {
 
       {/* Hero */}
       <header className="min-h-screen min-h-[100dvh] bg-navy relative overflow-hidden pt-[64px] sm:pt-[70px] flex flex-col">
-        {/* Background canvas */}
+        {/* Background canvas — mesh, grid, chakra, lines, noise (per design.html) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* hc-mesh */}
           <div
             className="absolute inset-0"
             style={{
@@ -160,6 +161,7 @@ export default function Home() {
                 "radial-gradient(ellipse 900px 700px at 70% 50%, rgba(244,106,10,0.10) 0%, transparent 70%), radial-gradient(ellipse 600px 500px at 10% 80%, rgba(21,128,61,0.08) 0%, transparent 70%), radial-gradient(ellipse 400px 400px at 50% 20%, rgba(14,165,233,0.05) 0%, transparent 70%)",
             }}
           />
+          {/* hc-grid */}
           <div
             className="absolute inset-0 opacity-[0.025]"
             style={{
@@ -168,47 +170,58 @@ export default function Home() {
               backgroundSize: "72px 72px",
             }}
           />
-        </div>
-
-        {/* Floating badges - desktop only */}
-        <div className="hidden xl:block absolute top-[18%] right-[470px] z-10 bg-white rounded-2xl px-4 py-3 flex items-center gap-2.5 shadow-lg border-l-4 border-saffron">
-          <span className="text-lg">📱</span>
-          <div>
-            <div className="text-xs font-bold text-text-900 font-body">WhatsApp गेला</div>
-            <div className="text-[10px] text-text-300">२,४७ पालकांना — आत्ता</div>
+          {/* hc-chakra — large spinning Dharmachakra (spin60 from design.html) */}
+          <div
+            className="absolute right-[-120px] top-1/2 w-[700px] h-[700px] opacity-[0.028] flex items-center justify-center animate-spin60"
+            aria-hidden
+          >
+            <span className="text-white text-[700px] leading-none block">☸</span>
           </div>
-        </div>
-        <div className="hidden xl:block absolute bottom-[25%] right-[470px] z-10 bg-white rounded-2xl px-4 py-3 flex items-center gap-2.5 shadow-lg border-l-4 border-green-school">
-          <span className="text-lg">✅</span>
-          <div>
-            <div className="text-xs font-bold text-text-900 font-body">फी जमा — ₹४,५००</div>
-            <div className="text-[10px] text-text-300">Razorpay यशस्वी</div>
+          {/* hc-lines — three animated sweep lines (lineSweep per design.html) */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div
+              className="absolute h-px bg-gradient-to-r from-transparent via-saffron/20 to-transparent animate-line-sweep origin-left"
+              style={{ top: "28%", width: "40%", left: "-10%" }}
+            />
+            <div
+              className="absolute h-px bg-gradient-to-r from-transparent via-saffron/20 to-transparent animate-line-sweep origin-right"
+              style={{ top: "55%", width: "30%", right: "-5%", left: "auto", animationDelay: "3s" }}
+            />
+            <div
+              className="absolute h-px bg-gradient-to-r from-transparent via-saffron/20 to-transparent animate-line-sweep origin-left"
+              style={{ top: "72%", width: "25%", left: "20%", animationDelay: "5s" }}
+            />
           </div>
+          {/* hc-noise — SVG noise overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.025]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            }}
+          />
         </div>
 
         <div className="flex-1 flex items-center px-4 sm:px-6 md:px-12 lg:px-16 pb-12 sm:pb-16 relative z-10 gap-8 lg:gap-12 max-w-[1400px] mx-auto w-full">
           <div className="flex-1 max-w-[590px] min-w-0">
-            <div className="inline-flex items-center gap-2.5 bg-saffron/10 border border-saffron/30 px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6">
+            <div className="inline-flex items-center gap-2.5 bg-saffron/10 border border-saffron/30 px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6 animate-hero-fade-up-1">
               <div className="w-2 h-2 rounded-full bg-green-bright shadow-[0_0_0_3px_rgba(34,197,94,0.25)] animate-pulse shrink-0" />
               <span className="text-[11px] sm:text-xs font-semibold text-saffron-bright font-body">
                 महाराष्ट्र #१ शाळा व्यवस्थापन प्लॅटफॉर्म
               </span>
             </div>
-            <h1 className="font-black text-white text-[28px] xs:text-[34px] sm:text-[42px] md:text-[52px] lg:text-[58px] leading-[1.15] mb-4 sm:mb-6 font-heading">
+            <h1 className="font-black text-white text-[28px] xs:text-[34px] sm:text-[42px] md:text-[52px] lg:text-[58px] leading-[1.15] mb-4 sm:mb-6 font-heading animate-hero-fade-up-2">
               <span className="bg-gradient-to-br from-saffron-bright to-gold-light bg-clip-text text-transparent">
                 डिजिटल शाळा
               </span>
               <br />
-              आता <span className="relative">मराठीत
-                <span className="absolute bottom-[-3px] left-0 right-0 h-[3px] bg-gradient-to-r from-green-mid to-green-bright rounded" />
-              </span>
+              आता मराठीत
               <br />
               सोपे, जलद, स्मार्ट
             </h1>
-            <p className="text-[15px] sm:text-[17px] text-white/58 leading-relaxed mb-6 sm:mb-8 max-w-[510px] font-body">
+            <p className="text-[15px] sm:text-[17px] text-white/58 leading-relaxed mb-6 sm:mb-8 max-w-[510px] font-body animate-hero-fade-up-3">
               मुख्याध्यापक, शिक्षक, कारकून, विद्यार्थी आणि पालक — पाचही जणांसाठी एकच अॅप. हजेरीपासून दाखल्यापर्यंत, फीपासून निकालापर्यंत सर्व डिजिटल.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 mb-8 sm:mb-10">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 mb-8 sm:mb-10 animate-hero-fade-up-4">
               <Link
                 href="/register"
                 className="btn-primary px-6 sm:px-8 py-3.5 sm:py-4 text-[14px] sm:text-[15px] min-h-[48px] justify-center touch-manipulation"
@@ -219,7 +232,7 @@ export default function Home() {
                 ▶ डेमो पहा
               </button>
             </div>
-            <div className="flex gap-5 flex-wrap">
+            <div className="flex gap-5 flex-wrap animate-hero-fade-up-5">
               <div className="flex items-center gap-2">
                 <span className="text-[17px]">🔒</span>
                 <div className="text-xs text-white/40 font-body">
@@ -244,9 +257,26 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Dashboard preview card */}
-          <div className="hidden lg:flex flex-1 justify-end items-center">
-            <div className="w-[470px] bg-white/[0.048] backdrop-blur-[28px] border border-white/10 rounded-3xl p-6 shadow-2xl shadow-black/50">
+          {/* Dashboard preview card — dashBob + fadeLeft + inset highlight per design.html */}
+          <div className="hidden lg:flex flex-1 justify-end items-center animate-hero-fade-left">
+            <div className="w-[470px] bg-white/[0.048] backdrop-blur-[28px] border border-white/10 rounded-3xl p-6 animate-dash-bob shadow-[0_28px_72px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.09)]">
+              {/* Live activity strip — WhatsApp & Fee integrated, no overlap */}
+              <div className="flex gap-2 mb-4">
+                <div className="flex-1 flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2 border-l-2 border-saffron">
+                  <span className="text-sm">📱</span>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-bold text-white font-body truncate">WhatsApp गेला</div>
+                    <div className="text-[9px] text-white/50 font-body">२,४७ पालकांना</div>
+                  </div>
+                </div>
+                <div className="flex-1 flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2 border-l-2 border-green-bright">
+                  <span className="text-sm">✅</span>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-bold text-white font-body truncate">फी जमा ₹४,५००</div>
+                    <div className="text-[9px] text-white/50 font-body">Razorpay यशस्वी</div>
+                  </div>
+                </div>
+              </div>
               <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
                 <div className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-full bg-gradient-to-br from-saffron to-gold flex items-center justify-center text-base">
@@ -282,21 +312,21 @@ export default function Home() {
                   <span className="text-xs font-bold text-green-bright font-body">८७% · १,०८५/१,२४७</span>
                 </div>
                 <div className="h-1.5 bg-white/[0.07] rounded overflow-hidden">
-                  <div className="h-full w-[87%] bg-gradient-to-r from-green-mid to-green-bright rounded" />
+                  <div className="h-full w-[87%] bg-gradient-to-r from-green-mid to-green-bright rounded animate-bar-fill" style={{ animationDelay: "0.5s", animationFillMode: "forwards" }} />
                 </div>
               </div>
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2 bg-white/[0.035] rounded-lg px-3 py-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-saffron shadow-[0_0_5px_rgba(244,106,10,0.2)]" />
-                  <span className="text-[11px] text-white/58 font-body">⚠️ इ.७वी ब — ३ विद्यार्थी गैरहजर, WhatsApp गेले</span>
+                  <span className="text-[11px] text-white font-body">⚠️ इ.७वी ब — ३ विद्यार्थी गैरहजर, WhatsApp गेले</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/[0.035] rounded-lg px-3 py-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-bright" />
-                  <span className="text-[11px] text-white/58 font-body">✅ वार्षिक परीक्षा वेळापत्रक सर्व पालकांना पाठवले</span>
+                  <span className="text-[11px] text-white font-body">✅ वार्षिक परीक्षा वेळापत्रक सर्व पालकांना पाठवले</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/[0.035] rounded-lg px-3 py-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-sky" />
-                  <span className="text-[11px] text-white/58 font-body">💰 आजचे फी कलेक्शन ९२% पूर्ण — ₹२.४ लाख</span>
+                  <span className="text-[11px] text-white font-body">💰 आजचे फी कलेक्शन ९२% पूर्ण — ₹२.४ लाख</span>
                 </div>
               </div>
             </div>
@@ -304,25 +334,38 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Stats Band */}
+      {/* Stats Band — CountUp when in view */}
       <div className="bg-gradient-to-r from-saffron to-gold py-6 px-12 md:px-16 flex justify-center">
         <div className="max-w-[1400px] w-full flex flex-wrap justify-center gap-8 md:gap-0">
           {[
-            { n: "५०,०००+", l: "शाळा वापरतात" },
-            { n: "२५ लाख+", l: "विद्यार्थी" },
-            { n: "९९.९%", l: "Uptime गॅरंटी" },
-            { n: "३६", l: "जिल्हे सक्रिय" },
-            { n: "4.9 ★", l: "App Store Rating" },
+            { n: "५०,०००+", l: "शाळा वापरतात", countUp: { end: 50000, suffix: "+", prefix: "", format: (n: number) => Math.round(n).toLocaleString("mr-IN") } },
+            { n: "२५ लाख+", l: "विद्यार्थी", countUp: { end: 25, suffix: " लाख+", prefix: "", format: (n: number) => Math.round(n).toLocaleString("mr-IN") } },
+            { n: "९९.९%", l: "Uptime गॅरंटी", countUp: { end: 99.9, suffix: "%", prefix: "", format: (n: number) => n.toLocaleString("mr-IN", { minimumFractionDigits: 1 }) } },
+            { n: "३६", l: "जिल्हे सक्रिय", countUp: { end: 36, suffix: "", prefix: "", format: (n: number) => Math.round(n).toLocaleString("mr-IN") } },
+            { n: "4.9 ★", l: "App Store Rating", countUp: { end: 4.9, suffix: " ★", prefix: "", format: (n: number) => n.toFixed(1) } },
           ].map((item, i) => (
             <div key={i} className="flex-1 min-w-[120px] text-center relative last:after:hidden md:after:content-[''] md:after:absolute md:after:right-0 md:after:top-[15%] md:after:bottom-[15%] md:after:w-px md:after:bg-white/30">
-              <div className="font-extrabold text-white text-2xl md:text-3xl font-[family-name:var(--font-noto-devanagari)]">{item.n}</div>
+              <div className="font-extrabold text-white text-2xl md:text-3xl font-[family-name:var(--font-noto-devanagari)]">
+                {item.countUp ? (
+                  <CountUp
+                    end={item.countUp.end}
+                    duration={2200}
+                    format={item.countUp.format}
+                    suffix={item.countUp.suffix}
+                    prefix={item.countUp.prefix}
+                  />
+                ) : (
+                  item.n
+                )}
+              </div>
               <div className="text-xs text-white/80 mt-1 font-[family-name:var(--font-noto-devanagari)]">{item.l}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Roles Section */}
+      {/* Roles Section — section divider */}
+      <div className="h-px bg-gradient-to-r from-saffron/5 via-border/40 to-saffron/5" aria-hidden />
       <ScrollReveal>
       <section id="roles" className="bg-white py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
@@ -343,25 +386,35 @@ export default function Home() {
               { emoji: "🧑‍💻", name: "कारकून", desc: "दाखले, शुल्क, दस्तऐवज, सरकारी अहवाल", tag: "१८+ मॉड्यूल्स", hoverBorder: "hover:border-sky", hoverShadow: "hover:shadow-[0_20px_50px_rgba(14,165,233,0.14)]" },
               { emoji: "👦", name: "विद्यार्थी", desc: "वेळापत्रक, गृहपाठ, निकाल, ई-लायब्ररी", tag: "१२+ मॉड्यूल्स", hoverBorder: "hover:border-violet-400", hoverShadow: "hover:shadow-[0_20px_50px_rgba(139,92,246,0.14)]" },
               { emoji: "👨‍👩‍👦", name: "पालक", desc: "हजेरी, गुण, शुल्क, शिक्षक भेट बुकिंग", tag: "१०+ मॉड्यूल्स", hoverBorder: "hover:border-pink-400", hoverShadow: "hover:shadow-[0_20px_50px_rgba(236,72,153,0.14)]" },
-            ].map((role, i) => (
+            ].map((role, i) => {
+              const overlayGradients = [
+                "linear-gradient(160deg,rgba(244,106,10,0.05),transparent)",
+                "linear-gradient(160deg,rgba(21,128,61,0.05),transparent)",
+                "linear-gradient(160deg,rgba(14,165,233,0.05),transparent)",
+                "linear-gradient(160deg,rgba(139,92,246,0.05),transparent)",
+                "linear-gradient(160deg,rgba(236,72,153,0.05),transparent)",
+              ]
+              return (
               <div
                 key={i}
-                className={`rounded-[20px] p-6 md:p-7 text-center border-[1.5px] border-border-school bg-white hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer ${role.hoverBorder} ${role.hoverShadow}`}
+                className={`rounded-[20px] p-6 md:p-7 text-center border-[1.5px] border-border-school bg-white hover:-translate-y-2 hover:scale-[1.02] transition-role-card cursor-pointer relative overflow-hidden group ${role.hoverBorder} ${role.hoverShadow}`}
               >
-                <span className="text-4xl md:text-5xl block mb-3 drop-shadow-sm">{role.emoji}</span>
-                <div className="font-bold text-text-900 text-base mb-2 font-[family-name:var(--font-noto-devanagari)]">{role.name}</div>
-                <div className="text-xs text-text-500 leading-relaxed mb-4 font-[family-name:var(--font-noto-devanagari)]">{role.desc}</div>
-                <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold bg-cream text-text-500 border border-border-school font-[family-name:var(--font-noto-devanagari)]">
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-[20px]" style={{ background: overlayGradients[i] }} />
+                <span className="text-4xl md:text-5xl block mb-3 drop-shadow-sm relative z-10">{role.emoji}</span>
+                <div className="font-bold text-text-900 text-base mb-2 font-[family-name:var(--font-noto-devanagari)] relative z-10">{role.name}</div>
+                <div className="text-xs text-text-500 leading-relaxed mb-4 font-[family-name:var(--font-noto-devanagari)] relative z-10">{role.desc}</div>
+                <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold bg-cream text-text-500 border border-border-school font-[family-name:var(--font-noto-devanagari)] relative z-10">
                   {role.tag}
                 </span>
               </div>
-            ))}
+            )})}
           </div>
         </div>
         </section>
       </ScrollReveal>
 
-      {/* How it works */}
+      {/* How it works — section divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" aria-hidden />
       <ScrollReveal>
       <section id="how-it-works" className="bg-cream py-20 md:py-24 px-6 md:px-16">
         <div className="max-w-[1400px] mx-auto">
@@ -399,7 +452,8 @@ export default function Home() {
         </section>
       </ScrollReveal>
 
-      {/* Features Grid — वैशिष्ट्ये */}
+      {/* Features Grid — वैशिष्ट्ये — section divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" aria-hidden />
       <ScrollReveal>
         <section id="features" className="bg-white py-14 sm:py-20 md:py-[88px] px-4 sm:px-6 md:px-[60px] scroll-mt-20">
         <div className="max-w-[1400px] mx-auto">
@@ -412,9 +466,9 @@ export default function Home() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-[22px] mt-[52px]">
-            {/* AI Card - feat-dark: navy gradient per design.html */}
+            {/* AI Card - feat-dark: navy gradient + saffron glow pulse per design.html */}
             <div className="rounded-[20px] p-7 bg-gradient-to-br from-navy-2 to-slate-2 border border-white/10 shadow-sh-md hover:shadow-sh-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-saffron/10 blur-3xl -translate-y-10 translate-x-10 pointer-events-none" />
+              <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-saffron/10 blur-3xl -translate-y-10 translate-x-10 pointer-events-none animate-glow-pulse" />
               <div className="w-[52px] h-[52px] rounded-[13px] flex items-center justify-center text-2xl mb-4 bg-saffron/20 relative z-10">🤖</div>
               <span className="inline-block px-2.5 py-1 rounded-full text-[9px] font-extrabold tracking-[1.5px] uppercase bg-saffron/20 text-saffron-bright border border-saffron/30 mb-3 font-sora">AI-POWERED</span>
               <h3 className="font-bold text-white text-[19px] mb-2 font-body">मराठी AI सहाय्यक</h3>
@@ -423,8 +477,8 @@ export default function Home() {
               </p>
               <ul className="flex flex-col gap-2">
                 {["मराठी व्हॉईस कमांड", "Auto रिपोर्ट जनरेशन", "विद्यार्थी प्रगती अंदाज", "ChatBot पालकांसाठी"].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-white/62 font-body">
-                    <span className="text-green-mid font-extrabold text-[11px] flex-shrink-0">✓</span>
+                  <li key={item} className="flex items-center gap-2 text-xs text-white font-body">
+                    <span className="text-green-bright font-extrabold text-[11px] flex-shrink-0">✓</span>
                     {item}
                   </li>
                 ))}
@@ -525,7 +579,8 @@ export default function Home() {
         </section>
       </ScrollReveal>
 
-      {/* Testimonials — carousel on mobile, grid on desktop */}
+      {/* Testimonials — decorative quote already present — section divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" aria-hidden />
       <ScrollReveal>
         <section className="bg-cream py-14 sm:py-20 md:py-[88px] px-4 sm:px-6 md:px-[60px] scroll-mt-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
@@ -578,7 +633,8 @@ export default function Home() {
         </section>
       </ScrollReveal>
 
-      {/* Pricing */}
+      {/* Pricing — section divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" aria-hidden />
       <ScrollReveal>
         <section id="pricing" className="bg-cream-2 py-14 sm:py-20 md:py-[88px] px-4 sm:px-6 md:px-[60px] scroll-mt-20">
         <div className="max-w-[1400px] mx-auto">
@@ -613,8 +669,8 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Pro - best: navy gradient per design.html */}
-            <div className="rounded-[24px] p-8 border-2 border-saffron bg-gradient-to-br from-navy-2 to-slate-2 relative shadow-sh-xl md:scale-[1.04] md:-mt-2">
+            {/* Pro - best: navy gradient + border glow pulse per design.html */}
+            <div className="rounded-[24px] p-8 border-2 border-saffron bg-gradient-to-br from-navy-2 to-slate-2 relative shadow-sh-xl md:scale-[1.04] md:-mt-2 animate-pro-glow">
               <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-gradient-to-r from-saffron to-gold text-white text-[11px] font-bold px-5 py-1.5 rounded-b-xl whitespace-nowrap shadow-saffron-glow">
                 ⭐ सर्वात लोकप्रिय
               </div>
@@ -721,7 +777,7 @@ export default function Home() {
               </p>
               <div className="flex gap-2">
                 {["𝕏", "📘", "▶", "📸"].map((icon, i) => (
-                  <button key={i} className="w-[34px] h-[34px] rounded-full bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-sm hover:bg-saffron hover:border-saffron hover:-translate-y-0.5 transition-all cursor-pointer">
+                  <button key={i} className="w-[34px] h-[34px] rounded-full bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-sm hover:bg-saffron hover:border-saffron hover:text-white hover:-translate-y-0.5 transition-all duration-200 cursor-pointer">
                     {icon}
                   </button>
                 ))}

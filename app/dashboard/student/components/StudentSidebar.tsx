@@ -23,7 +23,7 @@ export function StudentSidebar({
 
   return (
     <aside
-      className={`w-[240px] bg-navy-2 flex flex-col flex-shrink-0 relative overflow-hidden ${className ?? ""}`}
+      className={`w-[240px] bg-navy-2 text-white flex flex-col flex-shrink-0 relative overflow-hidden ${className ?? ""}`}
     >
       {/* Subtle orb */}
       <div
@@ -37,7 +37,7 @@ export function StudentSidebar({
           <div className="font-extrabold text-white text-base font-[family-name:var(--font-noto-devanagari)]">
             शाळा<span className="text-saffron-bright">Connect</span>
           </div>
-          <div className="text-[9px] text-white/30 tracking-[2px] uppercase font-semibold mt-0.5">
+          <div className="text-[9px] text-white/30 tracking-[2px] uppercase font-semibold mt-0.5 font-[family-name:var(--font-noto-devanagari)]">
             {schoolName}
           </div>
         </Link>
@@ -53,7 +53,7 @@ export function StudentSidebar({
             <div className="font-bold text-white text-xs font-[family-name:var(--font-noto-devanagari)] truncate">
               {studentName}
             </div>
-            <div className="text-[9px] text-white/38 font-[family-name:var(--font-noto-devanagari)]">
+            <div className="text-[9px] text-white/55 font-[family-name:var(--font-noto-devanagari)]">
               {classLabel}
             </div>
           </div>
@@ -85,7 +85,7 @@ export function StudentSidebar({
 
         <p className="sc-section-label mt-2">अभ्यास</p>
         <div className="px-3 py-2.5 rounded-xl bg-white/[0.05] border border-white/10 space-y-1.5">
-          <p className="text-[11px] text-white/38 font-[family-name:var(--font-noto-devanagari)]">
+          <p className="text-[11px] text-white/55 font-[family-name:var(--font-noto-devanagari)]">
             हजेरी, गुण, गृहपाठ डॅशबोर्डवर
           </p>
         </div>
@@ -93,7 +93,7 @@ export function StudentSidebar({
 
       {/* Footer */}
       <div className="p-3 border-t border-white/10 relative z-10">
-        <LogoutButton className="flex items-center gap-2.5 py-2 px-3 rounded-xl hover:bg-white/6 text-white/50 w-full text-left transition-all">
+        <LogoutButton className="flex items-center gap-2.5 py-2 px-3 rounded-xl hover:bg-white/6 text-white/55 hover:text-white/80 w-full text-left transition-all">
           <span className="text-base">🚪</span>
           <span className="text-[13px] font-[family-name:var(--font-noto-devanagari)]">लॉगआउट</span>
         </LogoutButton>
