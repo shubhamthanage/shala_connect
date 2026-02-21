@@ -219,7 +219,7 @@ export default function Home() {
               सोपे, जलद, स्मार्ट
             </h1>
             <p className="text-[15px] sm:text-[17px] text-white leading-relaxed mb-6 sm:mb-8 max-w-[510px] font-body animate-hero-fade-up-3">
-              मुख्याध्यापक, शिक्षक, कारकून, विद्यार्थी आणि पालक — पाचही जणांसाठी एकच अॅप. हजेरीपासून दाखल्यापर्यंत, फीपासून निकालापर्यंत सर्व डिजिटल.
+              मुख्याध्यापक, शिक्षक, कारकून, विद्यार्थी आणि पालक - पाचही जणांसाठी एकच अ‍ॅप. हजेरीपासून दाखल्यापर्यंत, फीपासून निकालापर्यंत सर्व डिजिटल.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 mb-8 sm:mb-10 animate-hero-fade-up-4">
               <Link
@@ -769,10 +769,10 @@ export default function Home() {
                   <div className="font-extrabold text-white text-lg font-heading">
                     शाळा<span className="text-saffron-bright">Connect</span>
                   </div>
-                  <div className="text-[9px] text-white/35 tracking-[2px] uppercase font-semibold">Maharashtra Edu Platform</div>
+                  <div className="text-[9px] text-white tracking-[2px] uppercase font-semibold">Maharashtra Edu Platform</div>
                 </div>
               </div>
-              <p className="text-[13px] text-white/35 leading-relaxed max-w-[260px] font-body mb-5">
+              <p className="text-[13px] text-white leading-relaxed max-w-[260px] font-body mb-5">
                 महाराष्ट्रातील शाळांसाठी संपूर्ण डिजिटल व्यवस्थापन. मराठीत सोपे, जलद आणि सुरक्षित.
               </p>
               <div className="flex gap-2">
@@ -795,7 +795,7 @@ export default function Home() {
                   { label: "ताजे अपडेट्स", href: "#" },
                 ].map((l) => (
                   <li key={l.label}>
-                    <Link href={l.href} className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">
+                    <Link href={l.href} className="text-[12px] text-white hover:text-saffron-bright transition-colors font-body">
                       {l.label}
                     </Link>
                   </li>
@@ -814,7 +814,7 @@ export default function Home() {
                   { label: "सुरक्षा", href: "#" },
                 ].map((l) => (
                   <li key={l.label}>
-                    <Link href={l.href} className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">
+                    <Link href={l.href} className="text-[12px] text-white hover:text-saffron-bright transition-colors font-body">
                       {l.label}
                     </Link>
                   </li>
@@ -832,23 +832,23 @@ export default function Home() {
                   { label: "संपर्क", href: "#" },
                 ].map((l) => (
                   <li key={l.label}>
-                    <Link href={l.href} className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">
+                    <Link href={l.href} className="text-[12px] text-white hover:text-saffron-bright transition-colors font-body">
                       {l.label}
                     </Link>
                   </li>
                 ))}
                 <li>
-                  <Link href="/login" className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">लॉगिन</Link>
+                  <Link href="/login" className="text-[12px] text-white hover:text-saffron-bright transition-colors font-body">लॉगिन</Link>
                 </li>
                 <li>
-                  <Link href="/register" className="text-[12px] text-white/38 hover:text-saffron-bright transition-colors font-body">नोंदणी</Link>
+                  <Link href="/register" className="text-[12px] text-white hover:text-saffron-bright transition-colors font-body">नोंदणी</Link>
                 </li>
               </ul>
             </div>
           </div>
           {/* Bottom bar */}
           <div className="border-t border-white/[0.07] pt-5 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p className="text-[11px] text-white/22 font-body">
+            <p className="text-[11px] text-white font-body">
               © 2026 शाळाConnect · सर्व हक्क राखीव
             </p>
             <div className="flex items-center gap-2">
@@ -857,7 +857,7 @@ export default function Home() {
                 <div className="flex-1 bg-white" />
                 <div className="flex-1 bg-green-mid" />
               </div>
-              <p className="text-[11px] text-white/25 font-body">
+              <p className="text-[11px] text-white font-body">
                 Proudly Made in India 🇮🇳 · 🔒 SSL · DPDP Compliant
               </p>
             </div>
