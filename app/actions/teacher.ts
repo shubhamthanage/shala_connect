@@ -39,9 +39,6 @@ export async function getTeacherDashboard(): Promise<TeacherDashboardData | null
   const supabase = await createClient()
   const { data: { session } } = await supabase.auth.getSession()
   const user = session?.user
-  // #region agent log
-  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-2',hypothesisId:'H7',location:'app/actions/teacher.ts:42',message:'getTeacherDashboard session resolved',data:{hasSession:!!session,hasUser:!!user,role:(user?.user_metadata?.role as string|undefined)??null},timestamp:Date.now()})}).catch(()=>{})
-  // #endregion
   if (!user) return null
 
   let { data: userData } = await supabase
@@ -75,14 +72,8 @@ export async function getTeacherDashboard(): Promise<TeacherDashboardData | null
       .single()
     userData = adminUserData ?? null
   }
-  // #region agent log
-  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-2',hypothesisId:'H7',location:'app/actions/teacher.ts:67',message:'getTeacherDashboard userData status',data:{hasUserData:!!userData,hasSchoolId:!!userData?.school_id},timestamp:Date.now()})}).catch(()=>{})
-  // #endregion
 
   if (!userData?.school_id) {
-    // #region agent log
-    fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-2',hypothesisId:'H7',location:'app/actions/teacher.ts:71',message:'getTeacherDashboard returning null due to missing school_id',data:{},timestamp:Date.now()})}).catch(()=>{})
-    // #endregion
     return null
   }
 

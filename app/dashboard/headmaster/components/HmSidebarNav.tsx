@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 // Use <a> for full page navigation so auth cookies are sent (client-side RSC fetch can miss cookies)

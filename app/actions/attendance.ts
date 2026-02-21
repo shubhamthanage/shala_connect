@@ -21,9 +21,6 @@ export async function getTeacherAttendanceData(): Promise<{
   const supabase = await createClient()
   const { data: { session } } = await supabase.auth.getSession()
   const user = session?.user
-  // #region agent log
-  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'repro-6',hypothesisId:'H15',location:'app/actions/attendance.ts:getTeacherAttendanceData',message:'attendance session status',data:{hasSession:!!session,hasUser:!!user,role:(user?.user_metadata?.role as string|undefined)??null},timestamp:Date.now()})}).catch(()=>{})
-  // #endregion
   if (!user) return null
 
   let { data: userData } = await supabase
@@ -47,9 +44,6 @@ export async function getTeacherAttendanceData(): Promise<{
       // keep null if fallback fails
     }
   }
-  // #region agent log
-  fetch('http://127.0.0.1:7494/ingest/d3d650dc-d6d3-45b4-a032-ebf6afd1b805',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cee7fd'},body:JSON.stringify({sessionId:'cee7fd',runId:'post-fix-5',hypothesisId:'H15',location:'app/actions/attendance.ts:getTeacherAttendanceData',message:'attendance teacher user status',data:{hasUserData:!!userData,hasSchoolId:!!userData?.school_id,schoolIdIsDefault:userData?.school_id===DEFAULT_SCHOOL_ID},timestamp:Date.now()})}).catch(()=>{})
-  // #endregion
   if (!userData?.school_id) return null
 
   const admin = createAdminClient()

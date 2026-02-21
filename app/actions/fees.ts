@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { createAdminClient } from "@/lib/supabase/admin"
 import { sendWhatsApp } from "@/lib/whatsapp"
+import { getHeadmasterSchoolId } from "@/app/actions/users"
 
 export interface FeeOverviewData {
   schoolId?: string
@@ -31,15 +32,7 @@ export async function getFeeOverview(): Promise<FeeOverviewData | null> {
   const { data: { session } } = await supabase.auth.getSession()
   const user = session?.user
   if (!user) return null
-
-  const { data: userData } = await supabase
-    .from("users")
-    .select("school_id")
-    .eq("auth_id", user.id)
-    .eq("role", "headmaster")
-    .single()
-
-  const schoolId = userData?.school_id
+  const schoolId = await getHeadmasterSchoolId()
   if (!schoolId) return null
 
   const admin = createAdminClient()
